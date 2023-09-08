@@ -3,12 +3,6 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-// tesst
-builder.Services.AddControllers();
-// end tesst
-
-
-// thay đổi
 
 var app = builder.Build();
 
