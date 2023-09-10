@@ -9,37 +9,41 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = HHSocialNetwork_Project
 build_property.RootNamespace = HHSocialNetwork_Project
-build_property.ProjectDir = d:\MYDRIVE\Tailieudecuong\Nam2023-2024\Ki1_nam2023-2024\LTWebNC\BTL_LTWebNC\HHSocialNetwork_Project\
+build_property.ProjectDir = D:\MYDRIVE\Tailieudecuong\Nam2023-2024\Ki1_nam2023-2024\LTWebNC\BTL_LTWebNC\HHSocialNetwork_Project\
 build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = d:\MYDRIVE\Tailieudecuong\Nam2023-2024\Ki1_nam2023-2024\LTWebNC\BTL_LTWebNC\HHSocialNetwork_Project
+build_property.MSBuildProjectDirectory = D:\MYDRIVE\Tailieudecuong\Nam2023-2024\Ki1_nam2023-2024\LTWebNC\BTL_LTWebNC\HHSocialNetwork_Project
 build_property._RazorSourceGeneratorDebug = 
 
-[d:/MYDRIVE/Tailieudecuong/Nam2023-2024/Ki1_nam2023-2024/LTWebNC/BTL_LTWebNC/HHSocialNetwork_Project/Views/Home/Index.cshtml]
+[D:/MYDRIVE/Tailieudecuong/Nam2023-2024/Ki1_nam2023-2024/LTWebNC/BTL_LTWebNC/HHSocialNetwork_Project/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/MYDRIVE/Tailieudecuong/Nam2023-2024/Ki1_nam2023-2024/LTWebNC/BTL_LTWebNC/HHSocialNetwork_Project/Views/Home/Privacy.cshtml]
+[D:/MYDRIVE/Tailieudecuong/Nam2023-2024/Ki1_nam2023-2024/LTWebNC/BTL_LTWebNC/HHSocialNetwork_Project/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/MYDRIVE/Tailieudecuong/Nam2023-2024/Ki1_nam2023-2024/LTWebNC/BTL_LTWebNC/HHSocialNetwork_Project/Views/Shared/Error.cshtml]
+[D:/MYDRIVE/Tailieudecuong/Nam2023-2024/Ki1_nam2023-2024/LTWebNC/BTL_LTWebNC/HHSocialNetwork_Project/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/MYDRIVE/Tailieudecuong/Nam2023-2024/Ki1_nam2023-2024/LTWebNC/BTL_LTWebNC/HHSocialNetwork_Project/Views/Shared/_ValidationScriptsPartial.cshtml]
+[D:/MYDRIVE/Tailieudecuong/Nam2023-2024/Ki1_nam2023-2024/LTWebNC/BTL_LTWebNC/HHSocialNetwork_Project/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/MYDRIVE/Tailieudecuong/Nam2023-2024/Ki1_nam2023-2024/LTWebNC/BTL_LTWebNC/HHSocialNetwork_Project/Views/_ViewImports.cshtml]
+[D:/MYDRIVE/Tailieudecuong/Nam2023-2024/Ki1_nam2023-2024/LTWebNC/BTL_LTWebNC/HHSocialNetwork_Project/Views/Users/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/MYDRIVE/Tailieudecuong/Nam2023-2024/Ki1_nam2023-2024/LTWebNC/BTL_LTWebNC/HHSocialNetwork_Project/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/MYDRIVE/Tailieudecuong/Nam2023-2024/Ki1_nam2023-2024/LTWebNC/BTL_LTWebNC/HHSocialNetwork_Project/Views/_ViewStart.cshtml]
+[D:/MYDRIVE/Tailieudecuong/Nam2023-2024/Ki1_nam2023-2024/LTWebNC/BTL_LTWebNC/HHSocialNetwork_Project/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/MYDRIVE/Tailieudecuong/Nam2023-2024/Ki1_nam2023-2024/LTWebNC/BTL_LTWebNC/HHSocialNetwork_Project/Views/Shared/_Layout.cshtml]
+[D:/MYDRIVE/Tailieudecuong/Nam2023-2024/Ki1_nam2023-2024/LTWebNC/BTL_LTWebNC/HHSocialNetwork_Project/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-yq1bnxrb53

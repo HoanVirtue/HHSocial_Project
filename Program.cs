@@ -1,9 +1,14 @@
+using HHSocialNetwork_Project.Models;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-// branch hoan 1
+var connectionString = builder.Configuration.GetConnectionString("MyConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+builder.Services.AddDbContext<SocialContext>(options =>
+options.UseMySQL(connectionString));
 
 var app = builder.Build();
 
