@@ -9,12 +9,24 @@
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
+      "Id": "D:\\MYDRIVE\\Tailieudecuong\\Nam2023-2024\\Ki1_nam2023-2024\\LTWebNC\\BTL_LTWebNC\\HHSocialNetwork_Project\\wwwroot\\css\\style.css",
+      "PackagePath": "staticwebassets\\css\\style.css"
+    },
+    {
+      "Id": "D:\\MYDRIVE\\Tailieudecuong\\Nam2023-2024\\Ki1_nam2023-2024\\LTWebNC\\BTL_LTWebNC\\HHSocialNetwork_Project\\wwwroot\\css\\users.css",
+      "PackagePath": "staticwebassets\\css\\users.css"
+    },
+    {
       "Id": "D:\\MYDRIVE\\Tailieudecuong\\Nam2023-2024\\Ki1_nam2023-2024\\LTWebNC\\BTL_LTWebNC\\HHSocialNetwork_Project\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
       "Id": "D:\\MYDRIVE\\Tailieudecuong\\Nam2023-2024\\Ki1_nam2023-2024\\LTWebNC\\BTL_LTWebNC\\HHSocialNetwork_Project\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
+      "Id": "D:\\MYDRIVE\\Tailieudecuong\\Nam2023-2024\\Ki1_nam2023-2024\\LTWebNC\\BTL_LTWebNC\\HHSocialNetwork_Project\\wwwroot\\js\\users.js",
+      "PackagePath": "staticwebassets\\js\\users.js"
     },
     {
       "Id": "D:\\MYDRIVE\\Tailieudecuong\\Nam2023-2024\\Ki1_nam2023-2024\\LTWebNC\\BTL_LTWebNC\\HHSocialNetwork_Project\\wwwroot\\lib\\bootstrap\\LICENSE",
@@ -371,6 +383,10 @@
     {
       "Id": "D:\\MYDRIVE\\Tailieudecuong\\Nam2023-2024\\Ki1_nam2023-2024\\LTWebNC\\BTL_LTWebNC\\HHSocialNetwork_Project\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "D:\\MYDRIVE\\Tailieudecuong\\Nam2023-2024\\Ki1_nam2023-2024\\LTWebNC\\BTL_LTWebNC\\HHSocialNetwork_Project\\wwwroot\\lib\\jquery\\jquery-3.7.1.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\jquery-3.7.1.min.js"
     },
     {
       "Id": "D:\\MYDRIVE\\Tailieudecuong\\Nam2023-2024\\Ki1_nam2023-2024\\LTWebNC\\BTL_LTWebNC\\HHSocialNetwork_Project\\wwwroot\\lib\\js\\bootstrap.bundle.js",

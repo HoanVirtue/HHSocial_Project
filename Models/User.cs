@@ -6,14 +6,18 @@ namespace HHSocialNetwork_Project.Models
     {
         [Key]
         public int UserId { get; set; }
+        [Required]
         [StringLength(150)]
         public string? FirstName { get; set; }
+        [Required(ErrorMessage = "Vui lòng nhập tên")]
         [StringLength(150)]
         public string? LastName { get; set; }
         [StringLength(150)]
         public string? UserName { get; set; }
         [StringLength(15)]
         public string? NumberPhone { get; set; }
+        public DateTime? Birthday { get; set; }
+        public string? GenderName { get; set; }
         [EmailAddress]
         public string? Email { get; set; }
         [StringLength(255)]

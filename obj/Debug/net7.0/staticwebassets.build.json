@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "1Bn3ri4h5tfPoDfwySnaNHO8uksHah/YLKLPEv6Fu+8=",
+  "Hash": "2v9nJT8hh3C78LtE701JD9uzdP6lZTNgFc/QpgXkbXM=",
   "Source": "HHSocialNetwork_Project",
   "BasePath": "_content/HHSocialNetwork_Project",
   "Mode": "Default",
@@ -68,6 +68,40 @@
       "OriginalItemSpec": "wwwroot\\css\\site.css"
     },
     {
+      "Identity": "D:\\MYDRIVE\\Tailieudecuong\\Nam2023-2024\\Ki1_nam2023-2024\\LTWebNC\\BTL_LTWebNC\\HHSocialNetwork_Project\\wwwroot\\css\\style.css",
+      "SourceId": "HHSocialNetwork_Project",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\MYDRIVE\\Tailieudecuong\\Nam2023-2024\\Ki1_nam2023-2024\\LTWebNC\\BTL_LTWebNC\\HHSocialNetwork_Project\\wwwroot\\",
+      "BasePath": "_content/HHSocialNetwork_Project",
+      "RelativePath": "css/style.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\style.css"
+    },
+    {
+      "Identity": "D:\\MYDRIVE\\Tailieudecuong\\Nam2023-2024\\Ki1_nam2023-2024\\LTWebNC\\BTL_LTWebNC\\HHSocialNetwork_Project\\wwwroot\\css\\users.css",
+      "SourceId": "HHSocialNetwork_Project",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\MYDRIVE\\Tailieudecuong\\Nam2023-2024\\Ki1_nam2023-2024\\LTWebNC\\BTL_LTWebNC\\HHSocialNetwork_Project\\wwwroot\\",
+      "BasePath": "_content/HHSocialNetwork_Project",
+      "RelativePath": "css/users.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\users.css"
+    },
+    {
       "Identity": "D:\\MYDRIVE\\Tailieudecuong\\Nam2023-2024\\Ki1_nam2023-2024\\LTWebNC\\BTL_LTWebNC\\HHSocialNetwork_Project\\wwwroot\\favicon.ico",
       "SourceId": "HHSocialNetwork_Project",
       "SourceType": "Discovered",
@@ -100,6 +134,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\site.js"
+    },
+    {
+      "Identity": "D:\\MYDRIVE\\Tailieudecuong\\Nam2023-2024\\Ki1_nam2023-2024\\LTWebNC\\BTL_LTWebNC\\HHSocialNetwork_Project\\wwwroot\\js\\users.js",
+      "SourceId": "HHSocialNetwork_Project",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\MYDRIVE\\Tailieudecuong\\Nam2023-2024\\Ki1_nam2023-2024\\LTWebNC\\BTL_LTWebNC\\HHSocialNetwork_Project\\wwwroot\\",
+      "BasePath": "_content/HHSocialNetwork_Project",
+      "RelativePath": "js/users.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\users.js"
     },
     {
       "Identity": "D:\\MYDRIVE\\Tailieudecuong\\Nam2023-2024\\Ki1_nam2023-2024\\LTWebNC\\BTL_LTWebNC\\HHSocialNetwork_Project\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
@@ -1596,6 +1647,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Identity": "D:\\MYDRIVE\\Tailieudecuong\\Nam2023-2024\\Ki1_nam2023-2024\\LTWebNC\\BTL_LTWebNC\\HHSocialNetwork_Project\\wwwroot\\lib\\jquery\\jquery-3.7.1.min.js",
+      "SourceId": "HHSocialNetwork_Project",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\MYDRIVE\\Tailieudecuong\\Nam2023-2024\\Ki1_nam2023-2024\\LTWebNC\\BTL_LTWebNC\\HHSocialNetwork_Project\\wwwroot\\",
+      "BasePath": "_content/HHSocialNetwork_Project",
+      "RelativePath": "lib/jquery/jquery-3.7.1.min.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\lib\\jquery\\jquery-3.7.1.min.js"
     },
     {
       "Identity": "D:\\MYDRIVE\\Tailieudecuong\\Nam2023-2024\\Ki1_nam2023-2024\\LTWebNC\\BTL_LTWebNC\\HHSocialNetwork_Project\\wwwroot\\lib\\jquery\\LICENSE.txt",
