@@ -1,3 +1,6 @@
+@{
+    Layout = null;
+}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,15 +27,10 @@
             <div class="modal-content">
                 <form asp-action="Register" asp-controller="Users">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Đăng ký</h5>
+                        <h3 class="modal-title" id="exampleModalLabel" style="font-size: 32px; font-weight: 600;">Đăng ký</h3>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        @* <div id="reg_error" class="_58mn message_error_register" role="alert" tabindex="-1" style="opacity: 1; height: auto; background: #ffebe8;border: 1px solid #dd3c10;line-height: 15px; margin: 12px 0 12px 0;">
-                            <div class="_58mo" id="reg_error_inner" tabindex="0">
-                                Mật khẩu của bạn phải dài ít nhất 6 ký tự. Vui lòng thử một mật khẩu khác.
-                            </div>
-                        </div> *@
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <div class="form-outline">

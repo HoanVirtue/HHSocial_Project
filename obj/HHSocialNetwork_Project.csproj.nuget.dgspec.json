@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\MYDRIVE\\Tailieudecuong\\Nam2023-2024\\Ki1_nam2023-2024\\LTWebNC\\BTL_LTWebNC\\HHSocialNetwork_Project\\HHSocialNetwork_Project.csproj": {}
+    "d:\\MYDRIVE\\Tailieudecuong\\Nam2023-2024\\Ki1_nam2023-2024\\LTWebNC\\BTL_LTWebNC\\HHSocialNetwork_Project\\HHSocialNetwork_Project.csproj": {}
   },
   "projects": {
-    "D:\\MYDRIVE\\Tailieudecuong\\Nam2023-2024\\Ki1_nam2023-2024\\LTWebNC\\BTL_LTWebNC\\HHSocialNetwork_Project\\HHSocialNetwork_Project.csproj": {
+    "d:\\MYDRIVE\\Tailieudecuong\\Nam2023-2024\\Ki1_nam2023-2024\\LTWebNC\\BTL_LTWebNC\\HHSocialNetwork_Project\\HHSocialNetwork_Project.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\MYDRIVE\\Tailieudecuong\\Nam2023-2024\\Ki1_nam2023-2024\\LTWebNC\\BTL_LTWebNC\\HHSocialNetwork_Project\\HHSocialNetwork_Project.csproj",
+        "projectUniqueName": "d:\\MYDRIVE\\Tailieudecuong\\Nam2023-2024\\Ki1_nam2023-2024\\LTWebNC\\BTL_LTWebNC\\HHSocialNetwork_Project\\HHSocialNetwork_Project.csproj",
         "projectName": "HHSocialNetwork_Project",
-        "projectPath": "D:\\MYDRIVE\\Tailieudecuong\\Nam2023-2024\\Ki1_nam2023-2024\\LTWebNC\\BTL_LTWebNC\\HHSocialNetwork_Project\\HHSocialNetwork_Project.csproj",
+        "projectPath": "d:\\MYDRIVE\\Tailieudecuong\\Nam2023-2024\\Ki1_nam2023-2024\\LTWebNC\\BTL_LTWebNC\\HHSocialNetwork_Project\\HHSocialNetwork_Project.csproj",
         "packagesPath": "C:\\Users\\taduc\\.nuget\\packages\\",
-        "outputPath": "D:\\MYDRIVE\\Tailieudecuong\\Nam2023-2024\\Ki1_nam2023-2024\\LTWebNC\\BTL_LTWebNC\\HHSocialNetwork_Project\\obj\\",
+        "outputPath": "d:\\MYDRIVE\\Tailieudecuong\\Nam2023-2024\\Ki1_nam2023-2024\\LTWebNC\\BTL_LTWebNC\\HHSocialNetwork_Project\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\taduc\\AppData\\Roaming\\NuGet\\NuGet.Config",
