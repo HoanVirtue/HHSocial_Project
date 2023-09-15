@@ -1,0 +1,111 @@
+.sidebar {
+    height: calc(100vh - 73px);
+    top: 73px;
+    width: 260px;
+    position: fixed;
+    z-index: 999;
+    box-sizing: border-box;
+    box-shadow: 0 0 1.25rem 0 rgba(0, 0, 0, .1);
+    height: 100%;
+    background: #fff;
+}
+
+.top-navbar {
+    background-color: white;
+    width: 100vw;
+    height: 73px;
+    position: sticky;
+    z-index: 1000;
+    width: 100%;
+    top: 0;
+    padding: 0 0.938rem;
+    box-sizing: border-box;
+    box-shadow: 0 0 1.25rem 0 rgba(0,0,0,.1);
+}
+
+.content-page {
+    padding: 1rem 1rem 0;
+    min-height: 100vh;
+}
+
+
+.navbar-logo img {
+    height: 2.813rem;
+}
+
+.navbar-logo span {
+    font-family: Poppins, sans-serif;
+    margin-left: 0.625rem;
+    font-size: 1.75rem;
+    line-height: 2.813rem;
+    color: #3f414d;
+}
+
+.navbar-custom-middle {
+    padding: 0 .938rem;
+}
+
+.searchbox-form .search-link {
+    position: absolute;
+    right: 0.938rem;
+    top: 1.3rem;
+    font-size: 1rem;
+}
+
+.searchbox-form {
+    width: 30rem;
+    position: relative;
+}
+
+.input-search {
+    height: 2.5rem;
+    padding: 0.313rem 2.5rem 0.313rem 0.938rem;
+    border-radius: 5px;
+    border: 1px solid #f1f1f1;
+    background: rgba(80,181,255,.2);
+}
+
+.navbar-list li {
+    list-style-type: none;
+    position: relative;
+}
+
+.navbar-custom-right {
+    box-sizing: border-box;
+}
+
+.navbar-expand-lg {
+    justify-content: space-between;
+}
+
+.sidebar-menu .menu-h li {
+    list-style-type: none;
+    position: relative;
+    white-space: nowrap;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.sidebar-menu .menu-h li a {
+    font-size: .875rem;
+    white-space: nowrap;
+    display: block;
+    color: #777d74;
+    position: relative;
+    padding: .938rem;
+    line-height: 1.125rem;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+#sidebar-scrollbar {
+    overflow-y: auto;
+}
+
+.sidebar #sidebar-scrollbar {
+    margin-top: 0.938rem;
+    height: 100vh;
+}

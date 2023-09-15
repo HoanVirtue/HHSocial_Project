@@ -1,0 +1,14 @@
+.message_error_register {
+    opacity: 1;
+    height: auto;
+    background: #ffebe8;
+    border: 1px solid #dd3c10;
+    line-height: 15px;
+    margin: 12px 0 12px 0;
+    font-size: 12px;
+    text-align: center;
+}
+
+._58mo {
+    padding: 7px 3px;
+}
