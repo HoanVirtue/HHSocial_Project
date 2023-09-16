@@ -1,0 +1,73 @@
+@model User
+
+<li class="nav-item dropdown">
+    <a href="#" id="account-drop" class="d-flex align-items-center dropdown-toggle" data-bs-toggle="dropdown"
+        aria-expanded="false" aria-haspopup="true">
+        <img src="/images/user/user_default.png" alt="" class="img-fluid img-round-circle me-3 avatar-topbar">
+        <div class="caption">
+            <h6 class="mb-0">@Model.UserName</h6>
+        </div>
+    </a>
+    <div class="sub-drop dropdown-menu" aria-labelledby="account-drop">
+        <div class="card">
+            <div class="card-header bg-primary">
+                <div class="header-title">
+                    <h5 class="text-white">Xin chào @Model.UserName</h5>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <a href="" class="sub-card">
+                    <div class="d-flex align-items-center">
+                        <div class="bg-soft-primary rounded card-icon">
+                            <i class="ri-file-user-line"></i>
+                        </div>
+                        <div class="ms-3">
+                            <h6>Trang cá nhân</h6>
+                            <p class="mb-0 font-size-12">Xem chi tiết trang cá nhân.</p>
+                        </div>
+                    </div>
+                </a>
+                <a href="" class="sub-card">
+                    <div class="d-flex align-items-center">
+                        <div class="bg-soft-warning rounded card-icon">
+                            <i class="ri-profile-line"></i>
+                        </div>
+                        <div class="ms-3">
+                            <h6>Sửa thông tin cá nhân</h6>
+                            <p class="mb-0 font-size-12">Sửa đổi thông tin cá nhân của bạn.
+                            </p>
+                        </div>
+                    </div>
+                </a>
+                <a href="" class="sub-card">
+                    <div class="d-flex align-items-center">
+                        <div class="bg-soft-info rounded card-icon">
+                            <i class="ri-account-box-line"></i>
+                        </div>
+                        <div class="ms-3">
+                            <h6>Thiết lập tài khoản</h6>
+                            <p class="mb-0 font-size-12">Quản lý thông tin tài khoản của
+                                bạn.</p>
+                        </div>
+                    </div>
+                </a>
+                <a href="" class="sub-card">
+                    <div class="d-flex align-items-center">
+                        <div class="bg-soft-warning rounded card-icon">
+                            <i class="ri-lock-line"></i>
+                        </div>
+                        <div class="ms-3">
+                            <h6>Cài đặt riêng tư</h6>
+                            <p class="mb-0 font-size-12">Kiểm soát sự riêng tư của bạn.</p>
+                        </div>
+                    </div>
+                </a>
+                <div class="w-100 text-center p-3">
+                    <a href="" class="btn btn-primary">
+                        Đăng xuất<i class="ri-login-box-line ms-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</li>

@@ -109,3 +109,38 @@
     margin-top: 0.938rem;
     height: 100vh;
 }
+
+.avatar-topbar {
+    width: 3.125rem;
+    height: 3.125rem;
+}
+
+.user_over {
+    width: 100%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 8.5rem;
+}
+
+.profile-img img {
+    -webkit-border-radius: 50rem;
+    border-radius: 50rem;
+    border: 1px solid rgba(0,0,0,.1);
+    height: auto;
+}
+
+ul.nav li.nav-item a.nav-link {
+    text-align: center;
+    text-decoration: none;
+    padding: 1.25rem 0.625rem;
+    color: #777d74;
+}
+
+div.job-icon {
+    height: 2.5rem;
+    width: 2.5rem;
+    line-height: 1.5rem;
+    text-align: center;
+    font-size: 1.125rem;
+}
