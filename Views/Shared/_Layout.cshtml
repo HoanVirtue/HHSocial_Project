@@ -94,245 +94,23 @@
                                     <i class="ri-home-line"></i>
                                 </a>
                             </li>
+                            @* Friends Request *@
                             @* Friends *@
-                            <li class="nav-item dropdown">
-                                <a href="#" class="dropdown-toggle" id="group-drop" data-bs-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                    <i class="ri-group-line"></i>
-                                </a>
-                                <div class="sub-drop sub-drop-large dropdown-menu" aria-labelledby="group-drop">
-                                    <div class="card">
-                                        <div class="card-header d-flex justify-content-between bg-primary">
-                                            <div>
-                                                <h5 class="text-white">Lời mời kết bạn</h5>
-                                            </div>
-                                            <small class="badge-h bg-light text-dark">4</small>
-                                        </div>
-                                        <div class="card-body p-0">
-                                            <div class="friend-request">
-                                                <div class="sub-card d-flex justify-content-between">
-                                                    <div class="d-flex align-items-center">
-                                                        <img src="/images/user/01.jpg" alt="" class="avatar-40 rounded">
-                                                        <div class="ms-3">
-                                                            <h6 class="mb-0">Đoàn Thị Thu Thảo</h6>
-                                                            <p class="mb-0">Có 40 bạn</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="d-flex align-items-center">
-                                                        <a href="" class="me-3 btn btn-primary rounded">Xác nhận</a>
-                                                        <a href="" class="me-3 btn btn-secondary rounded">Xóa</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="friend-request">
-                                                <div class="sub-card d-flex justify-content-between">
-                                                    <div class="d-flex align-items-center">
-                                                        <img src="/images/user/01.jpg" alt="" class="avatar-40 rounded">
-                                                        <div class="ms-3">
-                                                            <h6 class="mb-0">Đoàn Thị Thu Thảo</h6>
-                                                            <p class="mb-0">Có 40 bạn</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="d-flex align-items-center">
-                                                        <a href="" class="me-3 btn btn-primary rounded">Xác nhận</a>
-                                                        <a href="" class="me-3 btn btn-secondary rounded">Xóa</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="friend-request">
-                                                <div class="sub-card d-flex justify-content-between">
-                                                    <div class="d-flex align-items-center">
-                                                        <img src="/images/user/01.jpg" alt="" class="avatar-40 rounded">
-                                                        <div class="ms-3">
-                                                            <h6 class="mb-0">Đoàn Thị Thu Thảo</h6>
-                                                            <p class="mb-0">Có 40 bạn</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="d-flex align-items-center">
-                                                        <a href="" class="me-3 btn btn-primary rounded">Xác nhận</a>
-                                                        <a href="" class="me-3 btn btn-secondary rounded">Xóa</a>
-                                                    </div>
-                                                </div>
-                                            </div>
 
-                                        </div>
-                                        <div class="card-footer p-0">
-                                            <div class="text-center">
-                                                <a href="#" class="btn text-primary">Xem tất cả</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
+                            @await Component.InvokeAsync("FriendsRequest")
+
                             @* Notificatino *@
-                            <li class="nav-item dropdown">
-                                <a href="#" class="dropdown-toggle" id="notification-drop" data-bs-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                    <i class="ri-notification-4-line"></i>
-                                </a>
-                                <div class="sub-drop dropdown-menu" aria-labelledby="notification-drop">
-                                    <div class="card">
-                                        <div
-                                            class="card-header d-flex align-items-center justify-content-between bg-primary">
-                                            <div class="header-title">
-                                                <h5 class="text-white">Thông báo</h5>
-                                            </div>
-                                            <small class="badge-h text-dark bg-light">4</small>
-                                        </div>
-                                        <div class="card-body p-0">
-                                            <a href="" class="sub-card">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="">
-                                                        <img src="/images/user/01.jpg" alt="" class="avatar-40 rounded">
-                                                    </div>
-                                                    <div class="ms-3 w-100">
-                                                        <h6>Thu Thảo đăng status mới</h6>
-                                                        <div class="d-flex justify-content-between align-items-center">
-                                                            <p class="mb-0">95 MB</p>
-                                                            <small class="mb-0 font-size-12">Bây giờ</small>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a href="" class="sub-card">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="">
-                                                        <img src="/images/user/01.jpg" alt="" class="avatar-40 rounded">
-                                                    </div>
-                                                    <div class="ms-3 w-100">
-                                                        <h6>Thu Thảo đăng status mới</h6>
-                                                        <div class="d-flex justify-content-between align-items-center">
-                                                            <p class="mb-0">95 MB</p>
-                                                            <small class="mb-0 font-size-12">Bây giờ</small>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
 
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            @* Message *@
-                            <li class="nav-item dropdown">
-                                <a href="#" id="message-drop" class="dropdown-toggle" data-bs-toggle="dropdown"
-                                    aria-expanded="false" aria-haspopup="true">
-                                    <i class="ri-mail-line"></i>
-                                </a>
-                                <div class="sub-drop sub-drop-large dropdown-menu" aria-labelledby="message-drop">
-                                    <div class="card">
-                                        <div
-                                            class="card-header d-flex align-items-center justify-content-between bg-primary">
-                                            <div class="header-title">
-                                                <h5 class="text-white">Chat</h5>
-                                            </div>
-                                            <small class="badge-h text-dark bg-light">4</small>
-                                        </div>
-                                        <div class="card-body p-0">
-                                            <a href="" class="sub-card">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="">
-                                                        <img src="/images/user/01.jpg" alt="" class="avatar-40 rounded">
-                                                    </div>
-                                                    <div class="ms-3 w-100">
-                                                        <h6>Thu Thảo</h6>
-                                                        <div class="d-flex justify-content-between align-items-center">
-                                                            <small class="mb-0">Bạn: Em ăn cơm chưa?</small>
-                                                            <small class="mb-0 font-size-12">Bây giờ</small>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a href="" class="sub-card">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="">
-                                                        <img src="/images/user/01.jpg" alt="" class="avatar-40 rounded">
-                                                    </div>
-                                                    <div class="ms-3 w-100">
-                                                        <h6>Thu Thảo</h6>
-                                                        <div class="d-flex justify-content-between align-items-center">
-                                                            <small class="mb-0">Bạn: Em ăn cơm chưa?</small>
-                                                            <small class="mb-0 font-size-12">Bây giờ</small>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            @* Image_user *@
-                            <li class="nav-item dropdown">
-                                <a href="#" id="account-drop" class="d-flex align-items-center dropdown-toggle"
-                                    data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">
-                                    <img src="/images/user/1.jpg" alt="" class="img-fluid img-round-circle me-3">
-                                    <div class="caption">
-                                        <h6 class="mb-0">Tạ Đức Hoàn</h6>
-                                    </div>
-                                </a>
-                                <div class="sub-drop dropdown-menu" aria-labelledby="account-drop">
-                                    <div class="card">
-                                        <div class="card-header bg-primary">
-                                            <div class="header-title">
-                                                <h5 class="text-white">Xin chào Tạ Đức Hoàn</h5>
-                                            </div>
-                                        </div>
-                                        <div class="card-body p-0">
-                                            <a href="" class="sub-card">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="bg-soft-primary rounded card-icon">
-                                                        <i class="ri-file-user-line"></i>
-                                                    </div>
-                                                    <div class="ms-3">
-                                                        <h6>Trang cá nhân</h6>
-                                                        <p class="mb-0 font-size-12">Xem chi tiết trang cá nhân.</p>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a href="" class="sub-card">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="bg-soft-warning rounded card-icon">
-                                                        <i class="ri-profile-line"></i>
-                                                    </div>
-                                                    <div class="ms-3">
-                                                        <h6>Sửa thông tin cá nhân</h6>
-                                                        <p class="mb-0 font-size-12">Sửa đổi thông tin cá nhân của bạn.
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a href="" class="sub-card">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="bg-soft-info rounded card-icon">
-                                                        <i class="ri-account-box-line"></i>
-                                                    </div>
-                                                    <div class="ms-3">
-                                                        <h6>Thiết lập tài khoản</h6>
-                                                        <p class="mb-0 font-size-12">Quản lý thông tin tài khoản của
-                                                            bạn.</p>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a href="" class="sub-card">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="bg-soft-warning rounded card-icon">
-                                                        <i class="ri-lock-line"></i>
-                                                    </div>
-                                                    <div class="ms-3">
-                                                        <h6>Cài đặt riêng tư</h6>
-                                                        <p class="mb-0 font-size-12">Kiểm soát sự riêng tư của bạn.</p>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <div class="w-100 text-center p-3">
-                                                <a href="" class="btn btn-primary">
-                                                    Đăng xuất<i class="ri-login-box-line ms-2"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
+                            @await Component.InvokeAsync("Notifications")
+
+                            @* Chats *@
+
+                            @await Component.InvokeAsync("Chats")
+
+                            @* AccountArrow *@
+
+                            @await Component.InvokeAsync("AccountArrow")
+
                         </ul>
                     </div>
 
@@ -341,7 +119,9 @@
         </div>
         <div id="content-page" class="content-page">
             <div class="container">
-                @RenderBody()
+                <div class="row">
+                    @RenderBody()
+                </div>
             </div>
         </div>
     </div>

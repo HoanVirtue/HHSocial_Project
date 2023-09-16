@@ -34,9 +34,11 @@ namespace HHSocialNetwork_Project.Repository
             throw new NotImplementedException();
         }
 
-        public Task<User> FindByID(int id)
+        public async Task<User> FindByID(int id)
         {
-            throw new NotImplementedException();
+            User? user = await _context.Users.FindAsync(id);
+            
+            return user;
         }
 
         public Task<List<User>> GetAll()

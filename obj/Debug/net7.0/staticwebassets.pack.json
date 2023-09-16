@@ -1113,6 +1113,10 @@
       "PackagePath": "staticwebassets\\images\\user\\user-6.jpg"
     },
     {
+      "Id": "D:\\MYDRIVE\\Tailieudecuong\\Nam2023-2024\\Ki1_nam2023-2024\\LTWebNC\\BTL_LTWebNC\\HHSocialNetwork_Project\\wwwroot\\images\\user\\user_default.png",
+      "PackagePath": "staticwebassets\\images\\user\\user_default.png"
+    },
+    {
       "Id": "D:\\MYDRIVE\\Tailieudecuong\\Nam2023-2024\\Ki1_nam2023-2024\\LTWebNC\\BTL_LTWebNC\\HHSocialNetwork_Project\\wwwroot\\images\\weather\\cloudy-day-1.png",
       "PackagePath": "staticwebassets\\images\\weather\\cloudy-day-1.png"
     },

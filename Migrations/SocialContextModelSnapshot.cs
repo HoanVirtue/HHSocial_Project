@@ -25,13 +25,20 @@ namespace HHSocialNetwork_Project.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<string>("Avatar")
+                        .HasColumnType("longtext");
+
                     b.Property<DateTime?>("Birthday")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<string>("CoverImage")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Email")
                         .HasColumnType("longtext");
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("varchar(150)");
 
@@ -46,6 +53,7 @@ namespace HHSocialNetwork_Project.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("varchar(150)");
 

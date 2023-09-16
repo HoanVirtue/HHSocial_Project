@@ -1,4 +1,5 @@
 using HHSocialNetwork_Project.Models;
+using HHSocialNetwork_Project.Repository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,8 @@ builder.Services.AddControllersWithViews();
 var connectionString = builder.Configuration.GetConnectionString("MyConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<SocialContext>(options =>
 options.UseMySQL(connectionString));
+
+builder.Services.AddScoped<IRepository<User>, UsersRepository>();
 
 var app = builder.Build();
 
