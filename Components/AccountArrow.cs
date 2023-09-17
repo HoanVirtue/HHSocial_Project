@@ -6,10 +6,10 @@ namespace HHSocialNetwork_Project.Components
 {
     public class AccountArrow : ViewComponent
     {
-        private IRepository<User> _context;
-        public AccountArrow(IRepository<User> context)
+        private UsersRepository _context;
+        public AccountArrow(SocialContext context)
         {
-            _context = context;
+            _context = new UsersRepository(context);
         }
         public async Task<IViewComponentResult> InvokeAsync()
         {

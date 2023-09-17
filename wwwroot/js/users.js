@@ -1,4 +1,12 @@
 $(document).ready(function () {
+    
+    /// <summary>
+    /// Event handler: Đăng ký tài khoản
+    /// </summary>
+    /// <returns>Json</returns>
+    /// Authors: Tạ Đức Hoàn
+    /// Create: 17/9/2023
+    /// Update: 17/9/2023
     $('#btnRegister').on('click', function () {
         var formData = new FormData();
         formData.append("FirstName", $('#firstName').val());
@@ -13,9 +21,6 @@ $(document).ready(function () {
             $.ajax({
                 url: '/Users/Register',
                 type: 'POST',
-                contentType: false,
-                processData: false,
-                cache: false,
                 data: formData,
                 success: function (response) {
                     if (response.success) {
@@ -62,10 +67,4 @@ $(document).ready(function () {
                 }
             })
     });
-
-    function validateData(data) {
-        if (data == "") {
-            console.log('Vui lòng nhập trường ...');
-        }
-    }
 });
