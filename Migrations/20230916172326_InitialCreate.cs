@@ -7,7 +7,7 @@ using MySql.EntityFrameworkCore.Metadata;
 namespace HHSocialNetwork_Project.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -65,7 +65,7 @@ namespace HHSocialNetwork_Project.Migrations
                     ViewerId = table.Column<int>(type: "int", nullable: false),
                     Content = table.Column<string>(type: "longtext", nullable: true),
                     ImageComment = table.Column<string>(type: "longtext", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true)
                 },
                 constraints: table =>
@@ -83,8 +83,8 @@ namespace HHSocialNetwork_Project.Migrations
                     UserId = table.Column<int>(type: "int", nullable: false),
                     TargetId = table.Column<int>(type: "int", nullable: false),
                     TypeFlower = table.Column<string>(type: "longtext", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -103,8 +103,8 @@ namespace HHSocialNetwork_Project.Migrations
                     ImagePost = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
                     Likes = table.Column<int>(type: "int", nullable: false),
                     Comments = table.Column<int>(type: "int", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -118,17 +118,21 @@ namespace HHSocialNetwork_Project.Migrations
                 {
                     UserId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    FirstName = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: true),
-                    LastName = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: true),
+                    FirstName = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: false),
+                    LastName = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: false),
                     UserName = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: true),
                     NumberPhone = table.Column<string>(type: "varchar(15)", maxLength: 15, nullable: true),
+                    Birthday = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    GenderName = table.Column<string>(type: "longtext", nullable: true),
+                    Avatar = table.Column<string>(type: "longtext", nullable: true),
+                    CoverImage = table.Column<string>(type: "longtext", nullable: true),
                     Email = table.Column<string>(type: "longtext", nullable: true),
                     Password = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
-                    RegisterAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    LastLogin = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    RegisterAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    LastLogin = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     Intro = table.Column<string>(type: "varchar(3000)", maxLength: 3000, nullable: true),
                     Profile = table.Column<string>(type: "longtext", maxLength: 30000, nullable: true),
-                    role = table.Column<bool>(type: "tinyint(1)", nullable: false)
+                    role = table.Column<bool>(type: "tinyint(1)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -145,7 +149,7 @@ namespace HHSocialNetwork_Project.Migrations
                     SenderId = table.Column<int>(type: "int", nullable: false),
                     UserPostId = table.Column<int>(type: "int", nullable: false),
                     LikePost = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true)
                 },
                 constraints: table =>
                 {

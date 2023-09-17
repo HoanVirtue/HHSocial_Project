@@ -1,71 +1,112 @@
 $(document).ready(function () {
-    $('#btnRegister').on('click', function () {
-        var formData = new FormData();
-        formData.append("FirstName", $('#firstName').val());
-        formData.append("LastName", $('#lastName').val());
-        formData.append("Email", $('#email').val());
-        formData.append("Password", $('#password').val());
-        formData.append("RetyePassword", $('#retyptePassword').val());
-        formData.append("Birthday", $('#birthday').val());
-        formData.append("GenderName", $('input[name="GenderName"]:checked').val());
+    $("#btnRegister").on("click", function () {
+        var formData = new FormData()
+        formData.append("FirstName", $("#firstName").val())
+        formData.append("LastName", $("#lastName").val())
+        formData.append("Email", $("#email").val())
+        formData.append("Password", $("#password").val())
+        formData.append("RetyePassword", $("#retyptePassword").val())
+        formData.append("Birthday", $("#birthday").val())
+        formData.append(
+            "GenderName",
+            $('input[name="GenderName"]:checked').val()
+        )
 
         if (formData.get("FirstName"))
             $.ajax({
-                url: '/Users/Register',
-                type: 'POST',
+                url: "/Users/Register",
+                type: "POST",
                 contentType: false,
                 processData: false,
                 cache: false,
                 data: formData,
                 success: function (response) {
                     if (response.success) {
-                        console.log('Add thanh cong');
+                        console.log("Add thanh cong")
                     } else {
-                        var regError = document.getElementById("reg_error_inner");
+                        var regError =
+                            document.getElementById("reg_error_inner")
                         if (regError !== null) {
-                            var message = "";
+                            var message = ""
                             for (var i = 0; i < response.errors.length; i++) {
-                                message += response.errors[i];
+                                message += response.errors[i]
                                 if (i < response.errors.length - 1) {
-                                    message += "<br>";
+                                    message += "<br>"
                                 }
                             }
-                            regError.innerHTML = message;
-                            
+                            regError.innerHTML = message
                         } else {
-                            var divReg = document.createElement("div");
-                            divReg.id = "reg_error";
-                            divReg.classList.add("_58mn", "message_error_register");
-                            divReg.role = "alert";
-                            divReg.tabIndex = -1;
-                            var divItem = document.createElement("div");
-                            divReg.id = "reg_error_inner";
-                            divReg.classList.add("_58mo");
-                            divReg.tabIndex = 0;
-                            var message = "";
+                            var divReg = document.createElement("div")
+                            divReg.id = "reg_error"
+                            divReg.classList.add(
+                                "_58mn",
+                                "message_error_register"
+                            )
+                            divReg.role = "alert"
+                            divReg.tabIndex = -1
+                            var divItem = document.createElement("div")
+                            divReg.id = "reg_error_inner"
+                            divReg.classList.add("_58mo")
+                            divReg.tabIndex = 0
+                            var message = ""
                             for (var i = 0; i < response.errors.length; i++) {
-                                message += response.errors[i];
+                                message += response.errors[i]
                                 if (i < response.errors.length - 1) {
-                                    message += "<br>";
+                                    message += "<br>"
                                 }
                             }
-                            divItem.innerHTML = message;
-                            divReg.appendChild(divItem);
+                            divItem.innerHTML = message
+                            divReg.appendChild(divItem)
 
-                            var modal = $('#registerModal').find('.modal-body');
-                            modal.prepend(divReg);
+                            var modal = $("#registerModal").find(".modal-body")
+                            modal.prepend(divReg)
                         }
                     }
                 },
                 error: function (error) {
-                    console.log("Users Error: ", error);
-                }
+                    console.log("Users Error: ", error)
+                },
             })
-    });
+    })
 
     function validateData(data) {
         if (data == "") {
-            console.log('Vui lòng nhập trường ...');
+            console.log("Vui lòng nhập trường ...")
         }
     }
-});
+})
+
+
+// js login
+const loginBtn = document.getElementById("login")
+
+loginBtn.addEventListener("click", async () => {
+    const email = document.getElementById("email").value
+    const password = document.getElementById("password").value
+
+    fetch("/Users/Login", {
+        method: "POST",
+        body: { email, password },
+        headers: {
+            "Content-Type":
+                "multipart/form-data; boundary=<calculated when request is sent>",
+        },
+    })
+        .then((res) => res.json())
+        .then((json) => {
+            // console.log(json)
+            const {
+                errors: [error],
+            } = json
+
+            if (!error) {
+                window.location.href = "/Home"
+            }
+
+            const paragraphError = document.getElementById("error")
+            paragraphError.innerHTML = error
+            if (paragraphError.classList.contains("hidden")) {
+                paragraphError.classList.toggle("hidden")
+            }
+        })
+})
