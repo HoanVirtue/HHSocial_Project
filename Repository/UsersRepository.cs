@@ -20,7 +20,7 @@ namespace HHSocialNetwork_Project.Repository
         public bool ExistByEmail(string email)
         {
             User? user = _context.Users.SingleOrDefault(p => p.Email.Equals(email));
-            
+
             return user != null;
         }
 
@@ -37,7 +37,7 @@ namespace HHSocialNetwork_Project.Repository
         public async Task<User> FindByID(int id)
         {
             User? user = await _context.Users.FindAsync(id);
-            
+
             return user;
         }
 
@@ -51,5 +51,12 @@ namespace HHSocialNetwork_Project.Repository
             throw new NotImplementedException();
         }
 
+        public bool isExistAccount(string? email, string? password)
+        {
+            var account = _context.Users.
+            Where(u => u.Email.Equals(email) && u.Password.Equals(password)).FirstOrDefault();
+
+            return account != null;
+        }
     }
 }

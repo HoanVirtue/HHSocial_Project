@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HHSocialNetwork_Project.Migrations
 {
     [DbContext(typeof(SocialContext))]
-    [Migration("20230914155755_update-database_users")]
-    partial class updatedatabase_users
+    [Migration("20230916172326_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
