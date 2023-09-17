@@ -76,37 +76,38 @@ $(document).ready(function () {
     }
 })
 
-
 // js login
 const loginBtn = document.getElementById("login")
 
 loginBtn.addEventListener("click", async () => {
-    const email = document.getElementById("email").value
-    const password = document.getElementById("password").value
+    const form = document.getElementById("form")
+    const formData = new FormData(form)
 
-    fetch("/Users/Login", {
-        method: "POST",
-        body: { email, password },
-        headers: {
-            "Content-Type":
-                "multipart/form-data; boundary=<calculated when request is sent>",
-        },
-    })
-        .then((res) => res.json())
-        .then((json) => {
-            // console.log(json)
-            const {
-                errors: [error],
-            } = json
-
-            if (!error) {
-                window.location.href = "/Home"
-            }
-
-            const paragraphError = document.getElementById("error")
-            paragraphError.innerHTML = error
-            if (paragraphError.classList.contains("hidden")) {
-                paragraphError.classList.toggle("hidden")
-            }
+    try {
+        const res = await fetch("/Users/Login", {
+            method: "POST",
+            body: formData,
+            headers: {
+                Accept: "*/*",
+            },
         })
+
+        console.log([...formData])
+
+        const {
+            errors: [error],
+        } = await res.json()
+
+        if (!error) {
+            window.location.href = "/Home"
+        }
+
+        const paragraphError = document.getElementById("error")
+        paragraphError.innerHTML = error
+        if (paragraphError.classList.contains("hidden")) {
+            paragraphError.classList.toggle("hidden")
+        }
+    } catch (err) {
+        console.log(err.message)
+    }
 })
