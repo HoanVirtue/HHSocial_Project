@@ -1,0 +1,211 @@
+/* <summary>
+        css page login
+        /// </summary>
+        /// Authors: Hà
+        /// Create: 15/9/2023
+        /// Update: 17/9/2023 */
+
+body {
+    overflow-x: hidden;
+    font-family: "Inter", sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+}
+
+.container {
+    overflow-x: hidden;
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.container .form-wrapper {
+    margin-top: 103px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 700px;
+    width: 50%;
+    height: 884px;
+    margin-left: 7px;
+    row-gap: 30px;
+}
+
+.container .form-header {
+    font-weight: bold;
+    font-size: 36px;
+}
+
+.form-wrapper div {
+    width: 100%;
+    text-align: center;
+}
+
+.container .form-wrapper .input {
+    width: 100%;
+    max-width: 484px;
+    height: 45px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--gray-300, #d0d5dd);
+    background: var(--White, #fff);
+    box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+}
+
+.container .form-wrapper .form-header input:placeholder {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+}
+
+.container .error-wrapper {
+    display: flex;
+    justify-content: end;
+    max-width: 484px;
+    height: 32px;
+    width: 100%;
+}
+
+.radio-wrapper {
+    display: flex;
+    column-gap: 12px;
+}
+
+.radio-wrapper .raido {
+    width: 20px;
+    height: 20px;
+}
+.remember-label {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+}
+
+.error {
+    color: red;
+    text-align: center;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    text-decoration: none;
+    line-height: 32px;
+}
+
+.login-btn {
+    max-width: 484px;
+    width: 100%;
+    background: #03a3dd;
+    border-radius: 8px;
+    padding: 16px 28px;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    color: white;
+    line-height: 28px;
+}
+
+.sign-up-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    width: 100%;
+    gap: 4px;
+    font-weight: 400;
+    color: #101828;
+    text-align: center;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 32px;
+}
+
+.sign-up-wrapper p {
+    margin-top: 5px;
+}
+
+.sign-up-wrapper .sign-up {
+    cursor: pointer;
+    color: white;
+    text-align: center;
+    font-family: Inter;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 32px;
+    background: #03a3dd;
+    border-width: 0;
+    border-radius: 8px;
+    padding: 10px 20px;
+}
+
+a {
+    color: #101828;
+    font-weight: 600;
+}
+
+.decorater-login {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    max-width: 604px;
+    width: 60%;
+    margin-right: 32px;
+}
+
+.decorater-login div {
+    padding-top: 200px;
+}
+
+.decorater-login div span {
+    color: #101828;
+    text-align: center;
+    font-family: Inter;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 90px; /* 250% */
+    letter-spacing: -0.72px;
+}
+
+.decorater-login .logo {
+    width: 100px;
+}
+
+.decorater-login p {
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 32px;
+    width: 500px;
+}
+
+.hidden {
+    display: none;
+}
+
+@media only screen and (min-width: 1399px) {
+    .container .form-wrapper .input {
+        width: 80%;
+    }
+
+    .sign-up-wrapper {
+        padding-right: 80px;
+    }
+}
+.form-wrapper form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
