@@ -11,8 +11,8 @@ $(document).ready(function () {
         var formData = new FormData();
         formData.append("FirstName", $('#firstName').val());
         formData.append("LastName", $('#lastName').val());
-        formData.append("Email", $('#email').val());
-        formData.append("Password", $('#password').val());
+        formData.append("Email", $('#email_regis').val());
+        formData.append("Password", $('#password_regis').val());
         formData.append("RetyePassword", $('#retyptePassword').val());
         formData.append("Birthday", $('#birthday').val());
         formData.append("GenderName", $('input[name="GenderName"]:checked').val());
@@ -22,6 +22,8 @@ $(document).ready(function () {
                 url: '/Users/Register',
                 type: 'POST',
                 data: formData,
+                contentType: false,
+                processData: false,
                 success: function (response) {
                     if (response.success) {
                         console.log("Add thanh cong")
