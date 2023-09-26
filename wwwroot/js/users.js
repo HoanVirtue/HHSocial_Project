@@ -26,7 +26,7 @@ $(document).ready(function () {
                 processData: false,
                 success: function (response) {
                     if (response.success) {
-                        console.log("Add thanh cong")
+                        window.location.href = '/Users/';
                     } else {
                         var regError =
                             document.getElementById("reg_error_inner")
