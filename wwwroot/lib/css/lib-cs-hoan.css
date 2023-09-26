@@ -115,3 +115,13 @@ input {
 .justify-end {
     justify-content: end;
 }
+
+.image-gallary {
+    display: grid;
+    grid-gap: 5px;
+    grid-template-columns: repeat(auto-fit, minmax(75px, 1fr));
+}
+
+.pointer {
+    cursor: pointer;
+}

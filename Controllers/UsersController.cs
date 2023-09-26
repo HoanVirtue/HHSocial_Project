@@ -20,6 +20,14 @@ namespace HHSocialNetwork_Project.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Đăng ký tài khoản(bất đồng bộ)
+        /// </summary>
+        /// <param name="formCollection"></param>
+        /// <returns>Json</returns>
+        /// Authors: Tạ Đức Hoàn
+        /// Create: 17/9/2023
+        /// Update: 17/9/2023
         [HttpPost]
         public async Task<JsonResult> RegisterAsync(IFormCollection formCollection)
         {
@@ -80,13 +88,20 @@ namespace HHSocialNetwork_Project.Controllers
             });
         }
 
+        /// <summary>
+        /// Trang thông tin cá nhân: xử lý...
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns>Json</returns>
+        /// Authors: Tạ Đức Hoàn
+        /// Create: 17/9/2023
+        /// Update: 17/9/2023
         [HttpGet]
         public IActionResult Profile(int userId)
         {
 
             return View();
         }
-
         // <summery>
         // api login body email, password
         // </summery>

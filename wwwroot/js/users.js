@@ -1,28 +1,32 @@
 $(document).ready(function () {
-    $("#btnRegister").on("click", function () {
-        var formData = new FormData()
-        formData.append("FirstName", $("#firstName").val())
-        formData.append("LastName", $("#lastName").val())
-        formData.append("Email", $("#email").val())
-        formData.append("Password", $("#password").val())
-        formData.append("RetyePassword", $("#retyptePassword").val())
-        formData.append("Birthday", $("#birthday").val())
-        formData.append(
-            "GenderName",
-            $('input[name="GenderName"]:checked').val()
-        )
+    
+    /// <summary>
+    /// Event handler: Đăng ký tài khoản
+    /// </summary>
+    /// <returns>Json</returns>
+    /// Authors: Tạ Đức Hoàn
+    /// Create: 17/9/2023
+    /// Update: 17/9/2023
+    $('#btnRegister').on('click', function () {
+        var formData = new FormData();
+        formData.append("FirstName", $('#firstName').val());
+        formData.append("LastName", $('#lastName').val());
+        formData.append("Email", $('#email_regis').val());
+        formData.append("Password", $('#password_regis').val());
+        formData.append("RetyePassword", $('#retyptePassword').val());
+        formData.append("Birthday", $('#birthday').val());
+        formData.append("GenderName", $('input[name="GenderName"]:checked').val());
 
         if (formData.get("FirstName"))
             $.ajax({
-                url: "/Users/Register",
-                type: "POST",
+                url: '/Users/Register',
+                type: 'POST',
+                data: formData,
                 contentType: false,
                 processData: false,
-                cache: false,
-                data: formData,
                 success: function (response) {
                     if (response.success) {
-                        console.log("Add thanh cong")
+                        window.location.href = '/Users/';
                     } else {
                         var regError =
                             document.getElementById("reg_error_inner")
