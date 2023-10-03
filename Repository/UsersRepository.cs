@@ -58,5 +58,17 @@ namespace HHSocialNetwork_Project.Repository
 
             return account != null;
         }
+
+        public async Task<User> getUserByAccount(string email, string password) {
+            User? user = await _context.Users.SingleOrDefaultAsync(p => p.Email.Equals(email) && p.Password.Equals(password));
+
+            return user;
+        }
+
+        public async Task<int> getIdByEmail(string email, string password) {
+            int userId = (await _context.Users.SingleOrDefaultAsync(p => p.Email.Equals(email) && p.Password.Equals(password))).UserId;
+
+            return userId;
+        }
     }
 }

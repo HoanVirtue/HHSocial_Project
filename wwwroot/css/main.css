@@ -293,3 +293,27 @@ input.form-control {
 .comment-attagement a{
     padding: 0 10px;
 }
+
+.nav-pills li a.active {
+    color: #fff !important;
+    background: #50b5ff !important;
+}
+
+.tab-content-h>.tab-pane {
+    display: none;
+}
+
+.tab-content-h>.active {
+    display: block;
+}
+
+.tab-content-h>.show {
+    opacity: 1;
+}
+
+.edit-profile .nav-link {
+    padding: 20px 15px;
+    color: var(--iq-body-text);
+    text-align: center;
+    font-size: 16px;
+}

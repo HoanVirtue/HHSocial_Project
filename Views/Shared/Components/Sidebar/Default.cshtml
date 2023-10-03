@@ -1,0 +1,29 @@
+@model SidebarView
+
+<ul class="menu-h">
+    <li class="">
+        <a href="">
+            <i class="las la-newspaper icon-sidebar"></i><span>Bài viết</span>
+        </a>
+    </li>
+    <li class="">
+        <a href="/Users/Profile?userId=@Model.user.UserId">
+            <i class="las la-user icon-sidebar"></i><span>Trang cá nhân</span>
+        </a>
+    </li>
+    <li class="">
+        <a href="">
+            <i class="las la-users icon-sidebar"></i><span>Nhóm</span>
+        </a>
+    </li>
+    <li class=" ">
+        <a href="../app/todo.html" class=" ">
+            <i class="las la-check-circle icon-sidebar"></i><span>Todo</span>
+        </a>
+    </li>
+    <li class=" ">
+        <a href="../dashboard/calendar.html" class=" ">
+            <i class="las la-calendar icon-sidebar"></i><span>Calendar</span>
+        </a>
+    </li>
+</ul>

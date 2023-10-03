@@ -34,7 +34,7 @@ a {
     align-items: center;
     max-width: 700px;
     width: 50%;
-    height: 884px;
+    height: calc(100vh - 103px);
     margin-left: 7px;
     row-gap: 30px;
 }
@@ -71,7 +71,7 @@ a {
     display: flex;
     justify-content: end;
     max-width: 484px;
-    height: 32px;
+    /* height: 32px; */
     width: 100%;
 }
 
@@ -94,11 +94,11 @@ a {
 .error {
     color: red;
     text-align: center;
-    font-size: 18px;
+    font-size: 16px;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 300;
     text-decoration: none;
-    line-height: 32px;
+    line-height: 20px;
 }
 
 .login-btn {
@@ -116,18 +116,17 @@ a {
 
 .sign-up-wrapper {
     display: flex;
-    flex-direction: column;
     align-items: end;
     width: 100%;
     gap: 4px;
     font-weight: 400;
     color: #101828;
-    text-align: center;
     font-family: Inter;
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
     line-height: 32px;
+    justify-content: center;
 }
 
 .sign-up-wrapper p {
@@ -208,4 +207,9 @@ a {
     display: flex;
     flex-direction: column;
     gap: 10px;
+}
+
+.btn-register {
+    cursor: pointer;
+    margin-left: 10px;
 }

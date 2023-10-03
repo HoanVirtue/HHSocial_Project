@@ -104,10 +104,15 @@ loginBtn.addEventListener("click", async () => {
 
         if (!error) {
             window.location.href = "/Home"
+            return
         }
 
+
         const paragraphError = document.getElementById("error")
-        paragraphError.innerHTML = error
+      
+        paragraphError.innerHTML = error 
+        
+        
         if (paragraphError.classList.contains("hidden")) {
             paragraphError.classList.toggle("hidden")
         }
