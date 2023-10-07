@@ -1,0 +1,146 @@
+@model AboutProfileView
+
+@{
+    var user = Model.user;
+}
+
+<div class="tab-pane fade " id="about" role="tabpanel">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-3">
+                    <ul class="nav nav-pills list-inline d-block">
+                        <li>
+                            <a href="" class="nav-link active" data-bs-toggle="pill"
+                                data-bs-target="#pills-basicinfo-tab" role="button">Contact and Basic
+                                Info</a>
+                        </li>
+                        <li>
+                            <a href="" class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-family" role="button">Family and Relationship</a>
+                        </li>
+                        <li>
+                            <a href="" class="nav-link">Work and Education</a>
+                        </li>
+                        <li>
+                            <a href="" class="nav-link">Places You've Lived</a>
+                        </li>
+                        <li>
+                            <a href="" class="nav-link">Details About You</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-9">
+                    <div class="tab-content-h">
+                        <div class="tab-pane fade active show" id="pills-basicinfo-tab" role="tabpanel"
+                            aria-labelledby="v-pills-basicinfo-tab">
+                            <h4>Thông tin liên hệ</h4>
+                            <hr>
+                            <div class="row">
+                                <div class="col-3">
+                                    <h6>Email</h6>
+                                </div>
+                                <div class="col-9">
+                                    <p class="mb-0">@user.Email</p>
+                                </div>
+                                <div class="col-3">
+                                    <h6>Số điện thoại</h6>
+                                </div>
+                                <div class="col-9">
+                                    <p class="mb-0">@(user.NumberPhone == null ? "Chưa có dữ liệu" : user.NumberPhone)</p>
+                                </div>
+                                <div class="col-3">
+                                    <h6>Địa chỉ</h6>
+                                </div>
+                                <div class="col-9">
+                                    <p class="mb-0">@(user.Intro == null ? "Chưa có dữ liệu" : user.Intro)</p>
+                                </div>
+                            </div>
+                            @*                                         
+                            <h4 class="mt-3">Websites and Social Links</h4>
+                            <hr>
+                            <div class="row">
+                                <div class="col-3">
+                                    <h6>Website</h6>
+                                </div>
+                                <div class="col-9">
+                                    <p>www.bootstrap.com</p>
+                                </div>
+                                <div class="col-3">
+                                    <h6>Social Link</h6>
+                                </div>
+                                <div class="col-9">
+                                    <p>www.bootstrap.com</p>
+                                </div>
+                            </div> *@
+                            <h4 class="mt-3">Thông tin cơ bản</h4>
+                            <hr>
+                            <div class="row">
+                                <div class="col-3">
+                                    <h6>Ngày sinh</h6>
+                                </div>
+                                <div class="col-9">
+                                    <p class="mb-0">@(user.Birthday == null ? "Chưa có dữ liệu" : user.Birthday)</p>
+                                </div>
+                                <div class="col-3">
+                                    <h6>Giới tính</h6>
+                                </div>
+                                <div class="col-9">
+                                    <p class="mb-0">@user.GenderName</p>
+                                </div>
+                                <div class="col-3">
+                                    <h6>Quan tâm</h6>
+                                </div>
+                                <div class="col-9">
+                                    <p class="mb-0">@(user.Profile == null ? "Chưa có dữ liệu" : user.Profile)</p>
+                                </div>
+                                <div class="col-3">
+                                    <h6>Ngôn ngữ</h6>
+                                </div>
+                                <div class="col-9">
+                                    <p class="mb-0">Tiếng việt</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="pills-family" role="tabpanel">
+                            <h4 class="mb-3">Relationship</h4>
+                            <ul class="list-inline m-0">
+                                <li class="d-flex align-items-center mb-4">
+                                    <div class=""><i class="ri-add-fill"></i></div>
+                                    <div class="ms-3">
+                                        <h6>Add Your Relationship Status</h6>
+                                    </div>
+                                </li>
+                            </ul>
+                            <h4 class="mb-3">
+                                Family Members
+                            </h4>
+                            <ul class="list-inline m-0">
+                                <li class="d-flex align-items-center mb-4">
+                                    <div class=""><i class="ri-add-fill"></i></div>
+                                    <div class="ms-3">
+                                        <h6>Add Family Members</h6>
+                                    </div>
+                                </li>
+                                <li class="d-flex align-items-center">
+                                    <div class="">
+                                        <img src="/images/user/01.jpg" alt="" class="rounded-circle avatar-40">
+                                    </div>
+                                    <div class="w-100">
+                                        <div class="d-flex justify-content-between">
+                                            <div class="ms-3">
+                                                <h6>Paul Molive</h6>
+                                                <p class="mb-0">Brothe</p>
+                                            </div>
+                                            <div class="edit-relation"><a href="#"><i
+                                                    class="ri-edit-line me-2"></i>Edit</a></div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

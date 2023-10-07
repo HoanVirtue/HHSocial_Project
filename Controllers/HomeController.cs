@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using HHSocialNetwork_Project.Models;
+using HHSocialNetwork_Project.DataSession;
 
 namespace HHSocialNetwork_Project.Controllers;
 
@@ -15,6 +16,11 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
+        string emailSess = HttpContext.Session.GetString(SessionData.USER_EMAIL_SESS);
+        if (emailSess == null)
+        {
+            return RedirectToAction("Index", "Users");
+        }
         return View();
     }
 

@@ -23,7 +23,6 @@
     <link rel="stylesheet" href="~/css/main.css" />
     <link rel="stylesheet" href="~/lib/css/lib-cs-hoan.css">
 </head>
-
 <body>
 
     <!-- Wrapper Start -->
@@ -31,33 +30,9 @@
         <div class="sidebar-default iq-sidebar">
             <div id="sidebar-scrollbar">
                 <nav class="sidebar-menu">
-                    <ul class="menu-h">
-                        <li class="">
-                            <a href="">
-                                <i class="las la-newspaper icon-sidebar"></i><span>Bài viết</span>
-                            </a>
-                        </li>
-                        <li class="">
-                            <a href="">
-                                <i class="las la-user icon-sidebar"></i><span>Trang cá nhân</span>
-                            </a>
-                        </li>
-                        <li class="">
-                            <a href="">
-                                <i class="las la-users icon-sidebar"></i><span>Nhóm</span>
-                            </a>
-                        </li>
-                        <li class=" ">
-                            <a href="../app/todo.html" class=" ">
-                                <i class="las la-check-circle icon-sidebar"></i><span>Todo</span>
-                            </a>
-                        </li>
-                        <li class=" ">
-                            <a href="../dashboard/calendar.html" class=" ">
-                                <i class="las la-calendar icon-sidebar"></i><span>Calendar</span>
-                            </a>
-                        </li>
-                    </ul>
+                    
+                    @await Component.InvokeAsync("Sidebar")
+
                 </nav>
             </div>
         </div>
@@ -66,7 +41,7 @@
                 <nav class="navbar navbar-expand-lg navbar-light p-0 h-100-h">
                     <div class="navbar-custom-left flex-default-center">
                         <div class="navbar-logo">
-                            <a href="#" class="flex-default-center">
+                            <a href="/Home" class="flex-default-center">
                                 <img src="/images/logo.png" alt="" class="img-fluid">
                                 <span>HHSocial</span>
                             </a>
@@ -90,7 +65,7 @@
                         <ul class="navbar-nav navbar-list ms-auto">
                             @* Home *@
                             <li>
-                                <a href="../dashboard/index.html" class="d-flex align-items-center">
+                                <a href="/Home" class="d-flex align-items-center">
                                     <i class="ri-home-line"></i>
                                 </a>
                             </li>
@@ -145,7 +120,8 @@
             </div>
         </div>
     </footer>
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     @* <script src="~/lib/jquery/dist/jquery.min.js"></script> *@
     @* <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script> *@
     <script src="~/js/site.js" asp-append-version="true"></script>
