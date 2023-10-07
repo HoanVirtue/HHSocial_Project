@@ -14,6 +14,7 @@ public class HomeController : Controller
         _logger = logger;
     }
 
+    // Home
     public IActionResult Index()
     {
         string emailSess = HttpContext.Session.GetString(SessionData.USER_EMAIL_SESS);
