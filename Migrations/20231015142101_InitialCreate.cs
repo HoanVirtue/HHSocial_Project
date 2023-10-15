@@ -75,7 +75,7 @@ namespace HHSocialNetwork_Project.Migrations
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "userFollowers",
+                name: "UserFollowers",
                 columns: table => new
                 {
                     FollowerId = table.Column<int>(type: "int", nullable: false)
@@ -88,12 +88,51 @@ namespace HHSocialNetwork_Project.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_userFollowers", x => x.FollowerId);
+                    table.PrimaryKey("PK_UserFollowers", x => x.FollowerId);
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "userPosts",
+                name: "UserFriends",
+                columns: table => new
+                {
+                    UserFriendId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    SourceId = table.Column<int>(type: "int", nullable: false),
+                    TargetId = table.Column<int>(type: "int", nullable: false),
+                    TypeFriend = table.Column<string>(type: "longtext", nullable: true),
+                    Status = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    IsFriend = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserFriends", x => x.UserFriendId);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "UserImages",
+                columns: table => new
+                {
+                    ImageId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    UserPostId = table.Column<int>(type: "int", nullable: false),
+                    ImageName = table.Column<string>(type: "longtext", nullable: true),
+                    SourceImage = table.Column<byte[]>(type: "longblob", nullable: false),
+                    IsAvatar = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    IsCoverImage = table.Column<bool>(type: "tinyint(1)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserImages", x => x.ImageId);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "UserPosts",
                 columns: table => new
                 {
                     UserPostId = table.Column<int>(type: "int", nullable: false)
@@ -108,7 +147,7 @@ namespace HHSocialNetwork_Project.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_userPosts", x => x.UserPostId);
+                    table.PrimaryKey("PK_UserPosts", x => x.UserPostId);
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
@@ -124,8 +163,6 @@ namespace HHSocialNetwork_Project.Migrations
                     NumberPhone = table.Column<string>(type: "varchar(15)", maxLength: 15, nullable: true),
                     Birthday = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     GenderName = table.Column<string>(type: "longtext", nullable: true),
-                    Avatar = table.Column<string>(type: "longtext", nullable: true),
-                    CoverImage = table.Column<string>(type: "longtext", nullable: true),
                     Email = table.Column<string>(type: "longtext", nullable: true),
                     Password = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
                     RegisterAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
@@ -141,7 +178,7 @@ namespace HHSocialNetwork_Project.Migrations
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "viewerFeed_Likes",
+                name: "ViewerFeed_Likes",
                 columns: table => new
                 {
                     ViewerId = table.Column<int>(type: "int", nullable: false)
@@ -153,7 +190,7 @@ namespace HHSocialNetwork_Project.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_viewerFeed_Likes", x => x.ViewerId);
+                    table.PrimaryKey("PK_ViewerFeed_Likes", x => x.ViewerId);
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
@@ -328,16 +365,22 @@ namespace HHSocialNetwork_Project.Migrations
                 name: "UserComments");
 
             migrationBuilder.DropTable(
-                name: "userFollowers");
+                name: "UserFollowers");
 
             migrationBuilder.DropTable(
-                name: "userPosts");
+                name: "UserFriends");
+
+            migrationBuilder.DropTable(
+                name: "UserImages");
+
+            migrationBuilder.DropTable(
+                name: "UserPosts");
 
             migrationBuilder.DropTable(
                 name: "Users");
 
             migrationBuilder.DropTable(
-                name: "viewerFeed_Likes");
+                name: "ViewerFeed_Likes");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

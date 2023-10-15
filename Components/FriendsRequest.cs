@@ -1,3 +1,4 @@
+using HHSocialNetwork_Project.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HHSocialNetwork_Project.Components
@@ -6,7 +7,8 @@ namespace HHSocialNetwork_Project.Components
     {
         public IViewComponentResult Invoke()
         {
-            return View();
+            List<User> listUser = new List<User>();
+            return View(listUser);
         }
     }
 }

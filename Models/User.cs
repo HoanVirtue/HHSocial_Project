@@ -18,8 +18,6 @@ namespace HHSocialNetwork_Project.Models
         public string? NumberPhone { get; set; }
         public DateTime? Birthday { get; set; }
         public string? GenderName { get; set; }
-        public string? Avatar { get; set; }
-        public string? CoverImage { get; set; }
         [EmailAddress]
         public string? Email { get; set; }
         [StringLength(255)]

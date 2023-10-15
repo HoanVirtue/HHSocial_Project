@@ -43,8 +43,10 @@ namespace HHSocialNetwork_Project.Controllers
             user.GenderName = formCollection["GenderName"];
             user.RegisterAt = DateTime.Now;
             user.UserName = user.FirstName + " " + user.LastName;
-            user.Avatar = "/user/user_default.png";
-            user.CoverImage = "/page-img/profile-bg1.jpg";
+            
+            // create image
+            
+            // end create
 
             List<string> errors = new List<string>();
             bool success = true;

@@ -317,3 +317,39 @@ input.form-control {
     text-align: center;
     font-size: 16px;
 }
+
+.profile-edit-image {
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.profile-edit-image .profile-edit-pic {
+    max-width: 100%;
+}
+
+.icon-edit-image {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: #50b5ff;
+    text-align: center;
+    line-height: 28px;
+    border-radius: 50%;
+    font-size: 12px;
+    top: auto;
+    right: 8px;
+    bottom: 10px;
+}
+
+.icon-edit-image:hover {
+    cursor: pointer;
+}
+
+.form-control {
+    color: #777d74 !important;
+}
+
+.form-control:focus {
+    border-color: #a8daff;
+}
