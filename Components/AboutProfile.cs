@@ -19,7 +19,7 @@ namespace HHSocialNetwork_Project.Components
             AboutProfileView aboutView = new AboutProfileView();
 
             User user = await _context.FindByID(userId);
-
+            
             aboutView.user = user;
             return View(aboutView);
         }

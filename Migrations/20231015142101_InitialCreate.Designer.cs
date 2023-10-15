@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HHSocialNetwork_Project.Migrations
 {
     [DbContext(typeof(SocialContext))]
-    [Migration("20230916172326_InitialCreate")]
+    [Migration("20231015142101_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -19,8 +19,70 @@ namespace HHSocialNetwork_Project.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.10")
+                .HasAnnotation("ProductVersion", "7.0.12")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
+
+            modelBuilder.Entity("Clone_Main_Project_0710.Models.UserFriend", b =>
+                {
+                    b.Property<int>("UserFriendId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("IsFriend")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<int>("SourceId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<int>("TargetId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TypeFriend")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("UserFriendId");
+
+                    b.ToTable("UserFriends");
+                });
+
+            modelBuilder.Entity("Clone_Main_Project_0710.Models.UserImage", b =>
+                {
+                    b.Property<int>("ImageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("ImageName")
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("IsAvatar")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("IsCoverImage")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<byte[]>("SourceImage")
+                        .IsRequired()
+                        .HasColumnType("longblob");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserPostId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ImageId");
+
+                    b.ToTable("UserImages");
+                });
 
             modelBuilder.Entity("HHSocialNetwork_Project.Models.User", b =>
                 {
@@ -28,14 +90,8 @@ namespace HHSocialNetwork_Project.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Avatar")
-                        .HasColumnType("longtext");
-
                     b.Property<DateTime?>("Birthday")
                         .HasColumnType("datetime(6)");
-
-                    b.Property<string>("CoverImage")
-                        .HasColumnType("longtext");
 
                     b.Property<string>("Email")
                         .HasColumnType("longtext");
@@ -136,7 +192,7 @@ namespace HHSocialNetwork_Project.Migrations
 
                     b.HasKey("FollowerId");
 
-                    b.ToTable("userFollowers");
+                    b.ToTable("UserFollowers");
                 });
 
             modelBuilder.Entity("HHSocialNetwork_Project.Models.UserPost", b =>
@@ -170,7 +226,7 @@ namespace HHSocialNetwork_Project.Migrations
 
                     b.HasKey("UserPostId");
 
-                    b.ToTable("userPosts");
+                    b.ToTable("UserPosts");
                 });
 
             modelBuilder.Entity("HHSocialNetwork_Project.Models.ViewerFeed_Like", b =>
@@ -193,7 +249,7 @@ namespace HHSocialNetwork_Project.Migrations
 
                     b.HasKey("ViewerId");
 
-                    b.ToTable("viewerFeed_Likes");
+                    b.ToTable("ViewerFeed_Likes");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
