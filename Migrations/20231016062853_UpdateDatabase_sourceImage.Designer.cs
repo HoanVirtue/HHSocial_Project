@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Clone_Main_Project_0710.Migrations
 {
     [DbContext(typeof(SocialContext))]
-    [Migration("20231015142101_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20231016062853_UpdateDatabase_sourceImage")]
+    partial class UpdateDatabase_sourceImage
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

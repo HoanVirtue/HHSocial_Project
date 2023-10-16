@@ -1,14 +1,14 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace HHSocialNetwork_Project.Models
+namespace Clone_Main_Project_0710.Models
 {
     public class UserPost
     {
         [Key]
-        public int UserPostId { get; set; }
+        public Guid UserPostId { get; set; }
         [ForeignKey("User")]
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
         [StringLength(3000)]
         public string? Content { get; set; }
         [StringLength(255)]

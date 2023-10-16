@@ -1,12 +1,12 @@
-namespace HHSocialNetwork_Project.Repository
+namespace Clone_Main_Project_0710.Repository
 {
     public interface IRepository<T>
     {
         Task Add(T entity);
         Task Update(T entity);
-        Task Delete(int id);
-        bool Exist(int id);
-        Task<T> FindByID(int id);
+        Task Delete(Guid id);
+        bool Exist(Guid id);
+        Task<T> FindByID(Guid id);
         Task<List<T>> GetAll();
     }
 }

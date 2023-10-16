@@ -1,10 +1,10 @@
-using HHSocialNetwork_Project.DataSession;
-using HHSocialNetwork_Project.Models;
-using HHSocialNetwork_Project.Models.ViewModels;
-using HHSocialNetwork_Project.Repository;
+using Clone_Main_Project_0710.DataSession;
+using Clone_Main_Project_0710.Models;
+using Clone_Main_Project_0710.Models.ViewModels;
+using Clone_Main_Project_0710.Repository;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HHSocialNetwork_Project.Components
+namespace Clone_Main_Project_0710.Components
 {
     public class AboutProfile : ViewComponent
     {
@@ -15,7 +15,7 @@ namespace HHSocialNetwork_Project.Components
         }
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            int userId = (int)HttpContext.Session.GetInt32(SessionData.USERID_SESS);
+            Guid userId = Guid.Parse(HttpContext.Session.GetString(SessionData.USERID_SESS));
             AboutProfileView aboutView = new AboutProfileView();
 
             User user = await _context.FindByID(userId);

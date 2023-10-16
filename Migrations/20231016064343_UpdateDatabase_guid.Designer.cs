@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Clone_Main_Project_0710.Migrations
 {
     [DbContext(typeof(SocialContext))]
-    [Migration("20231015142101_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20231016064343_UpdateDatabase_guid")]
+    partial class UpdateDatabase_guid
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,9 +24,9 @@ namespace Clone_Main_Project_0710.Migrations
 
             modelBuilder.Entity("Clone_Main_Project_0710.Models.UserFriend", b =>
                 {
-                    b.Property<int>("UserFriendId")
+                    b.Property<Guid>("UserFriendId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("char(36)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
@@ -34,14 +34,14 @@ namespace Clone_Main_Project_0710.Migrations
                     b.Property<bool>("IsFriend")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<int>("SourceId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("SourceId")
+                        .HasColumnType("char(36)");
 
                     b.Property<bool>("Status")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<int>("TargetId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("TargetId")
+                        .HasColumnType("char(36)");
 
                     b.Property<string>("TypeFriend")
                         .HasColumnType("longtext");
@@ -56,9 +56,9 @@ namespace Clone_Main_Project_0710.Migrations
 
             modelBuilder.Entity("Clone_Main_Project_0710.Models.UserImage", b =>
                 {
-                    b.Property<int>("ImageId")
+                    b.Property<Guid>("ImageId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("char(36)");
 
                     b.Property<string>("ImageName")
                         .HasColumnType("longtext");
@@ -73,11 +73,11 @@ namespace Clone_Main_Project_0710.Migrations
                         .IsRequired()
                         .HasColumnType("longblob");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("char(36)");
 
-                    b.Property<int>("UserPostId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("UserPostId")
+                        .HasColumnType("char(36)");
 
                     b.HasKey("ImageId");
 
@@ -86,9 +86,9 @@ namespace Clone_Main_Project_0710.Migrations
 
             modelBuilder.Entity("Clone_Main_Project_0710.Models.User", b =>
                 {
-                    b.Property<int>("UserId")
+                    b.Property<Guid>("UserId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("char(36)");
 
                     b.Property<DateTime?>("Birthday")
                         .HasColumnType("datetime(6)");
@@ -145,9 +145,9 @@ namespace Clone_Main_Project_0710.Migrations
 
             modelBuilder.Entity("Clone_Main_Project_0710.Models.UserComment", b =>
                 {
-                    b.Property<int>("CommentId")
+                    b.Property<Guid>("CommentId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("char(36)");
 
                     b.Property<string>("Content")
                         .HasColumnType("longtext");
@@ -161,8 +161,8 @@ namespace Clone_Main_Project_0710.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("ViewerId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("ViewerId")
+                        .HasColumnType("char(36)");
 
                     b.HasKey("CommentId");
 
@@ -171,15 +171,15 @@ namespace Clone_Main_Project_0710.Migrations
 
             modelBuilder.Entity("Clone_Main_Project_0710.Models.UserFollower", b =>
                 {
-                    b.Property<int>("FollowerId")
+                    b.Property<Guid>("FollowerId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("char(36)");
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("TargetId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("TargetId")
+                        .HasColumnType("char(36)");
 
                     b.Property<string>("TypeFlower")
                         .HasColumnType("longtext");
@@ -187,8 +187,8 @@ namespace Clone_Main_Project_0710.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("char(36)");
 
                     b.HasKey("FollowerId");
 
@@ -197,9 +197,9 @@ namespace Clone_Main_Project_0710.Migrations
 
             modelBuilder.Entity("Clone_Main_Project_0710.Models.UserPost", b =>
                 {
-                    b.Property<int>("UserPostId")
+                    b.Property<Guid>("UserPostId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("char(36)");
 
                     b.Property<int>("Comments")
                         .HasColumnType("int");
@@ -221,8 +221,8 @@ namespace Clone_Main_Project_0710.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("char(36)");
 
                     b.HasKey("UserPostId");
 
@@ -231,9 +231,9 @@ namespace Clone_Main_Project_0710.Migrations
 
             modelBuilder.Entity("Clone_Main_Project_0710.Models.ViewerFeed_Like", b =>
                 {
-                    b.Property<int>("ViewerId")
+                    b.Property<Guid>("ViewerId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("char(36)");
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime(6)");
@@ -241,11 +241,11 @@ namespace Clone_Main_Project_0710.Migrations
                     b.Property<bool>("LikePost")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<int>("SenderId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("SenderId")
+                        .HasColumnType("char(36)");
 
-                    b.Property<int>("UserPostId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("UserPostId")
+                        .HasColumnType("char(36)");
 
                     b.HasKey("ViewerId");
 
