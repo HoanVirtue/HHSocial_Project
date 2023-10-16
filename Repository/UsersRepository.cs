@@ -5,7 +5,7 @@ namespace HHSocialNetwork_Project.Repository
 {
     public class UsersRepository : IRepository<User>
     {
-        private SocialContext _context;
+        private SocialContext _context ;
         public UsersRepository(SocialContext context)
         {
             _context = context;

@@ -114,13 +114,13 @@ namespace HHSocialNetwork_Project.Controllers
                 return NotFound();
             */
             // test
-            HttpContext.Session.SetInt32(SessionData.USERID_SESS, 5);
-            HttpContext.Session.SetString(SessionData.USER_EMAIL_SESS, "hoan12@gmail.com");
+            HttpContext.Session.SetInt32(SessionData.USERID_SESS, 1);
+            HttpContext.Session.SetString(SessionData.USER_EMAIL_SESS, "tungnguyentn12345@gmail.com");
             //end test
 
             ProfileView profile = new ProfileView();
 
-            User user = await _context.FindByID(5);
+            User user = await _context.FindByID(1);
 
             profile.user = user;
             return View(profile);
@@ -184,11 +184,12 @@ namespace HHSocialNetwork_Project.Controllers
             if(userId == null || userId == 0)
                 return NotFound();
             */
-            HttpContext.Session.SetInt32(SessionData.USERID_SESS, 5);
-            HttpContext.Session.SetString(SessionData.USER_EMAIL_SESS, "hoan12@gmail.com");
-            User user = await _context.FindByID(5);
+            HttpContext.Session.SetInt32(SessionData.USERID_SESS, 1);
+            HttpContext.Session.SetString(SessionData.USER_EMAIL_SESS, "tungnguyentn12345@gmail.com");
+            User user = await _context.FindByID(1);
 
             return View(user);
         }
+        
     }
 }
