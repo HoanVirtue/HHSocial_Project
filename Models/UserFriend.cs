@@ -6,11 +6,11 @@ namespace Clone_Main_Project_0710.Models
     public class UserFriend
     {
         [Key]
-        public int UserFriendId { get; set; }
+        public Guid UserFriendId { get; set; }
         [ForeignKey("User")]
-        public int SourceId { get; set; }
+        public Guid SourceId { get; set; }
         [ForeignKey("User")]
-        public int TargetId { get; set; }
+        public Guid TargetId { get; set; }
         public string? TypeFriend { get; set; }
         public bool Status { get; set; }
         public bool IsFriend { get; set; } = false;

@@ -6,13 +6,13 @@ namespace Clone_Main_Project_0710.Models
     public class UserImage
     {
         [Key]
-        public int ImageId { get; set; }
+        public Guid ImageId { get; set; }
         [ForeignKey("User")]
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
         [ForeignKey("UserPost")]
-        public int UserPostId { get; set; }
+        public Guid UserPostId { get; set; }
         public string? ImageName { get; set; }
-        public required byte[] SourceImage { get; set; }
+        public byte[] SourceImage { get; set; }
         public bool IsAvatar { get; set; } = false;
         public bool IsCoverImage { get; set; } = false;
     }

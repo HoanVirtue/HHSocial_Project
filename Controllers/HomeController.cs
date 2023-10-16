@@ -1,9 +1,9 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using HHSocialNetwork_Project.Models;
-using HHSocialNetwork_Project.DataSession;
+using Clone_Main_Project_0710.Models;
+using Clone_Main_Project_0710.DataSession;
 
-namespace HHSocialNetwork_Project.Controllers;
+namespace Clone_Main_Project_0710.Controllers;
 
 public class HomeController : Controller
 {

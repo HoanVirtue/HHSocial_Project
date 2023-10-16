@@ -1,4 +1,4 @@
-namespace HHSocialNetwork_Project.DataSession
+namespace Clone_Main_Project_0710.DataSession
 {
     public static class SessionData
     {

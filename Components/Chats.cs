@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace HHSocialNetwork_Project.Components
+namespace Clone_Main_Project_0710.Components
 {
     public class Chats : ViewComponent
     {

@@ -1,4 +1,10 @@
-@model User
+@model ProfileEditView
+
+@{
+    User user = Model.user;
+    string birthdayUser = user.Birthday.Value.ToString("yyyy-MM-dd");
+    UserImage userImage = Model.userImage;
+}
 
 <div class="col-lg-12">
     <div class="card">
@@ -28,10 +34,11 @@
             </div>
         </div>
         <div class="card-body">
-            <form action="">
+            <form action="/Users/ProfileEdit" method="post">
+                <input type="hidden" value="@user.UserId" name="UserId">
                 <div class="col-md-12" style="margin-bottom: 1.25rem">
                     <div class="profile-edit-image">
-                        <img src="/images/user/11.png" alt="" class="profile-edit-pic">
+                        <img src="/images/user/user_default.png" alt="" class="profile-edit-pic">
                         <div class="icon-edit-image cursor">
                             <i class="ri-pencil-line upload-button text-white"></i>
                             <input type="file" style="display: none;" accept="image/*">
@@ -41,40 +48,44 @@
                 <div class="row">
                     <div class="form-group col-md-6">
                         <label for="">Họ:</label>
-                        <input type="text" class="form-control" placeholder="" value="@Model.FirstName">
+                        <input type="text" class="form-control" placeholder="" value="@user.FirstName" name="FirstName"
+                            required>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="">Tên:</label>
-                        <input type="text" class="form-control" placeholder="" value="@Model.LastName">
+                        <input type="text" class="form-control" placeholder="" value="@user.LastName" name="LastName"
+                            required>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="">Tên hiển thị:</label>
-                        <input type="text" class="form-control" placeholder="" value="@Model.UserName">
+                        <input type="text" class="form-control" placeholder="" value="@user.UserName" name="UserName"
+                            required>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="">Số điện thoại:</label>
-                        <input type="text" class="form-control" placeholder="" value="@Model.NumberPhone">
+                        <input type="text" class="form-control" placeholder="" value="@user.NumberPhone"
+                            name="NumberPhone">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="">Ngày sinh:</label>
-                        <input type="date" class="form-control" placeholder="" value="@Model.Birthday">
+                        <input type="date" class="form-control" placeholder="" value="@birthdayUser" name="Birthday">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="">Giới tính:</label>
                         <div class="row col-12" style="justify-content: center; align-items: center; height: 37px;">
                             <div class="form-check form-check-inline col-md-3">
                                 <input class="form-check-input" type="radio" name="GenderName" id="femaleGender"
-                                    value="Nữ" @(Model.GenderName.Equals("Nữ") ? "checked" : "") />
+                                    value="Nữ" @(user.GenderName.Equals("Nữ") ? "checked" : "") />
                                 <label class="form-check-label" for="femaleGender">Nữ</label>
                             </div>
                             <div class="form-check form-check-inline col-md-3">
                                 <input class="form-check-input" type="radio" name="GenderName" id="maleGender"
-                                    value="Nam" @(Model.GenderName.Equals("Nam") ? "checked" : "")/>
+                                    value="Nam" @(user.GenderName.Equals("Nam") ? "checked" : "") />
                                 <label class="form-check-label" for="maleGender">Nam</label>
                             </div>
                             <div class="form-check form-check-inline col-md-3">
                                 <input class="form-check-input" type="radio" name="GenderName" id="otherGender"
-                                    value="Khác" @(Model.GenderName.Equals("Khác") ? "checked" : "")/>
+                                    value="Khác" @(user.GenderName.Equals("Khác") ? "checked" : "") />
                                 <label class="form-check-label" for="otherGender">Khác</label>
                             </div>
                         </div>

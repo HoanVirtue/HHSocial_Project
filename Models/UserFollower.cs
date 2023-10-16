@@ -1,16 +1,16 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace HHSocialNetwork_Project.Models
+namespace Clone_Main_Project_0710.Models
 {
     public class UserFollower
     {
         [Key]
-        public int FollowerId { get; set; }
+        public Guid FollowerId { get; set; }
         [ForeignKey("User")]
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
         [ForeignKey("User")]
-        public int TargetId { get; set; }
+        public Guid TargetId { get; set; }
         public string? TypeFlower { get; set; }
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }

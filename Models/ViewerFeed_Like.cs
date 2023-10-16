@@ -1,16 +1,16 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace HHSocialNetwork_Project.Models
+namespace Clone_Main_Project_0710.Models
 {
     public class ViewerFeed_Like
     {
         [Key]
-        public int ViewerId { get; set; }
+        public Guid ViewerId { get; set; }
         [ForeignKey("User")]
-        public int SenderId { get; set; }
+        public Guid SenderId { get; set; }
         [ForeignKey("UserPost")]
-        public int UserPostId { get; set; }
+        public Guid UserPostId { get; set; }
         public bool LikePost { get; set; }
         public DateTime? CreatedAt { get; set; }
     }

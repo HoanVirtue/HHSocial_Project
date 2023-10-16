@@ -1,4 +1,4 @@
-namespace HHSocialNetwork_Project.GenericMethod
+namespace Clone_Main_Project_0710.GenericMethod
 {
     public class HandleCharacter
     {
