@@ -13,7 +13,7 @@ namespace Clone_Main_Project_0710.Controllers
     {
         private UsersRepository _context;
         private UserImagesRepository _imageContext;
-        Guid userIdTest = new Guid("1c69d9c5-875d-4556-90dc-75d0d935e87c");
+        Guid userIdTest = new Guid("60615a95-509a-46fe-81ae-f437fcad4134");
 
         public UsersController(SocialContext context)
         {
@@ -49,21 +49,21 @@ namespace Clone_Main_Project_0710.Controllers
             user.RegisterAt = DateTime.Now;
             user.UserName = user.FirstName + " " + user.LastName;
             
-            // create image
-            UserImage imageUser = new UserImage();
-            imageUser.UserId = user.UserId;
-            imageUser.IsAvatar = true;
+            // // create image
+            // UserImage imageUser = new UserImage();
+            // imageUser.UserId = user.UserId;
+            // imageUser.IsAvatar = true;
 
-            // xử lý hình ảnh
-            imageUser.ImageName = "user_default.png";
-            string path = "./images/user/" + imageUser.ImageName;
-            FormFile file;
-            using (var stream = System.IO.File.OpenRead(path))
-            {
-                file = new FormFile(stream, 0, stream.Length, null, Path.GetFileName(stream.Name));
-            }
-            imageUser.SourceImage = SaveImageIntoDatabase(file);
-            // end create
+            // // xử lý hình ảnh
+            // imageUser.ImageName = "user_default.png";
+            // string path = "./images/user/" + imageUser.ImageName;
+            // FormFile file;
+            // using (var stream = System.IO.File.OpenRead(path))
+            // {
+            //     file = new FormFile(stream, 0, stream.Length, null, Path.GetFileName(stream.Name));
+            // }
+            // imageUser.SourceImage = SaveImageIntoDatabase(file);
+            // // end create
 
             List<string> errors = new List<string>();
             bool success = true;
@@ -100,7 +100,7 @@ namespace Clone_Main_Project_0710.Controllers
             if (success)
             {
                 await _context.Add(user);
-                await _imageContext.Add(imageUser);
+                // await _imageContext.Add(imageUser);
             }
 
             return Json(new
