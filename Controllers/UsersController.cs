@@ -56,7 +56,7 @@ namespace Clone_Main_Project_0710.Controllers
 
             // xử lý hình ảnh
             imageUser.ImageName = "user_default.png";
-            string path = "./images/user/" + imageUser.ImageName;
+            string path = "./wwwroot/images/user/" + imageUser.ImageName;
             FormFile file;
             using (var stream = System.IO.File.OpenRead(path))
             {
@@ -260,13 +260,25 @@ namespace Clone_Main_Project_0710.Controllers
         /// Authors: Tạ Đức Hoàn
         /// Create: 16/10/2023
         /// Update: 16/10/2023
-        public byte[] SaveImageIntoDatabase(IFormFile image)
-        {
-            using(var ms = new MemoryStream())
-            {
-                image.CopyTo(ms);
-                return ms.ToArray();
-            }
-        }
+        // public byte[] SaveImageIntoDatabase(IFormFile image)
+        // {
+        //     byte[] arrayImage;
+
+        //     using (MemoryStream ms = new MemoryStream())
+        //     {
+        //         image.Save(ms, ImageFormat.Jpeg);
+        //         IFormFile file = new FormFile(ms, 0, ms.Length, "name", thumbnailName);
+        //         ms.Seek(0, SeekOrigin.Begin);
+        //         using (System.IO.MemoryStream memStream = new System.IO.MemoryStream())
+        //         {
+        //             file.CopyTo(memStream);// System.ObjectDisposedException: 'Cannot access a closed Stream.'
+
+        //             Byte[] fileData = memStream.ToArray();
+        //         }
+        //         return file;
+        //     }
+
+        //     return arrayImage;
+        // }
     }
 }
