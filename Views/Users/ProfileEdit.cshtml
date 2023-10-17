@@ -34,14 +34,15 @@
             </div>
         </div>
         <div class="card-body">
-            <form action="/Users/ProfileEdit" method="post">
+            <form action="/Users/UploadFileImage" method="post" enctype="multipart/form-data">
                 <input type="hidden" value="@user.UserId" name="UserId">
                 <div class="col-md-12" style="margin-bottom: 1.25rem">
                     <div class="profile-edit-image">
-                        <img src="/images/user/user_default.png" alt="" class="profile-edit-pic">
+                        <img src="data:image/jpeg;base64,@userImage.ImageData" alt="" class="profile-edit-pic">
                         <div class="icon-edit-image cursor">
                             <i class="ri-pencil-line upload-button text-white"></i>
-                            <input type="file" style="display: none;" accept="image/*">
+                            @* <input type="file" style="display: none;" accept="image/*" > *@
+                            <input type="file" name="fileImage" class="form-control">
                         </div>
                     </div>
                 </div>
