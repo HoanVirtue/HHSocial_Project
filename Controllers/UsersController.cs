@@ -13,6 +13,7 @@ namespace Clone_Main_Project_0710.Controllers
     {
         private UsersRepository _context;
         private UserImagesRepository _imageContext;
+
         Guid userIdTest = new Guid("979dea4e-39ba-468d-8cf6-0c9321bcbb42");
 
         public UsersController(SocialContext context, IWebHostEnvironment hostEnvironment)
@@ -91,7 +92,7 @@ namespace Clone_Main_Project_0710.Controllers
             if (success)
             {
                 await _context.Add(user);
-                await _imageContext.Add(imageUser);
+                // await _imageContext.Add(imageUser);
             }
 
             return Json(new
