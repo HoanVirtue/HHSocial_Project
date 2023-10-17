@@ -12,8 +12,13 @@ namespace Clone_Main_Project_0710.Models
         [ForeignKey("UserPost")]
         public Guid UserPostId { get; set; }
         public string? ImageName { get; set; }
-        public byte[] SourceImage { get; set; }
+        [StringLength(int.MaxValue)]
+        public string ImageData { get; set; }
+        [NotMapped]
+        public IFormFile SourceImage { get; set; }
         public bool IsAvatar { get; set; } = false;
         public bool IsCoverImage { get; set; } = false;
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
     }
 }

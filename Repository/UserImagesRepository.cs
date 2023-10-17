@@ -38,9 +38,14 @@ namespace Clone_Main_Project_0710.Repository
             throw new NotImplementedException();
         }
 
-        public Task Update(UserImage entity)
+        public async Task Update(UserImage entity)
         {
-            throw new NotImplementedException();
+            UserImage image = await _context.UserImages.FindAsync(entity.ImageId);
+            if(image != null)
+            {
+                image.ImageData = entity.ImageData;
+                await _context.SaveChangesAsync();
+            }
         }
 
         public async Task<UserImage> GetAvatarByUserId(Guid userId)
