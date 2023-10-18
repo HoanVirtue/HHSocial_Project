@@ -1,11 +1,12 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace HHSocialNetwork_Project.Models
+namespace Clone_Main_Project_0710.Models
 {
     public class User
     {
+        //tungcommand
         [Key]
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
         [Required]
         [StringLength(150)]
         public string? FirstName { get; set; }

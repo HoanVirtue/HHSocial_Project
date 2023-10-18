@@ -1,3 +1,5 @@
+using Clone_Main_Project_0710.Models;
+using Clone_Main_Project_0710.Repository;
 using HHSocialNetwork_Project.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,17 +16,17 @@ namespace HHSocialNetwork_Project.Repository
             throw new NotImplementedException();
         }
 
-        public Task Delete(int id)
+        public Task Delete(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public bool Exist(int id)
+        public bool Exist(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<UserFriend> FindByID(int id)
+        public Task<UserFriend> FindByID(Guid id)
         {
             throw new NotImplementedException();
         }

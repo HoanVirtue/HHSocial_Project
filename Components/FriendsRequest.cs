@@ -1,10 +1,9 @@
 using Clone_Main_Project_0710.Models;
-using HHSocialNetwork_Project.DataSession;
 using HHSocialNetwork_Project.Models;
 using HHSocialNetwork_Project.Repository;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HHSocialNetwork_Project.Components
+namespace Clone_Main_Project_0710.Components
 {
     public class FriendsRequest : ViewComponent
     {  

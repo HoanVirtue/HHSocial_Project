@@ -1,4 +1,4 @@
-namespace HHSocialNetwork_Project.Models;
+namespace Clone_Main_Project_0710.Models;
 
 public class ErrorViewModel
 {

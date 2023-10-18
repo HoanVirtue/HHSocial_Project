@@ -1,5 +1,5 @@
-using HHSocialNetwork_Project.Models;
-using HHSocialNetwork_Project.Repository;
+using Clone_Main_Project_0710.Models;
+using Clone_Main_Project_0710.Repository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +12,7 @@ builder.Services.AddDbContext<SocialContext>(options =>
 options.UseMySQL(connectionString));
 
 builder.Services.AddScoped<IRepository<User>, UsersRepository>();
+builder.Services.AddScoped<IRepository<UserImage>, UserImagesRepository>();
 
 builder.Services.AddDistributedMemoryCache();
 

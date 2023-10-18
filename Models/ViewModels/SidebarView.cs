@@ -1,4 +1,4 @@
-namespace HHSocialNetwork_Project.Models.ViewModels
+namespace Clone_Main_Project_0710.Models.ViewModels
 {
     public class SidebarView
     {

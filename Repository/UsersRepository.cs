@@ -1,7 +1,7 @@
-using HHSocialNetwork_Project.Models;
+using Clone_Main_Project_0710.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace HHSocialNetwork_Project.Repository
+namespace Clone_Main_Project_0710.Repository
 {
     public class UsersRepository : IRepository<User>
     {
@@ -24,19 +24,19 @@ namespace HHSocialNetwork_Project.Repository
             return user != null;
         }
 
-        public Task Delete(int id)
+        public Task Delete(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public bool Exist(int id)
+        public bool Exist(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<User> FindByID(int id)
+        public async Task<User> FindByID(Guid id)
         {
-            User? user = await _context.Users.FindAsync(id);
+            User user = await _context.Users.FindAsync(id);
 
             return user;
         }
@@ -46,9 +46,21 @@ namespace HHSocialNetwork_Project.Repository
             throw new NotImplementedException();
         }
 
-        public Task Update(User entity)
+        public async Task Update(User entity)
         {
-            throw new NotImplementedException();
+            User user = await _context.Users.SingleOrDefaultAsync(m => m.UserId == entity.UserId);
+            if(user != null) {
+                user.FirstName = entity.FirstName;
+                user.LastName = entity.LastName;
+                user.UserName = entity.UserName;
+                user.NumberPhone = entity.NumberPhone;
+                user.Birthday = entity.Birthday;
+                user.GenderName = entity.GenderName;
+                user.Intro = entity.Intro;
+                user.Profile = entity.Profile;
+
+                await _context.SaveChangesAsync();
+            }
         }
 
         public bool isExistAccount(string? email, string? password)
@@ -65,8 +77,8 @@ namespace HHSocialNetwork_Project.Repository
             return user;
         }
 
-        public async Task<int> getIdByEmail(string email, string password) {
-            int userId = (await _context.Users.SingleOrDefaultAsync(p => p.Email.Equals(email) && p.Password.Equals(password))).UserId;
+        public async Task<Guid> getIdByEmail(string email, string password) {
+            Guid userId = (await _context.Users.SingleOrDefaultAsync(p => p.Email.Equals(email) && p.Password.Equals(password))).UserId;
 
             return userId;
         }

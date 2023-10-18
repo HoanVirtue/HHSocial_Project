@@ -1,20 +1,24 @@
-using HHSocialNetwork_Project.DataSession;
-using HHSocialNetwork_Project.GenericMethod;
-using HHSocialNetwork_Project.Models;
-using HHSocialNetwork_Project.Models.ViewModels;
-using HHSocialNetwork_Project.Repository;
+using System.Net.Mime;
+using Clone_Main_Project_0710.Models;
+using Clone_Main_Project_0710.DataSession;
+using Clone_Main_Project_0710.GenericMethod;
+using Clone_Main_Project_0710.Models.ViewModels;
+using Clone_Main_Project_0710.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HHSocialNetwork_Project.Controllers
+namespace Clone_Main_Project_0710.Controllers
 {
     public class UsersController : Controller
     {
         private UsersRepository _context;
+        private UserImagesRepository _imageContext;
+        Guid userIdTest = new Guid("60615a95-509a-46fe-81ae-f437fcad4134");
 
         public UsersController(SocialContext context)
         {
             _context = new UsersRepository(context);
+            _imageContext = new UserImagesRepository(context);
         }
 
         public IActionResult Index()
@@ -34,6 +38,7 @@ namespace HHSocialNetwork_Project.Controllers
         public async Task<JsonResult> RegisterAsync(IFormCollection formCollection)
         {
             User user = new User();
+            user.UserId = Guid.NewGuid();
             user.FirstName = formCollection["FirstName"];
             user.LastName = formCollection["LastName"];
             user.Email = formCollection["Email"];
@@ -44,9 +49,21 @@ namespace HHSocialNetwork_Project.Controllers
             user.RegisterAt = DateTime.Now;
             user.UserName = user.FirstName + " " + user.LastName;
             
-            // create image
-            
-            // end create
+            // // create image
+            // UserImage imageUser = new UserImage();
+            // imageUser.UserId = user.UserId;
+            // imageUser.IsAvatar = true;
+
+            // // xử lý hình ảnh
+            // imageUser.ImageName = "user_default.png";
+            // string path = "./images/user/" + imageUser.ImageName;
+            // FormFile file;
+            // using (var stream = System.IO.File.OpenRead(path))
+            // {
+            //     file = new FormFile(stream, 0, stream.Length, null, Path.GetFileName(stream.Name));
+            // }
+            // imageUser.SourceImage = SaveImageIntoDatabase(file);
+            // // end create
 
             List<string> errors = new List<string>();
             bool success = true;
@@ -83,6 +100,7 @@ namespace HHSocialNetwork_Project.Controllers
             if (success)
             {
                 await _context.Add(user);
+                // await _imageContext.Add(imageUser);
             }
 
             return Json(new
@@ -101,7 +119,7 @@ namespace HHSocialNetwork_Project.Controllers
         /// Create: 17/9/2023
         /// Update: 17/9/2023
         [HttpGet]
-        public async Task<IActionResult> ProfileAsync(int userId)
+        public async Task<IActionResult> ProfileAsync(Guid userId)
         {
             /*
             string emailSess = HttpContext.Session.GetString(SessionData.USER_EMAIL_SESS);
@@ -120,11 +138,12 @@ namespace HHSocialNetwork_Project.Controllers
 
             ProfileView profile = new ProfileView();
 
-            User user = await _context.FindByID(1);
+            User user = await _context.FindByID(userIdTest);
 
             profile.user = user;
             return View(profile);
         }
+
         // <summery>
         // api login body email, password
         // </summery>
@@ -154,8 +173,8 @@ namespace HHSocialNetwork_Project.Controllers
             }
 
             if(success) {
-                int userId = await _context.getIdByEmail(email, password);
-                HttpContext.Session.SetInt32(SessionData.USERID_SESS, userId);
+                Guid userId = await _context.getIdByEmail(email, password);
+                HttpContext.Session.SetString(SessionData.USERID_SESS, userId.ToString());
                 HttpContext.Session.SetString(SessionData.USER_EMAIL_SESS, email);
             }
 
@@ -166,6 +185,13 @@ namespace HHSocialNetwork_Project.Controllers
             });
         }
 
+        /// <summary>
+        /// Đăng xuất
+        /// </summary>
+        /// <returns>View đăng nhập</returns>
+        /// Authors: Tạ Đức Hoàn
+        /// Create: 16/10/2023
+        /// Update: 16/10/2023
         public IActionResult logoutUser() {
             HttpContext.Session.Remove(SessionData.USERID_SESS);
             HttpContext.Session.Remove(SessionData.USER_EMAIL_SESS);
@@ -173,7 +199,16 @@ namespace HHSocialNetwork_Project.Controllers
             return RedirectToAction("Index", "Users");
         }
 
-        public async Task<IActionResult> ProfileEdit(int userId) {
+        /// <summary>
+        /// View ProfileEidt
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        /// Authors: Tạ Đức Hoàn
+        /// Create: 16/10/2023
+        /// Update: 16/10/2023
+        [HttpGet]
+        public async Task<IActionResult> ProfileEdit(Guid userId) {
             /*
             string emailSess = HttpContext.Session.GetString(SessionData.USER_EMAIL_SESS);
             if (emailSess == null)
@@ -184,11 +219,53 @@ namespace HHSocialNetwork_Project.Controllers
             if(userId == null || userId == 0)
                 return NotFound();
             */
-            HttpContext.Session.SetInt32(SessionData.USERID_SESS, 1);
-            HttpContext.Session.SetString(SessionData.USER_EMAIL_SESS, "tungnguyentn12345@gmail.com");
-            User user = await _context.FindByID(1);
+            HttpContext.Session.SetString(SessionData.USERID_SESS, userIdTest.ToString());
+            HttpContext.Session.SetString(SessionData.USER_EMAIL_SESS, "hoan@gmail.com");
 
-            return View(user);
+            ProfileEditView view = new ProfileEditView();
+
+            User user = await _context.FindByID(userIdTest);
+            // UserImage userImage = await _imageContext.GetAvatarByUserId(userIdTest);
+
+            view.user = user;
+            // view.userImage = userImage;
+
+            return View(view);
+        }
+
+        /// <summary>
+        /// Cập nhập thông tin cá nhân
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns>View Profile</returns>
+        /// Authors: Tạ Đức Hoàn
+        /// Create: 16/10/2023
+        /// Update: 16/10/2023
+        [HttpPost]
+        public async Task<IActionResult> ProfileEdit(User user)
+        {
+            if(user != null) {
+                await _context.Update(user);
+            }
+
+            return View(new {userId = user.UserId});
+        }
+
+        /// <summary>
+        /// Chuyển ảnh thành byte[]
+        /// </summary>
+        /// <param name="image"></param>
+        /// <returns>byte[]</returns>
+        /// Authors: Tạ Đức Hoàn
+        /// Create: 16/10/2023
+        /// Update: 16/10/2023
+        public byte[] SaveImageIntoDatabase(IFormFile image)
+        {
+            using(var ms = new MemoryStream())
+            {
+                image.CopyTo(ms);
+                return ms.ToArray();
+            }
         }
         
     }

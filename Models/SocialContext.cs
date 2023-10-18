@@ -1,9 +1,10 @@
 using System.Reflection.Metadata;
 using Clone_Main_Project_0710.Models;
+using HHSocialNetwork_Project.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace HHSocialNetwork_Project.Models
+namespace Clone_Main_Project_0710.Models
 {
     public class SocialContext : IdentityDbContext
     {

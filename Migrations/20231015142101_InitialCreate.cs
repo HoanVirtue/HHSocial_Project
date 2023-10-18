@@ -4,7 +4,7 @@ using MySql.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
-namespace HHSocialNetwork_Project.Migrations
+namespace Clone_Main_Project_0710.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration
