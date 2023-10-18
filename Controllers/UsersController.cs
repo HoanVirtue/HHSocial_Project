@@ -55,7 +55,7 @@ namespace Clone_Main_Project_0710.Controllers
             imageUser.UserId = user.UserId;
             imageUser.IsAvatar = true;
             imageUser.ImageName = "user_default.png";
-            imageUser.ImageData = ImageUserDefault.IMAGE_USER_DEFAULT;
+            // imageUser.ImageData = ImageUserDefault.IMAGE_USER_DEFAULT;
 
             List<string> errors = new List<string>();
             bool success = true;
@@ -286,7 +286,7 @@ namespace Clone_Main_Project_0710.Controllers
             UserImage userImage = new UserImage
             {
                 ImageId = Guid.Parse("1beadbb3-66a3-4027-d2e0-08dbcee78c8f"),
-                ImageData = Convert.ToBase64String(bytes, 0, bytes.Length)
+                // ImageData = Convert.ToBase64String(bytes, 0, bytes.Length)
             };
 
             await _imageContext.Update(userImage);
