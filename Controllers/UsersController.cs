@@ -13,7 +13,8 @@ namespace Clone_Main_Project_0710.Controllers
     {
         private UsersRepository _context;
         private UserImagesRepository _imageContext;
-        Guid userIdTest = new Guid("60615a95-509a-46fe-81ae-f437fcad4134");
+
+        Guid userIdTest = new Guid("979dea4e-39ba-468d-8cf6-0c9321bcbb42");
 
         public UsersController(SocialContext context)
         {
@@ -48,22 +49,13 @@ namespace Clone_Main_Project_0710.Controllers
             user.GenderName = formCollection["GenderName"];
             user.RegisterAt = DateTime.Now;
             user.UserName = user.FirstName + " " + user.LastName;
-            
-            // // create image
-            // UserImage imageUser = new UserImage();
-            // imageUser.UserId = user.UserId;
-            // imageUser.IsAvatar = true;
 
-            // // xử lý hình ảnh
-            // imageUser.ImageName = "user_default.png";
-            // string path = "./images/user/" + imageUser.ImageName;
-            // FormFile file;
-            // using (var stream = System.IO.File.OpenRead(path))
-            // {
-            //     file = new FormFile(stream, 0, stream.Length, null, Path.GetFileName(stream.Name));
-            // }
-            // imageUser.SourceImage = SaveImageIntoDatabase(file);
-            // // end create
+            // create image
+            UserImage imageUser = new UserImage();
+            imageUser.UserId = user.UserId;
+            imageUser.IsAvatar = true;
+            imageUser.ImageName = "user_default.png";
+            // imageUser.ImageData = ImageUserDefault.IMAGE_USER_DEFAULT;
 
             List<string> errors = new List<string>();
             bool success = true;
@@ -132,8 +124,9 @@ namespace Clone_Main_Project_0710.Controllers
                 return NotFound();
             */
             // test
-            HttpContext.Session.SetInt32(SessionData.USERID_SESS, 1);
-            HttpContext.Session.SetString(SessionData.USER_EMAIL_SESS, "tungnguyentn12345@gmail.com");
+
+            HttpContext.Session.SetString(SessionData.USERID_SESS, userIdTest.ToString());
+            HttpContext.Session.SetString(SessionData.USER_EMAIL_SESS, "hoan@gmail.com");
             //end test
 
             ProfileView profile = new ProfileView();
@@ -172,7 +165,8 @@ namespace Clone_Main_Project_0710.Controllers
                 }
             }
 
-            if(success) {
+            if (success)
+            {
                 Guid userId = await _context.getIdByEmail(email, password);
                 HttpContext.Session.SetString(SessionData.USERID_SESS, userId.ToString());
                 HttpContext.Session.SetString(SessionData.USER_EMAIL_SESS, email);
@@ -192,7 +186,8 @@ namespace Clone_Main_Project_0710.Controllers
         /// Authors: Tạ Đức Hoàn
         /// Create: 16/10/2023
         /// Update: 16/10/2023
-        public IActionResult logoutUser() {
+        public IActionResult logoutUser()
+        {
             HttpContext.Session.Remove(SessionData.USERID_SESS);
             HttpContext.Session.Remove(SessionData.USER_EMAIL_SESS);
 
@@ -208,7 +203,8 @@ namespace Clone_Main_Project_0710.Controllers
         /// Create: 16/10/2023
         /// Update: 16/10/2023
         [HttpGet]
-        public async Task<IActionResult> ProfileEdit(Guid userId) {
+        public async Task<IActionResult> ProfileEdit(Guid userId)
+        {
             /*
             string emailSess = HttpContext.Session.GetString(SessionData.USER_EMAIL_SESS);
             if (emailSess == null)
@@ -225,10 +221,10 @@ namespace Clone_Main_Project_0710.Controllers
             ProfileEditView view = new ProfileEditView();
 
             User user = await _context.FindByID(userIdTest);
-            // UserImage userImage = await _imageContext.GetAvatarByUserId(userIdTest);
-
+            UserImage userImage = await _imageContext.GetAvatarByUserId(userIdTest);
+            
             view.user = user;
-            // view.userImage = userImage;
+            view.userImage = userImage;
 
             return View(view);
         }
@@ -244,11 +240,12 @@ namespace Clone_Main_Project_0710.Controllers
         [HttpPost]
         public async Task<IActionResult> ProfileEdit(User user)
         {
-            if(user != null) {
+            if (user != null)
+            {
                 await _context.Update(user);
             }
 
-            return View(new {userId = user.UserId});
+            return View(new { userId = user.UserId });
         }
 
         /// <summary>
@@ -259,13 +256,42 @@ namespace Clone_Main_Project_0710.Controllers
         /// Authors: Tạ Đức Hoàn
         /// Create: 16/10/2023
         /// Update: 16/10/2023
-        public byte[] SaveImageIntoDatabase(IFormFile image)
+        public async Task<byte[]> SaveImageIntoDatabase(IFormFile image)
         {
-            using(var ms = new MemoryStream())
+            byte[] fileData = null;
+            if (image.Length > 0)
             {
-                image.CopyTo(ms);
-                return ms.ToArray();
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    await image.CopyToAsync(ms);
+                    fileData = ms.ToArray();
+                }
             }
+
+            return fileData;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UploadFileImage(IFormFile fileImage)
+        {
+            
+            byte[] bytes = null;
+            using(Stream fs = fileImage.OpenReadStream())
+            {
+                using(BinaryReader br = new BinaryReader(fs))
+                {
+                    bytes = br.ReadBytes((Int32)fs.Length);
+                }
+            }
+            UserImage userImage = new UserImage
+            {
+                ImageId = Guid.Parse("1beadbb3-66a3-4027-d2e0-08dbcee78c8f"),
+                // ImageData = Convert.ToBase64String(bytes, 0, bytes.Length)
+            };
+
+            await _imageContext.Update(userImage);
+
+            return RedirectToAction("Index", "Home");
         }
         
     }
