@@ -19,11 +19,11 @@
                     <div class="friend-request">
                     <div class="sub-card d-flex justify-content-between">
                         <div class="d-flex align-items-center">
-                            <img src="/images/user/01.jpg" alt="" class="avatar-40 rounded">
+                            <img src="data:image/jpeg;base64,@item.SourceUser.UserImages" alt="" class="avatar-40 rounded">
                             <div class="ms-3">
-                                <h6 class="mb-0">@item.SourceId</h6>
+                                <h6 class="mb-0">@item.SourceUser.UserName</h6>
                                 <p class="mb-0">
-                                    @item.IsFriend
+                                    @item.CreatedAt
                                 </p>
                             </div>
                         </div>
@@ -32,7 +32,7 @@
                             <a href="" class="me-3 btn btn-secondary rounded">Xóa</a>
                         </div>
                     </div>
-                </div>
+                 </div>
                 }
                 
             </div>
