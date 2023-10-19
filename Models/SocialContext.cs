@@ -13,8 +13,72 @@ namespace Clone_Main_Project_0710.Models
         public DbSet<UserFollower> UserFollowers { get; set; }
         public DbSet<UserPost> UserPosts { get; set; }
         public DbSet<ViewerFeed_Like> ViewerFeed_Likes { get; set; }
-        public DbSet<UserFriend> UserFriends {get; set;}
-        public DbSet<UserImage> UserImages {get; set;}
-        
+        public DbSet<UserFriend> UserFriends { get; set; }
+        public DbSet<UserImage> UserImages { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            builder.Entity<UserComment>()
+                    .HasOne(m => m.ViewerLike)
+                    .WithMany(t => t.UserComments)
+                    .HasForeignKey(m => m.ViewerId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<UserFollower>()
+                    .HasOne(m => m.SourceUser)
+                    .WithMany(t => t.SourceUserFollowers)
+                    .HasForeignKey(m => m.UserId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<UserFollower>()
+                    .HasOne(m => m.TargetUser)
+                    .WithMany(t => t.TargetUserFollowers)
+                    .HasForeignKey(m => m.TargetId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<UserFriend>()
+                    .HasOne(m => m.SourceUser)
+                    .WithMany(t => t.SourceUserFriends)
+                    .HasForeignKey(m => m.SourceId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<UserFriend>()
+                    .HasOne(m => m.TargetUser)
+                    .WithMany(t => t.TargetUserFriends)
+                    .HasForeignKey(m => m.TargetId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<UserImage>()
+                    .HasOne(m => m.User)
+                    .WithMany(t => t.UserImages)
+                    .HasForeignKey(m => m.UserId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<UserImage>()
+                    .HasOne(m => m.UserPost)
+                    .WithMany(t => t.UserImages)
+                    .HasForeignKey(m => m.UserPostId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<UserPost>()
+                    .HasOne(m => m.User)
+                    .WithMany(t => t.UserPosts)
+                    .HasForeignKey(m => m.UserId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<ViewerFeed_Like>()
+                    .HasOne(m => m.User)
+                    .WithMany(t => t.ViewerLikes)
+                    .HasForeignKey(m => m.SenderId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<ViewerFeed_Like>()
+                    .HasOne(m => m.UserPost)
+                    .WithMany(t => t.ViewerLikes)
+                    .HasForeignKey(m => m.UserPostId)
+                    .OnDelete(DeleteBehavior.Restrict);
+        }
     }
 }

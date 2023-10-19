@@ -20,5 +20,7 @@ namespace Clone_Main_Project_0710.Models
         public bool IsCoverImage { get; set; } = false;
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
+        public virtual User User { get; set; }
+        public virtual UserPost UserPost { get; set; }
     }
 }

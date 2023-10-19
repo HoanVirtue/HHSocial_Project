@@ -38,20 +38,30 @@ namespace Clone_Main_Project_0710.Repository
             throw new NotImplementedException();
         }
 
-        public async Task Update(UserImage entity)
+        public async Task UpdateByUserId(UserImage entity)
         {
-            UserImage image = await _context.UserImages.FindAsync(entity.ImageId);
+            UserImage image = await _context.UserImages.SingleOrDefaultAsync(m => m.UserId == entity.UserId);
             if(image != null)
             {
+                image.ImageName = entity.ImageName;
                 image.ImageData = entity.ImageData;
+                image.IsAvatar = entity.IsAvatar;
+                image.IsCoverImage = entity.IsCoverImage;
+                image.UpdatedAt = entity.UpdatedAt;
                 await _context.SaveChangesAsync();
             }
         }
 
         public async Task<UserImage> GetAvatarByUserId(Guid userId)
         {
-            UserImage image = await _context.UserImages.Where(m => m.UserId == userId && m.IsAvatar == true).FirstOrDefaultAsync();
+            UserImage image = await _context.UserImages.SingleOrDefaultAsync(m => m.UserId == userId && m.IsAvatar == true);
             return image;
         }
+
+        public Task Update(UserImage entity)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

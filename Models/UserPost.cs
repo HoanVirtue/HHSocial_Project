@@ -17,5 +17,8 @@ namespace Clone_Main_Project_0710.Models
         public int Comments { get; set; }
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
+        public virtual User User { get; set; }
+        public virtual ICollection<UserImage> UserImages { get; set; }
+        public virtual ICollection<ViewerFeed_Like> ViewerLikes { get; set; }
     }
 }
