@@ -30,5 +30,7 @@ namespace Clone_Main_Project_0710.Models
         [StringLength(30000)]
         public string? Profile { get; set; }
         public bool? role { get; set; } = false;
+
     }
+    
 }

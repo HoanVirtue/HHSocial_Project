@@ -1,9 +1,10 @@
 using Clone_Main_Project_0710.Models;
+using Clone_Main_Project_0710.Repository;
 using HHSocialNetwork_Project.Models;
-using HHSocialNetwork_Project.Repository;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
-namespace Clone_Main_Project_0710.Components
+namespace HHSocialNetwork_Project.Components
 {
     public class FriendsRequest : ViewComponent
     {  
@@ -14,6 +15,7 @@ namespace Clone_Main_Project_0710.Components
         }
         public async Task< IViewComponentResult> InvokeAsync()
         {
+            
             List<UserFriend> listUserFiends = await _context.GetAll();
             return View(listUserFiends);
         }

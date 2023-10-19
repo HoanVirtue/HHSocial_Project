@@ -41,7 +41,7 @@ namespace Clone_Main_Project_0710.Repository
             UserImage image = await _context.UserImages.FindAsync(entity.ImageId);
             if(image != null)
             {
-                image.ImageData = entity.ImageData;
+                 image.ImageData = entity.ImageData;
                 await _context.SaveChangesAsync();
             }
         }

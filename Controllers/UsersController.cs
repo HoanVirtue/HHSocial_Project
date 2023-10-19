@@ -14,7 +14,7 @@ namespace Clone_Main_Project_0710.Controllers
         private UsersRepository _context;
         private UserImagesRepository _imageContext;
 
-        Guid userIdTest = new Guid("979dea4e-39ba-468d-8cf6-0c9321bcbb42");
+        Guid userIdTest = new Guid("a4a01985-5af1-460c-9ce7-046e0177c0a6");
 
         public UsersController(SocialContext context)
         {
@@ -55,7 +55,7 @@ namespace Clone_Main_Project_0710.Controllers
             imageUser.UserId = user.UserId;
             imageUser.IsAvatar = true;
             imageUser.ImageName = "user_default.png";
-            // imageUser.ImageData = ImageUserDefault.IMAGE_USER_DEFAULT;
+            imageUser.ImageData = ImageUserDefault.IMAGE_USER_DEFAULT;
 
             List<string> errors = new List<string>();
             bool success = true;
@@ -92,7 +92,7 @@ namespace Clone_Main_Project_0710.Controllers
             if (success)
             {
                 await _context.Add(user);
-                // await _imageContext.Add(imageUser);
+                await _imageContext.Add(imageUser);
             }
 
             return Json(new
@@ -126,7 +126,7 @@ namespace Clone_Main_Project_0710.Controllers
             // test
 
             HttpContext.Session.SetString(SessionData.USERID_SESS, userIdTest.ToString());
-            HttpContext.Session.SetString(SessionData.USER_EMAIL_SESS, "hoan@gmail.com");
+            HttpContext.Session.SetString(SessionData.USER_EMAIL_SESS, "tungnguyentn123456@gmail.com");
             //end test
 
             ProfileView profile = new ProfileView();
@@ -216,7 +216,7 @@ namespace Clone_Main_Project_0710.Controllers
                 return NotFound();
             */
             HttpContext.Session.SetString(SessionData.USERID_SESS, userIdTest.ToString());
-            HttpContext.Session.SetString(SessionData.USER_EMAIL_SESS, "hoan@gmail.com");
+            HttpContext.Session.SetString(SessionData.USER_EMAIL_SESS, "tungnguyentn123456@gmail.com");
 
             ProfileEditView view = new ProfileEditView();
 
@@ -285,8 +285,8 @@ namespace Clone_Main_Project_0710.Controllers
             }
             UserImage userImage = new UserImage
             {
-                ImageId = Guid.Parse("1beadbb3-66a3-4027-d2e0-08dbcee78c8f"),
-                // ImageData = Convert.ToBase64String(bytes, 0, bytes.Length)
+                ImageId = Guid.Parse("979dea4e-39ba-468d-8cf6-0c9321bcbb42"),
+                ImageData = Convert.ToBase64String(bytes, 0, bytes.Length)
             };
 
             await _imageContext.Update(userImage);

@@ -3,7 +3,7 @@ using Clone_Main_Project_0710.Repository;
 using HHSocialNetwork_Project.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace HHSocialNetwork_Project.Repository
+namespace Clone_Main_Project_0710.Repository
 {
     public class UserFriendsRepository : IRepository<UserFriend>
     {
@@ -36,7 +36,7 @@ namespace HHSocialNetwork_Project.Repository
             List<UserFriend> listuserfriends = await _context.UserFriends.ToListAsync();
             return listuserfriends;
         }
-
+ 
         public Task Update(UserFriend entity)
         {
             throw new NotImplementedException();
