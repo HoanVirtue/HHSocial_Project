@@ -4,6 +4,7 @@ namespace Clone_Main_Project_0710.Models
 {
     public class User
     {
+        //tungcommand
         [Key]
         public Guid UserId { get; set; }
         [Required]
