@@ -13,5 +13,8 @@ namespace Clone_Main_Project_0710.Models
         public Guid UserPostId { get; set; }
         public bool LikePost { get; set; }
         public DateTime? CreatedAt { get; set; }
+        public virtual User User { get; set; }
+        public virtual UserPost UserPost { get; set; }
+        public virtual ICollection<UserComment> UserComments { get; set; }
     }
 }

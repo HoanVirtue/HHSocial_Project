@@ -13,5 +13,6 @@ namespace Clone_Main_Project_0710.Models
         public string? ImageComment { get; set; }
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
+        public virtual ViewerFeed_Like ViewerLike  { get; set; }
     }
 }
