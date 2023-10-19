@@ -13,12 +13,7 @@ namespace Clone_Main_Project_0710.Controllers
     {
         private UsersRepository _context;
         private UserImagesRepository _imageContext;
-<<<<<<< HEAD
-        Guid userIdTest = new Guid("074702f6-4e34-461a-810e-56e37fba8938");
-=======
-
-        Guid userIdTest = new Guid("979dea4e-39ba-468d-8cf6-0c9321bcbb42");
->>>>>>> 3ea9ea0c684459f63bca591faf02332d6d8b8f10
+        Guid userIdTest = new Guid("fc1a35a7-3564-48cc-b0ce-814e3ff7baab");
 
         public UsersController(SocialContext context)
         {
@@ -96,7 +91,7 @@ namespace Clone_Main_Project_0710.Controllers
             if (success)
             {
                 await _context.Add(user);
-                // await _imageContext.Add(imageUser);
+                await _imageContext.Add(imageUser);
             }
 
             return Json(new
@@ -136,8 +131,10 @@ namespace Clone_Main_Project_0710.Controllers
             ProfileView profile = new ProfileView();
 
             User user = await _context.FindByID(userIdTest);
+            UserImage userImage = await _imageContext.GetAvatarByUserId(userIdTest);
 
             profile.user = user;
+            profile.imageAvatar = userImage;
             return View(profile);
         }
 
@@ -265,6 +262,14 @@ namespace Clone_Main_Project_0710.Controllers
             return RedirectToAction("ProfileEdit", new { userId = user.UserId });
         }
 
+        /// <summary>
+        /// Chuyển ảnh thành chuỗi, lưu vào database
+        /// </summary>
+        /// <param name="fileImage">IFormFile</param>
+        /// <returns>string</returns>
+        /// /// Authors: Tạ Đức Hoàn
+        /// Create: 19/10/2023
+        /// Update: 19/10/2023
         public string ConvertImageToString(IFormFile fileImage)
         {
             byte[] bytes = null;

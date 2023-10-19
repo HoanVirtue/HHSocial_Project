@@ -3,6 +3,7 @@ using System;
 using Clone_Main_Project_0710.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Clone_Main_Project_0710.Migrations
 {
     [DbContext(typeof(SocialContext))]
-    partial class SocialContextModelSnapshot : ModelSnapshot
+    [Migration("20231019053808_update_database_deletecascade")]
+    partial class update_database_deletecascade
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -197,10 +200,10 @@ namespace Clone_Main_Project_0710.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<Guid?>("UserId")
+                    b.Property<Guid>("UserId")
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid?>("UserPostId")
+                    b.Property<Guid>("UserPostId")
                         .HasColumnType("char(36)");
 
                     b.HasKey("ImageId");
@@ -521,12 +524,14 @@ namespace Clone_Main_Project_0710.Migrations
                     b.HasOne("Clone_Main_Project_0710.Models.User", "User")
                         .WithMany("UserImages")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Clone_Main_Project_0710.Models.UserPost", "UserPost")
                         .WithMany("UserImages")
                         .HasForeignKey("UserPostId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
 

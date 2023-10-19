@@ -71,14 +71,12 @@ $(document).ready(function () {
                     console.log("Users Error: ", error)
                 },
             })
-    })
+    });
 
-    function validateData(data) {
-        if (data == "") {
-            console.log("Vui lòng nhập trường ...")
-        }
-    }
+   
 })
+
+
 
 // js login
 const loginBtn = document.getElementById("login")

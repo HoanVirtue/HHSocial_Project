@@ -14,7 +14,7 @@ namespace Clone_Main_Project_0710.Models
         public string? TypeFlower { get; set; }
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
-        public virtual User SourceUser { get; set; }
-        public virtual User TargetUser { get; set; }
+        public virtual User? SourceUser { get; set; }
+        public virtual User? TargetUser { get; set; }
     }
 }
