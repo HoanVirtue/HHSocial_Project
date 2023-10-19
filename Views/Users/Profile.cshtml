@@ -1,4 +1,9 @@
 @model ProfileView
+@{
+    User user = Model.user;
+    UserImage avatarImage = Model.imageAvatar;
+}
+
 <div class="row">
     <div class="col-sm-12">
         <div class="card">
@@ -19,10 +24,10 @@
                     </div>
                     <div class="user_over position-absolute text-center mb-3">
                         <div class="profile-image">
-                            <img src="/images/user/11.png" alt="" class="avatar-130 img-fluid ">
+                            <img src="data:image/jpeg;base64,@avatarImage.ImageData" alt="" class="avatar-130 img-fluid img-round-circle">
                         </div>
                         <div class="username_profile">
-                            <h3>@Model.user.UserName</h3>
+                            <h3>@user.UserName</h3>
                         </div>
                     </div>
                     <div class="d-flex align-items-center justify-content-between p-3 position-relative">

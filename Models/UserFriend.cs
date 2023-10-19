@@ -16,5 +16,7 @@ namespace Clone_Main_Project_0710.Models
         public bool IsFriend { get; set; } = false;
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
+        public virtual User? SourceUser { get; set; }
+        public virtual User? TargetUser { get; set; }
     }
 }

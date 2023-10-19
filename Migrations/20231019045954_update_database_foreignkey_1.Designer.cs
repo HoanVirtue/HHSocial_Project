@@ -3,6 +3,7 @@ using System;
 using Clone_Main_Project_0710.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Clone_Main_Project_0710.Migrations
 {
     [DbContext(typeof(SocialContext))]
-    partial class SocialContextModelSnapshot : ModelSnapshot
+    [Migration("20231019045954_update_database_foreignkey_1")]
+    partial class update_database_foreignkey_1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -182,6 +185,7 @@ namespace Clone_Main_Project_0710.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("ImageData")
+                        .IsRequired()
                         .HasMaxLength(2147483647)
                         .HasColumnType("longtext");
 
@@ -197,10 +201,10 @@ namespace Clone_Main_Project_0710.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<Guid?>("UserId")
+                    b.Property<Guid>("UserId")
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid?>("UserPostId")
+                    b.Property<Guid>("UserPostId")
                         .HasColumnType("char(36)");
 
                     b.HasKey("ImageId");
@@ -472,7 +476,7 @@ namespace Clone_Main_Project_0710.Migrations
                     b.HasOne("Clone_Main_Project_0710.Models.ViewerFeed_Like", "ViewerLike")
                         .WithMany("UserComments")
                         .HasForeignKey("ViewerId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("ViewerLike");
@@ -483,13 +487,13 @@ namespace Clone_Main_Project_0710.Migrations
                     b.HasOne("Clone_Main_Project_0710.Models.User", "TargetUser")
                         .WithMany("TargetUserFollowers")
                         .HasForeignKey("TargetId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Clone_Main_Project_0710.Models.User", "SourceUser")
                         .WithMany("SourceUserFollowers")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("SourceUser");
@@ -502,13 +506,13 @@ namespace Clone_Main_Project_0710.Migrations
                     b.HasOne("Clone_Main_Project_0710.Models.User", "SourceUser")
                         .WithMany("SourceUserFriends")
                         .HasForeignKey("SourceId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Clone_Main_Project_0710.Models.User", "TargetUser")
                         .WithMany("TargetUserFriends")
                         .HasForeignKey("TargetId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("SourceUser");
@@ -521,12 +525,14 @@ namespace Clone_Main_Project_0710.Migrations
                     b.HasOne("Clone_Main_Project_0710.Models.User", "User")
                         .WithMany("UserImages")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("Clone_Main_Project_0710.Models.UserPost", "UserPost")
                         .WithMany("UserImages")
                         .HasForeignKey("UserPostId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("User");
 
@@ -538,7 +544,7 @@ namespace Clone_Main_Project_0710.Migrations
                     b.HasOne("Clone_Main_Project_0710.Models.User", "User")
                         .WithMany("UserPosts")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("User");
@@ -549,13 +555,13 @@ namespace Clone_Main_Project_0710.Migrations
                     b.HasOne("Clone_Main_Project_0710.Models.User", "User")
                         .WithMany("ViewerLikes")
                         .HasForeignKey("SenderId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Clone_Main_Project_0710.Models.UserPost", "UserPost")
                         .WithMany("ViewerLikes")
                         .HasForeignKey("UserPostId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("User");

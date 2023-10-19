@@ -1,22 +1,26 @@
-@model User
+@model ProfileEditView
+@{
+    User user = Model.user;
+    UserImage userImage = Model.userImage;
+}
 
 <li class="nav-item dropdown">
     <a href="#" id="account-drop" class="d-flex align-items-center dropdown-toggle" data-bs-toggle="dropdown"
         aria-expanded="false" aria-haspopup="true">
-        <img src="/images/user/user_default.png" alt="" class="img-fluid img-round-circle me-3 avatar-topbar">
+        <img src="data:image/jpeg;base64,@userImage.ImageData" alt="" class="img-fluid img-round-circle me-3 avatar-topbar">
         <div class="caption">
-            <h6 class="mb-0">@Model.UserName</h6>
+            <h6 class="mb-0">@user.UserName</h6>
         </div>
     </a>
     <div class="sub-drop dropdown-menu" aria-labelledby="account-drop">
         <div class="card">
             <div class="card-header bg-primary">
                 <div class="header-title">
-                    <h5 class="text-white">Xin chào @Model.UserName</h5>
+                    <h5 class="text-white">Xin chào @user.UserName</h5>
                 </div>
             </div>
             <div class="card-body p-0">
-                <a href="/Users/Profile?userId=@Model.UserId" class="sub-card">
+                <a href="/Users/Profile?userId=@user.UserId" class="sub-card">
                     <div class="d-flex align-items-center">
                         <div class="bg-soft-primary rounded card-icon">
                             <i class="ri-file-user-line"></i>
@@ -27,7 +31,7 @@
                         </div>
                     </div>
                 </a>
-                <a href="" class="sub-card">
+                <a href="/Users/ProfileEdit?userId=@user.UserId" class="sub-card">
                     <div class="d-flex align-items-center">
                         <div class="bg-soft-warning rounded card-icon">
                             <i class="ri-profile-line"></i>
