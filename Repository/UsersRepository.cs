@@ -1,4 +1,5 @@
 using Clone_Main_Project_0710.Models;
+using Clone_Main_Project_0710.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace Clone_Main_Project_0710.Repository
@@ -49,7 +50,8 @@ namespace Clone_Main_Project_0710.Repository
         public async Task Update(User entity)
         {
             User user = await _context.Users.SingleOrDefaultAsync(m => m.UserId == entity.UserId);
-            if(user != null) {
+            if (user != null)
+            {
                 user.FirstName = entity.FirstName;
                 user.LastName = entity.LastName;
                 user.UserName = entity.UserName;
@@ -71,17 +73,28 @@ namespace Clone_Main_Project_0710.Repository
             return account != null;
         }
 
-        public async Task<User> getUserByAccount(string email, string password) {
+        public async Task<User> getUserByAccount(string email, string password)
+        {
             User? user = await _context.Users.SingleOrDefaultAsync(p => p.Email.Equals(email) && p.Password.Equals(password));
 
             return user;
         }
 
-        public async Task<Guid> getIdByEmail(string email, string password) {
+        public async Task<Guid> getIdByEmail(string email, string password)
+        {
             Guid userId = (await _context.Users.SingleOrDefaultAsync(p => p.Email.Equals(email) && p.Password.Equals(password))).UserId;
 
             return userId;
         }
 
+        public async Task ChangePassword(ChangePasswordView model)
+        {
+            User user = await _context.Users.FindAsync(model.UserId);
+            if(user != null)
+            {
+                user.Password = model.NewPassword;
+                await _context.SaveChangesAsync();
+            }
+        }
     }
 }

@@ -71,7 +71,7 @@ namespace Clone_Main_Project_0710.Controllers
             }
             else
             {
-                if (user.Password.Length < 6)
+                if (!HandleCharacter.Instance.IsSpecialChar(user.Password))
                 {
                     errors.Add("Mật khẩu của bạn phải dài ít nhất 6 ký tự. Vui lòng thử một mật khẩu khác.");
                     success = false;
@@ -153,7 +153,7 @@ namespace Clone_Main_Project_0710.Controllers
             bool success = true;
             if (Convert.ToString(password).Length < 6)
             {
-                errors.Add("Mật khẩu của bạn phải dài ít nhất 8 ký tự. Vui lòng thử một mật khẩu khác.");
+                errors.Add("Mật khẩu của bạn phải dài ít nhất 6 ký tự. Vui lòng thử một mật khẩu khác.");
                 success = false;
             }
             else
@@ -271,8 +271,15 @@ namespace Clone_Main_Project_0710.Controllers
             return fileData;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> UploadFileImage(IFormFile fileImage)
+        /// <summary>
+        /// Chuyển ảnh thành chuỗi, lưu vào database
+        /// </summary>
+        /// <param name="fileImage">IFormFile</param>
+        /// <returns>string</returns>
+        /// Authors: Tạ Đức Hoàn
+        /// Create: 19/10/2023
+        /// Update: 19/10/2023
+        public string ConvertImageToString(IFormFile fileImage)
         {
             
             byte[] bytes = null;
@@ -292,6 +299,67 @@ namespace Clone_Main_Project_0710.Controllers
             await _imageContext.Update(userImage);
 
             return RedirectToAction("Index", "Home");
+        }
+
+        /// <summary>
+        /// Thay đổi password
+        /// </summary>
+        /// <param name="model">ChangePasswordView</param>
+        /// <returns>JsonResult</returns>
+        /// Authors: Tạ Đức Hoàn
+        /// Create: 20/10/2023
+        /// Update: 21/10/2023
+        public async Task<JsonResult> ChangePassword(IFormCollection form)
+        {
+            bool isSuccess = true;
+            List<string> errors = new List<string>();
+            ChangePasswordView model = new ChangePasswordView()
+            {
+                UserId = Guid.Parse(form["UserId"].ToString()),
+                CurrentPassword = form["CurrentPassword"].ToString(),
+                NewPassword = form["NewPassword"].ToString(),
+                ConfirmPassword = form["ConfirmPassword"].ToString()
+            };
+
+            User user = await _context.FindByID(model.UserId);
+
+            if (model.CurrentPassword.Equals(user.Password))
+            {
+                if (!model.ConfirmPassword.Equals(model.NewPassword))
+                {
+                    isSuccess = false;
+                    errors.Add("The current password is incorrect");
+                }
+                else
+                {
+                    if (!HandleCharacter.Instance.IsSixChara(model.NewPassword) ||
+                    !HandleCharacter.Instance.IsSpecialChar(model.NewPassword) ||
+                    !HandleCharacter.Instance.IsUpperCaseChar(model.NewPassword) ||
+                    !HandleCharacter.Instance.IsLowerCaseChar(model.NewPassword) ||
+                    !HandleCharacter.Instance.IsDigitChar(model.NewPassword))
+                    {
+                        isSuccess = false;
+                        errors.Add("Mật khẩu chứa ít nhất là 6 ký tự, phải chứa đầy đủ chữ viết thường, chữ viết hoa, số, ký tự đặc biệt.");
+                    }
+                }
+            }
+            else
+            {
+                isSuccess = false;
+                errors.Add("Nhập mật khẩu hiện tại không đúng.");
+            }
+
+            if (isSuccess)
+            {
+                await _context.ChangePassword(model);
+            }
+
+            return Json(new
+            {
+                isSuccess = isSuccess,
+                errors = errors
+            }
+            );
         }
     }
 }
