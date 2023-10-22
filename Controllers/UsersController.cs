@@ -13,8 +13,7 @@ namespace Clone_Main_Project_0710.Controllers
     {
         private UsersRepository _context;
         private UserImagesRepository _imageContext;
-
-        Guid userIdTest = new Guid("979dea4e-39ba-468d-8cf6-0c9321bcbb42");
+        Guid userIdTest = new Guid("fc1a35a7-3564-48cc-b0ce-814e3ff7baab");
 
         public UsersController(SocialContext context)
         {
@@ -55,7 +54,7 @@ namespace Clone_Main_Project_0710.Controllers
             imageUser.UserId = user.UserId;
             imageUser.IsAvatar = true;
             imageUser.ImageName = "user_default.png";
-            // imageUser.ImageData = ImageUserDefault.IMAGE_USER_DEFAULT;
+            imageUser.ImageData = ImageUserDefault.IMAGE_USER_DEFAULT;
 
             List<string> errors = new List<string>();
             bool success = true;
@@ -92,7 +91,7 @@ namespace Clone_Main_Project_0710.Controllers
             if (success)
             {
                 await _context.Add(user);
-                // await _imageContext.Add(imageUser);
+                await _imageContext.Add(imageUser);
             }
 
             return Json(new
@@ -132,8 +131,10 @@ namespace Clone_Main_Project_0710.Controllers
             ProfileView profile = new ProfileView();
 
             User user = await _context.FindByID(userIdTest);
+            UserImage userImage = await _imageContext.GetAvatarByUserId(userIdTest);
 
             profile.user = user;
+            profile.imageAvatar = userImage;
             return View(profile);
         }
 
@@ -217,12 +218,11 @@ namespace Clone_Main_Project_0710.Controllers
             */
             HttpContext.Session.SetString(SessionData.USERID_SESS, userIdTest.ToString());
             HttpContext.Session.SetString(SessionData.USER_EMAIL_SESS, "hoan@gmail.com");
-
             ProfileEditView view = new ProfileEditView();
 
             User user = await _context.FindByID(userIdTest);
             UserImage userImage = await _imageContext.GetAvatarByUserId(userIdTest);
-            
+
             view.user = user;
             view.userImage = userImage;
 
@@ -238,37 +238,28 @@ namespace Clone_Main_Project_0710.Controllers
         /// Create: 16/10/2023
         /// Update: 16/10/2023
         [HttpPost]
-        public async Task<IActionResult> ProfileEdit(User user)
+        public async Task<IActionResult> ProfileEdit(User user, IFormFile fileImage)
         {
             if (user != null)
             {
                 await _context.Update(user);
-            }
 
-            return View(new { userId = user.UserId });
-        }
-
-        /// <summary>
-        /// Chuyển ảnh thành byte[]
-        /// </summary>
-        /// <param name="image"></param>
-        /// <returns>byte[]</returns>
-        /// Authors: Tạ Đức Hoàn
-        /// Create: 16/10/2023
-        /// Update: 16/10/2023
-        public async Task<byte[]> SaveImageIntoDatabase(IFormFile image)
-        {
-            byte[] fileData = null;
-            if (image.Length > 0)
-            {
-                using (MemoryStream ms = new MemoryStream())
+                if (fileImage != null && fileImage.Length > 0)
                 {
-                    await image.CopyToAsync(ms);
-                    fileData = ms.ToArray();
+                    UserImage userImage = new UserImage
+                    {
+                        UserId = user.UserId,
+                        ImageName = fileImage.FileName,
+                        ImageData = ConvertImageToString(fileImage),
+                        IsAvatar = true,
+                        UpdatedAt = DateTime.Now
+                    };
+                    await _imageContext.UpdateByUserId(userImage);
                 }
             }
 
-            return fileData;
+
+            return RedirectToAction("ProfileEdit", new { userId = user.UserId });
         }
 
         /// <summary>
@@ -281,24 +272,15 @@ namespace Clone_Main_Project_0710.Controllers
         /// Update: 19/10/2023
         public string ConvertImageToString(IFormFile fileImage)
         {
-            
             byte[] bytes = null;
-            using(Stream fs = fileImage.OpenReadStream())
+            using (Stream fs = fileImage.OpenReadStream())
             {
-                using(BinaryReader br = new BinaryReader(fs))
+                using (BinaryReader br = new BinaryReader(fs))
                 {
                     bytes = br.ReadBytes((Int32)fs.Length);
                 }
             }
-            UserImage userImage = new UserImage
-            {
-                ImageId = Guid.Parse("1beadbb3-66a3-4027-d2e0-08dbcee78c8f"),
-                // ImageData = Convert.ToBase64String(bytes, 0, bytes.Length)
-            };
-
-            await _imageContext.Update(userImage);
-
-            return RedirectToAction("Index", "Home");
+            return Convert.ToBase64String(bytes, 0, bytes.Length);
         }
 
         /// <summary>
