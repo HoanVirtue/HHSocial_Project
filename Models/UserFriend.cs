@@ -1,7 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Clone_Main_Project_0710.Models;
 
-namespace Clone_Main_Project_0710.Models
+namespace HHSocialNetwork_Project.Models
 {
     public class UserFriend
     {

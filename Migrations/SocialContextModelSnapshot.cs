@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Clone_Main_Project_0710.Migrations
+namespace HHSocialNetwork_Project.Migrations
 {
     [DbContext(typeof(SocialContext))]
     partial class SocialContextModelSnapshot : ModelSnapshot
@@ -136,42 +136,6 @@ namespace Clone_Main_Project_0710.Migrations
                     b.ToTable("UserFollowers");
                 });
 
-            modelBuilder.Entity("Clone_Main_Project_0710.Models.UserFriend", b =>
-                {
-                    b.Property<Guid>("UserFriendId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<bool>("IsFriend")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<Guid>("SourceId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<bool>("Status")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<Guid>("TargetId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<string>("TypeFriend")
-                        .HasColumnType("longtext");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.HasKey("UserFriendId");
-
-                    b.HasIndex("SourceId");
-
-                    b.HasIndex("TargetId");
-
-                    b.ToTable("UserFriends");
-                });
-
             modelBuilder.Entity("Clone_Main_Project_0710.Models.UserImage", b =>
                 {
                     b.Property<Guid>("ImageId")
@@ -273,6 +237,42 @@ namespace Clone_Main_Project_0710.Migrations
                     b.HasIndex("UserPostId");
 
                     b.ToTable("ViewerFeed_Likes");
+                });
+
+            modelBuilder.Entity("HHSocialNetwork_Project.Models.UserFriend", b =>
+                {
+                    b.Property<Guid>("UserFriendId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("IsFriend")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<Guid>("SourceId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<Guid>("TargetId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("TypeFriend")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("UserFriendId");
+
+                    b.HasIndex("SourceId");
+
+                    b.HasIndex("TargetId");
+
+                    b.ToTable("UserFriends");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -497,25 +497,6 @@ namespace Clone_Main_Project_0710.Migrations
                     b.Navigation("TargetUser");
                 });
 
-            modelBuilder.Entity("Clone_Main_Project_0710.Models.UserFriend", b =>
-                {
-                    b.HasOne("Clone_Main_Project_0710.Models.User", "SourceUser")
-                        .WithMany("SourceUserFriends")
-                        .HasForeignKey("SourceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Clone_Main_Project_0710.Models.User", "TargetUser")
-                        .WithMany("TargetUserFriends")
-                        .HasForeignKey("TargetId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("SourceUser");
-
-                    b.Navigation("TargetUser");
-                });
-
             modelBuilder.Entity("Clone_Main_Project_0710.Models.UserImage", b =>
                 {
                     b.HasOne("Clone_Main_Project_0710.Models.User", "User")
@@ -561,6 +542,25 @@ namespace Clone_Main_Project_0710.Migrations
                     b.Navigation("User");
 
                     b.Navigation("UserPost");
+                });
+
+            modelBuilder.Entity("HHSocialNetwork_Project.Models.UserFriend", b =>
+                {
+                    b.HasOne("Clone_Main_Project_0710.Models.User", "SourceUser")
+                        .WithMany("SourceUserFriends")
+                        .HasForeignKey("SourceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Clone_Main_Project_0710.Models.User", "TargetUser")
+                        .WithMany("TargetUserFriends")
+                        .HasForeignKey("TargetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SourceUser");
+
+                    b.Navigation("TargetUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

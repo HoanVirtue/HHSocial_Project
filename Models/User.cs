@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using HHSocialNetwork_Project.Models;
 
 namespace Clone_Main_Project_0710.Models
 {
@@ -30,6 +31,7 @@ namespace Clone_Main_Project_0710.Models
         [StringLength(30000)]
         public string? Profile { get; set; }
         public bool? role { get; set; } = false;
+
         public virtual ICollection<UserFriend>? SourceUserFriends { get; set; }
         public virtual ICollection<UserFriend>? TargetUserFriends { get; set; }
         public virtual ICollection<UserFollower>? SourceUserFollowers { get; set; }
@@ -38,4 +40,5 @@ namespace Clone_Main_Project_0710.Models
         public virtual ICollection<UserPost>? UserPosts { get; set; }
         public virtual ICollection<ViewerFeed_Like>? ViewerLikes { get; set; }
     }
+    
 }

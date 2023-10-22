@@ -6,7 +6,7 @@ namespace Clone_Main_Project_0710.Repository
 {
     public class UsersRepository : IRepository<User>
     {
-        private SocialContext _context;
+        private SocialContext _context ;
         public UsersRepository(SocialContext context)
         {
             _context = context;

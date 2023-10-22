@@ -2,10 +2,10 @@
 
 #nullable disable
 
-namespace Clone_Main_Project_0710.Migrations
+namespace HHSocialNetwork_Project.Migrations
 {
     /// <inheritdoc />
-    public partial class update_database_foreignkey_3 : Migration
+    public partial class InitWebDB : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

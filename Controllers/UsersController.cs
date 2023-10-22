@@ -13,7 +13,7 @@ namespace Clone_Main_Project_0710.Controllers
     {
         private UsersRepository _context;
         private UserImagesRepository _imageContext;
-        Guid userIdTest = new Guid("fc1a35a7-3564-48cc-b0ce-814e3ff7baab");
+        Guid userIdTest = new Guid("55250b86-6427-46e4-a067-d24afc94c874");
 
         public UsersController(SocialContext context)
         {
@@ -125,7 +125,7 @@ namespace Clone_Main_Project_0710.Controllers
             // test
 
             HttpContext.Session.SetString(SessionData.USERID_SESS, userIdTest.ToString());
-            HttpContext.Session.SetString(SessionData.USER_EMAIL_SESS, "hoan@gmail.com");
+            HttpContext.Session.SetString(SessionData.USER_EMAIL_SESS, "tungnguyentn1234@gmail.com");
             //end test
 
             ProfileView profile = new ProfileView();
@@ -217,7 +217,7 @@ namespace Clone_Main_Project_0710.Controllers
                 return NotFound();
             */
             HttpContext.Session.SetString(SessionData.USERID_SESS, userIdTest.ToString());
-            HttpContext.Session.SetString(SessionData.USER_EMAIL_SESS, "hoan@gmail.com");
+            HttpContext.Session.SetString(SessionData.USER_EMAIL_SESS, "tungnguyentn1234@gmail.com");
             ProfileEditView view = new ProfileEditView();
 
             User user = await _context.FindByID(userIdTest);
@@ -343,5 +343,6 @@ namespace Clone_Main_Project_0710.Controllers
             }
             );
         }
+        
     }
 }

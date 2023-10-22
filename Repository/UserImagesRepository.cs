@@ -1,6 +1,4 @@
 using Clone_Main_Project_0710.Models;
-using Clone_Main_Project_0710.Models;
-using Clone_Main_Project_0710.Repository;
 using Microsoft.EntityFrameworkCore;
 
 namespace Clone_Main_Project_0710.Repository
