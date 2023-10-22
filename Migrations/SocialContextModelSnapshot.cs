@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Clone_Main_Project_0710.Migrations
+namespace HHSocialNetwork_Project.Migrations
 {
     [DbContext(typeof(SocialContext))]
     partial class SocialContextModelSnapshot : ModelSnapshot

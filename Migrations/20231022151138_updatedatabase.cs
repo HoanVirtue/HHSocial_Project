@@ -4,10 +4,10 @@ using MySql.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
-namespace Clone_Main_Project_0710.Migrations
+namespace HHSocialNetwork_Project.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class updatedatabase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -57,106 +57,10 @@ namespace Clone_Main_Project_0710.Migrations
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "UserComments",
-                columns: table => new
-                {
-                    CommentId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    ViewerId = table.Column<int>(type: "int", nullable: false),
-                    Content = table.Column<string>(type: "longtext", nullable: true),
-                    ImageComment = table.Column<string>(type: "longtext", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserComments", x => x.CommentId);
-                })
-                .Annotation("MySQL:Charset", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "UserFollowers",
-                columns: table => new
-                {
-                    FollowerId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    TargetId = table.Column<int>(type: "int", nullable: false),
-                    TypeFlower = table.Column<string>(type: "longtext", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserFollowers", x => x.FollowerId);
-                })
-                .Annotation("MySQL:Charset", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "UserFriends",
-                columns: table => new
-                {
-                    UserFriendId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    SourceId = table.Column<int>(type: "int", nullable: false),
-                    TargetId = table.Column<int>(type: "int", nullable: false),
-                    TypeFriend = table.Column<string>(type: "longtext", nullable: true),
-                    Status = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    IsFriend = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserFriends", x => x.UserFriendId);
-                })
-                .Annotation("MySQL:Charset", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "UserImages",
-                columns: table => new
-                {
-                    ImageId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    UserPostId = table.Column<int>(type: "int", nullable: false),
-                    ImageName = table.Column<string>(type: "longtext", nullable: true),
-                    SourceImage = table.Column<byte[]>(type: "longblob", nullable: false),
-                    IsAvatar = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    IsCoverImage = table.Column<bool>(type: "tinyint(1)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserImages", x => x.ImageId);
-                })
-                .Annotation("MySQL:Charset", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "UserPosts",
-                columns: table => new
-                {
-                    UserPostId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    Content = table.Column<string>(type: "varchar(3000)", maxLength: 3000, nullable: true),
-                    ImagePost = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
-                    Likes = table.Column<int>(type: "int", nullable: false),
-                    Comments = table.Column<int>(type: "int", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserPosts", x => x.UserPostId);
-                })
-                .Annotation("MySQL:Charset", "utf8mb4");
-
-            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    UserId = table.Column<Guid>(type: "char(36)", nullable: false),
                     FirstName = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: false),
                     LastName = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: false),
                     UserName = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: true),
@@ -174,23 +78,6 @@ namespace Clone_Main_Project_0710.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.UserId);
-                })
-                .Annotation("MySQL:Charset", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "ViewerFeed_Likes",
-                columns: table => new
-                {
-                    ViewerId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    SenderId = table.Column<int>(type: "int", nullable: false),
-                    UserPostId = table.Column<int>(type: "int", nullable: false),
-                    LikePost = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ViewerFeed_Likes", x => x.ViewerId);
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
@@ -305,6 +192,174 @@ namespace Clone_Main_Project_0710.Migrations
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
+            migrationBuilder.CreateTable(
+                name: "UserFollowers",
+                columns: table => new
+                {
+                    FollowerId = table.Column<Guid>(type: "char(36)", nullable: false),
+                    UserId = table.Column<Guid>(type: "char(36)", nullable: false),
+                    TargetId = table.Column<Guid>(type: "char(36)", nullable: false),
+                    TypeFlower = table.Column<string>(type: "longtext", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserFollowers", x => x.FollowerId);
+                    table.ForeignKey(
+                        name: "FK_UserFollowers_Users_TargetId",
+                        column: x => x.TargetId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserFollowers_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "UserFriends",
+                columns: table => new
+                {
+                    UserFriendId = table.Column<Guid>(type: "char(36)", nullable: false),
+                    SourceId = table.Column<Guid>(type: "char(36)", nullable: false),
+                    TargetId = table.Column<Guid>(type: "char(36)", nullable: false),
+                    TypeFriend = table.Column<string>(type: "longtext", nullable: true),
+                    Status = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    IsFriend = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserFriends", x => x.UserFriendId);
+                    table.ForeignKey(
+                        name: "FK_UserFriends_Users_SourceId",
+                        column: x => x.SourceId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserFriends_Users_TargetId",
+                        column: x => x.TargetId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "UserPosts",
+                columns: table => new
+                {
+                    UserPostId = table.Column<Guid>(type: "char(36)", nullable: false),
+                    UserId = table.Column<Guid>(type: "char(36)", nullable: false),
+                    Content = table.Column<string>(type: "varchar(3000)", maxLength: 3000, nullable: true),
+                    ImagePost = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
+                    Likes = table.Column<int>(type: "int", nullable: false),
+                    Comments = table.Column<int>(type: "int", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserPosts", x => x.UserPostId);
+                    table.ForeignKey(
+                        name: "FK_UserPosts_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "UserImages",
+                columns: table => new
+                {
+                    ImageId = table.Column<Guid>(type: "char(36)", nullable: false),
+                    UserId = table.Column<Guid>(type: "char(36)", nullable: true),
+                    UserPostId = table.Column<Guid>(type: "char(36)", nullable: true),
+                    ImageName = table.Column<string>(type: "longtext", nullable: true),
+                    ImageData = table.Column<string>(type: "longtext", maxLength: 2147483647, nullable: true),
+                    IsAvatar = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    IsCoverImage = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserImages", x => x.ImageId);
+                    table.ForeignKey(
+                        name: "FK_UserImages_UserPosts_UserPostId",
+                        column: x => x.UserPostId,
+                        principalTable: "UserPosts",
+                        principalColumn: "UserPostId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserImages_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "ViewerFeed_Likes",
+                columns: table => new
+                {
+                    ViewerId = table.Column<Guid>(type: "char(36)", nullable: false),
+                    SenderId = table.Column<Guid>(type: "char(36)", nullable: false),
+                    UserPostId = table.Column<Guid>(type: "char(36)", nullable: false),
+                    LikePost = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ViewerFeed_Likes", x => x.ViewerId);
+                    table.ForeignKey(
+                        name: "FK_ViewerFeed_Likes_UserPosts_UserPostId",
+                        column: x => x.UserPostId,
+                        principalTable: "UserPosts",
+                        principalColumn: "UserPostId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ViewerFeed_Likes_Users_SenderId",
+                        column: x => x.SenderId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "UserComments",
+                columns: table => new
+                {
+                    CommentId = table.Column<Guid>(type: "char(36)", nullable: false),
+                    ViewerId = table.Column<Guid>(type: "char(36)", nullable: false),
+                    Content = table.Column<string>(type: "longtext", nullable: true),
+                    ImageComment = table.Column<string>(type: "longtext", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserComments", x => x.CommentId);
+                    table.ForeignKey(
+                        name: "FK_UserComments_ViewerFeed_Likes_ViewerId",
+                        column: x => x.ViewerId,
+                        principalTable: "ViewerFeed_Likes",
+                        principalColumn: "ViewerId",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -341,6 +396,56 @@ namespace Clone_Main_Project_0710.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserComments_ViewerId",
+                table: "UserComments",
+                column: "ViewerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserFollowers_TargetId",
+                table: "UserFollowers",
+                column: "TargetId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserFollowers_UserId",
+                table: "UserFollowers",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserFriends_SourceId",
+                table: "UserFriends",
+                column: "SourceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserFriends_TargetId",
+                table: "UserFriends",
+                column: "TargetId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserImages_UserId",
+                table: "UserImages",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserImages_UserPostId",
+                table: "UserImages",
+                column: "UserPostId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserPosts_UserId",
+                table: "UserPosts",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ViewerFeed_Likes_SenderId",
+                table: "ViewerFeed_Likes",
+                column: "SenderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ViewerFeed_Likes_UserPostId",
+                table: "ViewerFeed_Likes",
+                column: "UserPostId");
         }
 
         /// <inheritdoc />
@@ -374,19 +479,19 @@ namespace Clone_Main_Project_0710.Migrations
                 name: "UserImages");
 
             migrationBuilder.DropTable(
-                name: "UserPosts");
+                name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "ViewerFeed_Likes");
 
             migrationBuilder.DropTable(
-                name: "AspNetRoles");
+                name: "UserPosts");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "Users");
         }
     }
 }

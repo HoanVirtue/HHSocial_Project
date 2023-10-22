@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Clone_Main_Project_0710.Migrations
+namespace HHSocialNetwork_Project.Migrations
 {
     [DbContext(typeof(SocialContext))]
-    [Migration("20231017191258_updatedatabase_image_createdupdated")]
-    partial class updatedatabase_image_createdupdated
+    [Migration("20231022151138_updatedatabase")]
+    partial class updatedatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -104,6 +104,8 @@ namespace Clone_Main_Project_0710.Migrations
 
                     b.HasKey("CommentId");
 
+                    b.HasIndex("ViewerId");
+
                     b.ToTable("UserComments");
                 });
 
@@ -130,39 +132,11 @@ namespace Clone_Main_Project_0710.Migrations
 
                     b.HasKey("FollowerId");
 
+                    b.HasIndex("TargetId");
+
+                    b.HasIndex("UserId");
+
                     b.ToTable("UserFollowers");
-                });
-
-            modelBuilder.Entity("Clone_Main_Project_0710.Models.UserFriend", b =>
-                {
-                    b.Property<Guid>("UserFriendId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<bool>("IsFriend")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<Guid>("SourceId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<bool>("Status")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<Guid>("TargetId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<string>("TypeFriend")
-                        .HasColumnType("longtext");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.HasKey("UserFriendId");
-
-                    b.ToTable("UserFriends");
                 });
 
             modelBuilder.Entity("Clone_Main_Project_0710.Models.UserImage", b =>
@@ -175,7 +149,6 @@ namespace Clone_Main_Project_0710.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("ImageData")
-                        .IsRequired()
                         .HasMaxLength(2147483647)
                         .HasColumnType("longtext");
 
@@ -191,13 +164,17 @@ namespace Clone_Main_Project_0710.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<Guid>("UserId")
+                    b.Property<Guid?>("UserId")
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid>("UserPostId")
+                    b.Property<Guid?>("UserPostId")
                         .HasColumnType("char(36)");
 
                     b.HasKey("ImageId");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("UserPostId");
 
                     b.ToTable("UserImages");
                 });
@@ -233,6 +210,8 @@ namespace Clone_Main_Project_0710.Migrations
 
                     b.HasKey("UserPostId");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("UserPosts");
                 });
 
@@ -256,7 +235,47 @@ namespace Clone_Main_Project_0710.Migrations
 
                     b.HasKey("ViewerId");
 
+                    b.HasIndex("SenderId");
+
+                    b.HasIndex("UserPostId");
+
                     b.ToTable("ViewerFeed_Likes");
+                });
+
+            modelBuilder.Entity("HHSocialNetwork_Project.Models.UserFriend", b =>
+                {
+                    b.Property<Guid>("UserFriendId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("IsFriend")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<Guid>("SourceId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<Guid>("TargetId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("TypeFriend")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("UserFriendId");
+
+                    b.HasIndex("SourceId");
+
+                    b.HasIndex("TargetId");
+
+                    b.ToTable("UserFriends");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -451,6 +470,102 @@ namespace Clone_Main_Project_0710.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Clone_Main_Project_0710.Models.UserComment", b =>
+                {
+                    b.HasOne("Clone_Main_Project_0710.Models.ViewerFeed_Like", "ViewerLike")
+                        .WithMany("UserComments")
+                        .HasForeignKey("ViewerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ViewerLike");
+                });
+
+            modelBuilder.Entity("Clone_Main_Project_0710.Models.UserFollower", b =>
+                {
+                    b.HasOne("Clone_Main_Project_0710.Models.User", "TargetUser")
+                        .WithMany("TargetUserFollowers")
+                        .HasForeignKey("TargetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Clone_Main_Project_0710.Models.User", "SourceUser")
+                        .WithMany("SourceUserFollowers")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SourceUser");
+
+                    b.Navigation("TargetUser");
+                });
+
+            modelBuilder.Entity("Clone_Main_Project_0710.Models.UserImage", b =>
+                {
+                    b.HasOne("Clone_Main_Project_0710.Models.User", "User")
+                        .WithMany("UserImages")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Clone_Main_Project_0710.Models.UserPost", "UserPost")
+                        .WithMany("UserImages")
+                        .HasForeignKey("UserPostId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("User");
+
+                    b.Navigation("UserPost");
+                });
+
+            modelBuilder.Entity("Clone_Main_Project_0710.Models.UserPost", b =>
+                {
+                    b.HasOne("Clone_Main_Project_0710.Models.User", "User")
+                        .WithMany("UserPosts")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Clone_Main_Project_0710.Models.ViewerFeed_Like", b =>
+                {
+                    b.HasOne("Clone_Main_Project_0710.Models.User", "User")
+                        .WithMany("ViewerLikes")
+                        .HasForeignKey("SenderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Clone_Main_Project_0710.Models.UserPost", "UserPost")
+                        .WithMany("ViewerLikes")
+                        .HasForeignKey("UserPostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+
+                    b.Navigation("UserPost");
+                });
+
+            modelBuilder.Entity("HHSocialNetwork_Project.Models.UserFriend", b =>
+                {
+                    b.HasOne("Clone_Main_Project_0710.Models.User", "SourceUser")
+                        .WithMany("SourceUserFriends")
+                        .HasForeignKey("SourceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Clone_Main_Project_0710.Models.User", "TargetUser")
+                        .WithMany("TargetUserFriends")
+                        .HasForeignKey("TargetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SourceUser");
+
+                    b.Navigation("TargetUser");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -500,6 +615,35 @@ namespace Clone_Main_Project_0710.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Clone_Main_Project_0710.Models.User", b =>
+                {
+                    b.Navigation("SourceUserFollowers");
+
+                    b.Navigation("SourceUserFriends");
+
+                    b.Navigation("TargetUserFollowers");
+
+                    b.Navigation("TargetUserFriends");
+
+                    b.Navigation("UserImages");
+
+                    b.Navigation("UserPosts");
+
+                    b.Navigation("ViewerLikes");
+                });
+
+            modelBuilder.Entity("Clone_Main_Project_0710.Models.UserPost", b =>
+                {
+                    b.Navigation("UserImages");
+
+                    b.Navigation("ViewerLikes");
+                });
+
+            modelBuilder.Entity("Clone_Main_Project_0710.Models.ViewerFeed_Like", b =>
+                {
+                    b.Navigation("UserComments");
                 });
 #pragma warning restore 612, 618
         }
