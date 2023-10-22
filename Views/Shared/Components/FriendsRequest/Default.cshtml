@@ -1,4 +1,5 @@
-@model IEnumerable<UserFriend>
+@model IEnumerable<FriendRequestView>
+
 <li class="nav-item dropdown">
     <a href="#" class="dropdown-toggle" id="group-drop" data-bs-toggle="dropdown" aria-haspopup="true"
         aria-expanded="false">
@@ -15,14 +16,17 @@
             <div class="card-body p-0">
                 @foreach(var item in Model)
                 {
+                    UserFriend userFriend = item.UserFriend;
+                    UserImage avatar = item.UserImage;
+                    
                     <div class="friend-request">
                     <div class="sub-card d-flex justify-content-between">
                         <div class="d-flex align-items-center">
-                            <img src=""data:image/jpeg;base64,@userImage.ImageData"" alt="" class="avatar-40 rounded">
+                            <img src="data:image/jpeg;base64,@avatar.ImageData" alt="" class="avatar-40 rounded">
                             <div class="ms-3">
-                                <h6 class="mb-0">@item.SourceUser.UserName</h6>
+                                <h6 class="mb-0">@userFriend.SourceUser.FirstName</h6>
                                 <p class="mb-0">
-                                    @item.CreatedAt
+                                    @userFriend.CreatedAt
                                 </p>
                             </div>
                         </div>

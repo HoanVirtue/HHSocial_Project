@@ -11,10 +11,10 @@
         <div class="card-body p-0">
             <ul class="edit-profile nav nav-pills list-inline m-0 d-flex">
                 <li class="col-md-3">
-                    <a href="" class="nav-link active" data-bs-toggle="pill">Thông tin cá nhân</a>
+                    <a href="#profile-information" class="nav-link active" data-bs-toggle="pill">Thông tin cá nhân</a>
                 </li>
                 <li class="col-md-3">
-                    <a href="" class="nav-link" data-bs-toggle="pill">Thay đổi mật khẩu</a>
+                    <a href="#profile-change-password" class="nav-link" data-bs-toggle="pill">Thay đổi mật khẩu</a>
                 </li>
                 <li class="col-md-3">
                     <a href="" class="nav-link" data-bs-toggle="pill">Email và SMS</a>
@@ -27,76 +27,125 @@
     </div>
 </div>
 <div class="col-lg-12">
-    <div class="card">
-        <div class="card-header">
-            <div class="header-title">
-                <h4>Thông tin cá nhân</h4>
+    <div class="iq-edit-list-data">
+        <div class="tab-content">
+            <div class="tab-pane fade active show" id="profile-information" role="tabpanel">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="header-title">
+                            <h4>Thông tin cá nhân</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form action="/Users/ProfileEdit" method="post" enctype="multipart/form-data">
+                            <input type="hidden" value="@user.UserId" name="UserId">
+                            <div class="col-md-12" style="margin-bottom: 1.25rem">
+                                <div class="profile-edit-image">
+                                    <img src="data:image/jpeg;base64,@userImage.ImageData" alt=""
+                                        class="profile-edit-pic" style="width: 150px; height: 150px;">
+                                    <div class="icon-edit-image">
+                                        <i class="ri-pencil-line upload-button text-white"></i>
+                                        <input class="file-upload-h" type="file" name="fileImage" style="display: none;"
+                                            accept="image/*">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label for="">Họ:</label>
+                                    <input type="text" class="form-control" placeholder="" value="@user.FirstName"
+                                        name="FirstName" required>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="">Tên:</label>
+                                    <input type="text" class="form-control" placeholder="" value="@user.LastName"
+                                        name="LastName" required>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="">Tên hiển thị:</label>
+                                    <input type="text" class="form-control" placeholder="" value="@user.UserName"
+                                        name="UserName" required>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="">Số điện thoại:</label>
+                                    <input type="text" class="form-control" placeholder="" value="@user.NumberPhone"
+                                        name="NumberPhone">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="">Ngày sinh:</label>
+                                    <input type="date" class="form-control" placeholder="" value="@birthdayUser"
+                                        name="Birthday">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="">Giới tính:</label>
+                                    <div class="row col-12"
+                                        style="justify-content: center; align-items: center; height: 37px;">
+                                        <div class="form-check form-check-inline col-md-3">
+                                            <input class="form-check-input" type="radio" name="GenderName"
+                                                id="femaleGender" value="Nữ" @(user.GenderName.Equals("Nữ") ? "checked"
+                                                : "") />
+                                            <label class="form-check-label" for="femaleGender">Nữ</label>
+                                        </div>
+                                        <div class="form-check form-check-inline col-md-3">
+                                            <input class="form-check-input" type="radio" name="GenderName"
+                                                id="maleGender" value="Nam" @(user.GenderName.Equals("Nam") ? "checked"
+                                                : "") />
+                                            <label class="form-check-label" for="maleGender">Nam</label>
+                                        </div>
+                                        <div class="form-check form-check-inline col-md-3">
+                                            <input class="form-check-input" type="radio" name="GenderName"
+                                                id="otherGender" value="Khác" @(user.GenderName.Equals("Khác") ?
+                                                "checked" : "") />
+                                            <label class="form-check-label" for="otherGender">Khác</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label for="">Thông tin về bản thân:</label>
+                                    <textarea class="form-control" rows="5"></textarea>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary me-2">Cập nhật</button>
+                            <button type="reset" class="btn btn-soft-danger">Hủy</button>
+                        </form>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="card-body">
-            <form action="/Users/ProfileEdit" method="post" enctype="multipart/form-data">
-                <input type="hidden" value="@user.UserId" name="UserId">
-                <div class="col-md-12" style="margin-bottom: 1.25rem">
-                    <div class="profile-edit-image">
-                        <img src="data:image/jpeg;base64,@userImage.ImageData" alt="" class="profile-edit-pic" style="width: 150px; height: 150px;">
-                        <div class="icon-edit-image">
-                            <i class="ri-pencil-line upload-button text-white"></i>
-                            <input class="file-upload-h" type="file" name="fileImage" style="display: none;" accept="image/*" >
+            <div class="tab-pane fade" id="profile-change-password" role="tabpanel">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="iq-header-title">
+                            <h4 class="card-title">Change Password</h4>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="form-group col-md-6">
-                        <label for="">Họ:</label>
-                        <input type="text" class="form-control" placeholder="" value="@user.FirstName" name="FirstName"
-                            required>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="">Tên:</label>
-                        <input type="text" class="form-control" placeholder="" value="@user.LastName" name="LastName"
-                            required>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="">Tên hiển thị:</label>
-                        <input type="text" class="form-control" placeholder="" value="@user.UserName" name="UserName"
-                            required>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="">Số điện thoại:</label>
-                        <input type="text" class="form-control" placeholder="" value="@user.NumberPhone"
-                            name="NumberPhone">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="">Ngày sinh:</label>
-                        <input type="date" class="form-control" placeholder="" value="@birthdayUser" name="Birthday">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="">Giới tính:</label>
-                        <div class="row col-12" style="justify-content: center; align-items: center; height: 37px;">
-                            <div class="form-check form-check-inline col-md-3">
-                                <input class="form-check-input" type="radio" name="GenderName" id="femaleGender"
-                                    value="Nữ" @(user.GenderName.Equals("Nữ") ? "checked" : "") />
-                                <label class="form-check-label" for="femaleGender">Nữ</label>
+                    <div class="card-body">
+                        <form action="/Users/ChangePassword" id="form-change-password">
+                            <div class="show-error-message">
+                                @ViewBag.errorMessage
                             </div>
-                            <div class="form-check form-check-inline col-md-3">
-                                <input class="form-check-input" type="radio" name="GenderName" id="maleGender"
-                                    value="Nam" @(user.GenderName.Equals("Nam") ? "checked" : "") />
-                                <label class="form-check-label" for="maleGender">Nam</label>
+                            <input type="hidden" name="UserId" value="@user.UserId">
+                            <div class="form-group">
+                                <label for="" class="form-label">Mật khẩu hiện tại:</label>
+                                <a href="" style="float: right;">Quên mật khẩu</a>
+                                <input type="password" name="CurrentPassword" id="" class="form-control" required>
                             </div>
-                            <div class="form-check form-check-inline col-md-3">
-                                <input class="form-check-input" type="radio" name="GenderName" id="otherGender"
-                                    value="Khác" @(user.GenderName.Equals("Khác") ? "checked" : "") />
-                                <label class="form-check-label" for="otherGender">Khác</label>
+                            <div class="form-group">
+                                <label for="" class="form-label">Mật khẩu mới:</label>
+                                <input type="password" name="NewPassword" id="" class="form-control" required>
                             </div>
-                        </div>
-                    </div>
-                    <div class="form-group col-md-12">
-                        <label for="">Thông tin về bản thân:</label>
-                        <textarea class="form-control" rows="5"></textarea>
+                            <div class="form-group">
+                                <label for="" class="form-label">Xác nhận mật khẩu mới:</label>
+                                <input type="password" name="ConfirmPassword" id="" class="form-control" required>
+                            </div>
+
+                            <button type="button" class="btn btn-primary me-2" id="btn-change-password" value="save">Cập nhật</button>
+                            <button type="reset" class="btn btn-soft-danger">Hủy</button>
+                        </form>
+                        
+
                     </div>
                 </div>
-                <button class="btn btn-primary">Cập nhật</button>
-            </form>
+            </div>
         </div>
     </div>
 </div>

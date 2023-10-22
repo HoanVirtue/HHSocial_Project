@@ -13,7 +13,6 @@ namespace Clone_Main_Project_0710.Controllers
     {
         private UsersRepository _context;
         private UserImagesRepository _imageContext;
-
         Guid userIdTest = new Guid("55250b86-6427-46e4-a067-d24afc94c874");
 
         public UsersController(SocialContext context)
@@ -71,7 +70,7 @@ namespace Clone_Main_Project_0710.Controllers
             }
             else
             {
-                if (user.Password.Length < 6)
+                if (!HandleCharacter.Instance.IsSpecialChar(user.Password))
                 {
                     errors.Add("Mật khẩu của bạn phải dài ít nhất 6 ký tự. Vui lòng thử một mật khẩu khác.");
                     success = false;
@@ -126,14 +125,16 @@ namespace Clone_Main_Project_0710.Controllers
             // test
 
             HttpContext.Session.SetString(SessionData.USERID_SESS, userIdTest.ToString());
-            HttpContext.Session.SetString(SessionData.USER_EMAIL_SESS, "tungnguyentn123456@gmail.com");
+            HttpContext.Session.SetString(SessionData.USER_EMAIL_SESS, "tungnguyentn1234@gmail.com");
             //end test
 
             ProfileView profile = new ProfileView();
 
             User user = await _context.FindByID(userIdTest);
+            UserImage userImage = await _imageContext.GetAvatarByUserId(userIdTest);
 
             profile.user = user;
+            profile.imageAvatar = userImage;
             return View(profile);
         }
 
@@ -153,7 +154,7 @@ namespace Clone_Main_Project_0710.Controllers
             bool success = true;
             if (Convert.ToString(password).Length < 6)
             {
-                errors.Add("Mật khẩu của bạn phải dài ít nhất 8 ký tự. Vui lòng thử một mật khẩu khác.");
+                errors.Add("Mật khẩu của bạn phải dài ít nhất 6 ký tự. Vui lòng thử một mật khẩu khác.");
                 success = false;
             }
             else
@@ -216,13 +217,12 @@ namespace Clone_Main_Project_0710.Controllers
                 return NotFound();
             */
             HttpContext.Session.SetString(SessionData.USERID_SESS, userIdTest.ToString());
-            HttpContext.Session.SetString(SessionData.USER_EMAIL_SESS, "tungnguyentn123456@gmail.com");
-
+            HttpContext.Session.SetString(SessionData.USER_EMAIL_SESS, "tungnguyentn1234@gmail.com");
             ProfileEditView view = new ProfileEditView();
 
             User user = await _context.FindByID(userIdTest);
             UserImage userImage = await _imageContext.GetAvatarByUserId(userIdTest);
-            
+
             view.user = user;
             view.userImage = userImage;
 
@@ -238,60 +238,110 @@ namespace Clone_Main_Project_0710.Controllers
         /// Create: 16/10/2023
         /// Update: 16/10/2023
         [HttpPost]
-        public async Task<IActionResult> ProfileEdit(User user)
+        public async Task<IActionResult> ProfileEdit(User user, IFormFile fileImage)
         {
             if (user != null)
             {
                 await _context.Update(user);
-            }
 
-            return View(new { userId = user.UserId });
-        }
-
-        /// <summary>
-        /// Chuyển ảnh thành byte[]
-        /// </summary>
-        /// <param name="image"></param>
-        /// <returns>byte[]</returns>
-        /// Authors: Tạ Đức Hoàn
-        /// Create: 16/10/2023
-        /// Update: 16/10/2023
-        public async Task<byte[]> SaveImageIntoDatabase(IFormFile image)
-        {
-            byte[] fileData = null;
-            if (image.Length > 0)
-            {
-                using (MemoryStream ms = new MemoryStream())
+                if (fileImage != null && fileImage.Length > 0)
                 {
-                    await image.CopyToAsync(ms);
-                    fileData = ms.ToArray();
+                    UserImage userImage = new UserImage
+                    {
+                        UserId = user.UserId,
+                        ImageName = fileImage.FileName,
+                        ImageData = ConvertImageToString(fileImage),
+                        IsAvatar = true,
+                        UpdatedAt = DateTime.Now
+                    };
+                    await _imageContext.UpdateByUserId(userImage);
                 }
             }
 
-            return fileData;
+
+            return RedirectToAction("ProfileEdit", new { userId = user.UserId });
         }
 
-        [HttpPost]
-        public async Task<IActionResult> UploadFileImage(IFormFile fileImage)
+        /// <summary>
+        /// Chuyển ảnh thành chuỗi, lưu vào database
+        /// </summary>
+        /// <param name="fileImage">IFormFile</param>
+        /// <returns>string</returns>
+        /// Authors: Tạ Đức Hoàn
+        /// Create: 19/10/2023
+        /// Update: 19/10/2023
+        public string ConvertImageToString(IFormFile fileImage)
         {
-            
             byte[] bytes = null;
-            using(Stream fs = fileImage.OpenReadStream())
+            using (Stream fs = fileImage.OpenReadStream())
             {
-                using(BinaryReader br = new BinaryReader(fs))
+                using (BinaryReader br = new BinaryReader(fs))
                 {
                     bytes = br.ReadBytes((Int32)fs.Length);
                 }
             }
-            UserImage userImage = new UserImage
+            return Convert.ToBase64String(bytes, 0, bytes.Length);
+        }
+
+        /// <summary>
+        /// Thay đổi password
+        /// </summary>
+        /// <param name="model">ChangePasswordView</param>
+        /// <returns>JsonResult</returns>
+        /// Authors: Tạ Đức Hoàn
+        /// Create: 20/10/2023
+        /// Update: 21/10/2023
+        public async Task<JsonResult> ChangePassword(IFormCollection form)
+        {
+            bool isSuccess = true;
+            List<string> errors = new List<string>();
+            ChangePasswordView model = new ChangePasswordView()
             {
-                ImageId = Guid.Parse("55250b86-6427-46e4-a067-d24afc94c874"),
-                ImageData = Convert.ToBase64String(bytes, 0, bytes.Length)
+                UserId = Guid.Parse(form["UserId"].ToString()),
+                CurrentPassword = form["CurrentPassword"].ToString(),
+                NewPassword = form["NewPassword"].ToString(),
+                ConfirmPassword = form["ConfirmPassword"].ToString()
             };
 
-            await _imageContext.Update(userImage);
+            User user = await _context.FindByID(model.UserId);
 
-            return RedirectToAction("Index", "Home");
+            if (model.CurrentPassword.Equals(user.Password))
+            {
+                if (!model.ConfirmPassword.Equals(model.NewPassword))
+                {
+                    isSuccess = false;
+                    errors.Add("The current password is incorrect");
+                }
+                else
+                {
+                    if (!HandleCharacter.Instance.IsSixChara(model.NewPassword) ||
+                    !HandleCharacter.Instance.IsSpecialChar(model.NewPassword) ||
+                    !HandleCharacter.Instance.IsUpperCaseChar(model.NewPassword) ||
+                    !HandleCharacter.Instance.IsLowerCaseChar(model.NewPassword) ||
+                    !HandleCharacter.Instance.IsDigitChar(model.NewPassword))
+                    {
+                        isSuccess = false;
+                        errors.Add("Mật khẩu chứa ít nhất là 6 ký tự, phải chứa đầy đủ chữ viết thường, chữ viết hoa, số, ký tự đặc biệt.");
+                    }
+                }
+            }
+            else
+            {
+                isSuccess = false;
+                errors.Add("Nhập mật khẩu hiện tại không đúng.");
+            }
+
+            if (isSuccess)
+            {
+                await _context.ChangePassword(model);
+            }
+
+            return Json(new
+            {
+                isSuccess = isSuccess,
+                errors = errors
+            }
+            );
         }
         
     }

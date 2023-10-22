@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    
+
     /// <summary>
     /// Event handler: Đăng ký tài khoản
     /// </summary>
@@ -29,41 +29,41 @@ $(document).ready(function () {
                         window.location.href = '/Users/';
                     } else {
                         var regError =
-                            document.getElementById("reg_error_inner")
+                            document.getElementById("reg_error_inner");
                         if (regError !== null) {
-                            var message = ""
+                            var message = "";
                             for (var i = 0; i < response.errors.length; i++) {
-                                message += response.errors[i]
+                                message += response.errors[i];
                                 if (i < response.errors.length - 1) {
-                                    message += "<br>"
+                                    message += "<br>";
                                 }
                             }
-                            regError.innerHTML = message
+                            regError.innerHTML = message;
                         } else {
-                            var divReg = document.createElement("div")
-                            divReg.id = "reg_error"
+                            var divReg = document.createElement("div");
+                            divReg.id = "reg_error";
                             divReg.classList.add(
                                 "_58mn",
                                 "message_error_register"
-                            )
-                            divReg.role = "alert"
-                            divReg.tabIndex = -1
-                            var divItem = document.createElement("div")
-                            divReg.id = "reg_error_inner"
-                            divReg.classList.add("_58mo")
-                            divReg.tabIndex = 0
-                            var message = ""
+                            );
+                            divReg.role = "alert";
+                            divReg.tabIndex = -1;
+                            var divItem = document.createElement("div");
+                            divReg.id = "reg_error_inner";
+                            divReg.classList.add("_58mo");
+                            divReg.tabIndex = 0;
+                            var message = "";
                             for (var i = 0; i < response.errors.length; i++) {
-                                message += response.errors[i]
+                                message += response.errors[i];
                                 if (i < response.errors.length - 1) {
                                     message += "<br>"
                                 }
                             }
-                            divItem.innerHTML = message
-                            divReg.appendChild(divItem)
+                            divItem.innerHTML = message;
+                            divReg.appendChild(divItem);
 
-                            var modal = $("#registerModal").find(".modal-body")
-                            modal.prepend(divReg)
+                            var modal = $("#registerModal").find(".modal-body");
+                            modal.prepend(divReg);
                         }
                     }
                 },
@@ -73,8 +73,8 @@ $(document).ready(function () {
             })
     });
 
-   
-})
+
+});
 
 
 
@@ -107,10 +107,10 @@ loginBtn.addEventListener("click", async () => {
 
 
         const paragraphError = document.getElementById("error")
-      
-        paragraphError.innerHTML = error 
-        
-        
+
+        paragraphError.innerHTML = error
+
+
         if (paragraphError.classList.contains("hidden")) {
             paragraphError.classList.toggle("hidden")
         }
