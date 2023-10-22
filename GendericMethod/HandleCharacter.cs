@@ -55,5 +55,12 @@ namespace Clone_Main_Project_0710.GenericMethod
             }
             return false;
         }
+
+        public bool IsSixChara(string characters)
+        {
+            if(characters.Length < 6)
+                return false;
+            return true;
+        }
     }
 }

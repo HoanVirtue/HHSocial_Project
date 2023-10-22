@@ -353,3 +353,9 @@ input.form-control {
 .form-control:focus {
     border-color: #a8daff;
 }
+
+.show-error-message {
+    color: red;
+    margin-bottom: 1.2rem;
+    font-weight: 600;
+}
