@@ -38,7 +38,8 @@ namespace Clone_Main_Project_0710.Models
         public virtual ICollection<UserFollower>? TargetUserFollowers { get; set; }
         public virtual ICollection<UserImage>? UserImages { get; set; }
         public virtual ICollection<UserPost>? UserPosts { get; set; }
-        public virtual ICollection<ViewerFeed_Like>? ViewerLikes { get; set; }
+        public virtual ICollection<ViewerLike>? ViewerLikes { get; set; }
+        public virtual ICollection<ViewerComment>? ViewerComments { get; set; }
     }
     
 }
