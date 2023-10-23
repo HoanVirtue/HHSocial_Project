@@ -13,7 +13,7 @@ namespace Clone_Main_Project_0710.Controllers
     {
         private UsersRepository _context;
         private UserImagesRepository _imageContext;
-        Guid userIdTest = new Guid("55250b86-6427-46e4-a067-d24afc94c874");
+        Guid userIdTest = new Guid("b2b36a90-0354-4f35-bf8a-d35ae7a42011");
 
         public UsersController(SocialContext context)
         {

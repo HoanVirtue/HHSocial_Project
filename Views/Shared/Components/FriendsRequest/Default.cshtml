@@ -11,38 +11,49 @@
                 <div>
                     <h5 class="text-white">Lời mời kết bạn</h5>
                 </div>
-                <small class="badge-h bg-light text-dark">4</small>
+                <small class="badge-h bg-light text-dark">@Model.Count()</small>
             </div>
             <div class="card-body p-0">
-                @foreach(var item in Model)
+                @if (Model.Count() == 0)
                 {
-                    UserFriend userFriend = item.UserFriend;
-                    UserImage avatar = item.UserImage;
-                    
-                    <div class="friend-request">
-                    <div class="sub-card d-flex justify-content-between">
-                        <div class="d-flex align-items-center">
-                            <img src="data:image/jpeg;base64,@avatar.ImageData" alt="" class="avatar-40 rounded">
-                            <div class="ms-3">
-                                <h6 class="mb-0">@userFriend.SourceUser.FirstName</h6>
-                                <p class="mb-0">
-                                    @userFriend.CreatedAt
-                                </p>
+                    <div class="text-center p-1">Không có dữ liệu ...</div>
+                }
+                else
+                {
+                    @foreach (var item in Model)
+                    {
+                        UserFriend userFriend = item.UserFriend;
+                        UserImage avatar = item.UserImage;
+
+                        <div class="friend-request">
+                            <div class="sub-card d-flex justify-content-between">
+                                <div class="d-flex align-items-center">
+                                    <img src="data:image/jpeg;base64,@avatar.ImageData" alt="" class="avatar-40 rounded">
+                                    <div class="ms-3">
+                                        <h6 class="mb-0">@userFriend.SourceUser.UserName</h6>
+                                        <p class="mb-0">
+                                            @userFriend.CreatedAt
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <a href="" class="me-3 btn btn-primary rounded">Xác nhận</a>
+                                    <a href="" class="me-3 btn btn-secondary rounded">Xóa</a>
+                                </div>
                             </div>
                         </div>
-                        <div class="d-flex align-items-center">
-                            <a href="" class="me-3 btn btn-primary rounded">Xác nhận</a>
-                            <a href="" class="me-3 btn btn-secondary rounded">Xóa</a>
-                        </div>
-                    </div>
-                 </div>
+                    }
                 }
-                
+
+
             </div>
             <div class="card-footer p-0">
-                <div class="text-center">
-                    <a href="#" class="btn text-primary">Xem tất cả</a>
-                </div>
+                @if (Model.Count() != 0)
+                {
+                    <div class="text-center">
+                        <a href="#" class="btn text-primary">Xem tất cả</a>
+                    </div>
+                }
             </div>
         </div>
     </div>
