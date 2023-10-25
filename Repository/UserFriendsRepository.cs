@@ -8,8 +8,11 @@ namespace Clone_Main_Project_0710.Repository
     public class UserFriendsRepository : IRepository<UserFriend>
     {
         private SocialContext _context;
-        public UserFriendsRepository (SocialContext context){
-                _context=context;
+        private UsersRepository _userContext;
+        public UserFriendsRepository (SocialContext context)
+        {
+            _context=context;
+            _userContext = new UsersRepository(context);
         }
         public Task Add(UserFriend entity)
         {
@@ -33,8 +36,18 @@ namespace Clone_Main_Project_0710.Repository
 
         public async Task<List<UserFriend>> GetAll()
         {
-            List<UserFriend> listuserfriends = await _context.UserFriends.ToListAsync();
-            return listuserfriends;
+            throw new NotImplementedException();
+        }
+
+        public async Task<List<UserFriend>> GetAll(Guid targetId, string type)
+        {
+            
+            List<UserFriend> listUserFriend = await _context.UserFriends.Where(m => m.TargetId.Equals(targetId) && m.IsFriend == false).ToListAsync();
+            foreach(UserFriend u in listUserFriend) {
+                u.SourceUser = await _userContext.FindByID(u.SourceId);
+                u.TargetUser = await _userContext.FindByID(u.TargetId);
+            }
+            return listUserFriend;
         }
  
         public Task Update(UserFriend entity)
