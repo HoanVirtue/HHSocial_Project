@@ -40,6 +40,7 @@ namespace Clone_Main_Project_0710.Models
         public virtual ICollection<UserPost>? UserPosts { get; set; }
         public virtual ICollection<ViewerLike>? ViewerLikes { get; set; }
         public virtual ICollection<ViewerComment>? ViewerComments { get; set; }
+        
     }
     
 }

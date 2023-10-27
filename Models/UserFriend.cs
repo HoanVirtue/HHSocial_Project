@@ -17,6 +17,7 @@ namespace HHSocialNetwork_Project.Models
         public bool IsFriend { get; set; } = false;
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
+        public bool IsDelete { get; set; } = false;
         public virtual User? SourceUser { get; set; }
         public virtual User? TargetUser { get; set; }
     }
