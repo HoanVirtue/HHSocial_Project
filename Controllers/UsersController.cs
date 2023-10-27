@@ -13,7 +13,7 @@ namespace Clone_Main_Project_0710.Controllers
     {
         private UsersRepository _context;
         private UserImagesRepository _imageContext;
-        Guid userIdTest = new Guid("b2b36a90-0354-4f35-bf8a-d35ae7a42011");
+        Guid userIdTest = new Guid("b5b2e688-048d-4fed-8067-6c28c5e93610");
 
         public UsersController(SocialContext context)
         {
@@ -192,7 +192,7 @@ namespace Clone_Main_Project_0710.Controllers
             HttpContext.Session.Remove(SessionData.USERID_SESS);
             HttpContext.Session.Remove(SessionData.USER_EMAIL_SESS);
 
-            return RedirectToAction("Index", "Users");
+            return RedirectToAction("Index", "UserFriend");
         }
 
         /// <summary>

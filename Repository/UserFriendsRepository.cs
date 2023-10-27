@@ -9,6 +9,11 @@ namespace Clone_Main_Project_0710.Repository
     {
         private SocialContext _context;
         private UsersRepository _userContext;
+
+        public UserFriendsRepository()
+        {
+        }
+
         public UserFriendsRepository (SocialContext context)
         {
             _context=context;
