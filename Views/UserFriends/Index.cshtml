@@ -1,0 +1,42 @@
+@model IEnumerable<FriendRequestView>
+
+<div class="row">
+    @if (Model.Count() > 0)
+    {
+        <div class="title-page p-0">
+            <h4>Lời mời kết bạn</h4>
+        </div>
+        <div class="all-friends">
+            @foreach (FriendRequestView item in Model)
+            {
+                <div class="item-request-friend">
+                    <div class="image_sender">
+                        <a href="/Users/Profile?userId=@item.UserFriend.SourceId">
+                            <img src="data:image/jpeg;base64,@item.UserImage.ImageData" alt="">
+                        </a>
+                    </div>
+                    <div class="username_sender">
+                        <a href="/Users/Profile?userId=@item.UserFriend.SourceId">
+                            <h5 class="item-request-username">
+                                @item.UserFriend.SourceUser.UserName
+                            </h5>
+                        </a>
+                    </div>
+                    <div class="mutual_friends"></div>
+                    <div class="handle_request">
+                        <button class="btn btn-primary w-100 btn-accept-friend" type="button"
+                            value="@item.UserFriend.SourceId">Xác nhận</button>
+                        <button class="btn w-100 btn-background-grey btn-delete-friend" type="button"
+                            value="@item.UserFriend.SourceId">Xóa</button>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="title-page p-0">
+            <h4><center>Không có lời mời kết bạn.</center></h4>
+        </div>
+    }
+</div>

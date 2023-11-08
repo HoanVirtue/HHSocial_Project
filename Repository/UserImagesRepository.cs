@@ -1,5 +1,8 @@
+using Clone_Main_Project_0710.Controllers;
 using Clone_Main_Project_0710.Models;
 using Microsoft.EntityFrameworkCore;
+using Clone_Main_Project_0710.Controllers;
+using HHSocialNetwork_Project.Models;
 
 namespace Clone_Main_Project_0710.Repository
 {
@@ -39,7 +42,7 @@ namespace Clone_Main_Project_0710.Repository
         public async Task UpdateByUserId(UserImage entity)
         {
             UserImage image = await _context.UserImages.SingleOrDefaultAsync(m => m.UserId == entity.UserId);
-            if(image != null)
+            if (image != null)
             {
                 image.ImageName = entity.ImageName;
                 image.ImageData = entity.ImageData;
@@ -60,6 +63,5 @@ namespace Clone_Main_Project_0710.Repository
         {
             throw new NotImplementedException();
         }
-
     }
 }

@@ -13,7 +13,7 @@ namespace Clone_Main_Project_0710.Controllers
     {
         private UsersRepository _context;
         private UserImagesRepository _imageContext;
-        Guid userIdTest = new Guid("b5b2e688-048d-4fed-8067-6c28c5e93610");
+        public static Guid userIdTest = new Guid("b2b36a90-0354-4f35-bf8a-d35ae7a42011");
 
         public UsersController(SocialContext context)
         {
@@ -112,26 +112,20 @@ namespace Clone_Main_Project_0710.Controllers
         [HttpGet]
         public async Task<IActionResult> ProfileAsync(Guid userId)
         {
-            /*
             string emailSess = HttpContext.Session.GetString(SessionData.USER_EMAIL_SESS);
             if (emailSess == null)
             {
                 return RedirectToAction("Index", "Users");
             }
 
-            if(userId == null || userId == 0)
+            if(userId == null)
                 return NotFound();
-            */
-            // test
 
-            HttpContext.Session.SetString(SessionData.USERID_SESS, userIdTest.ToString());
-            HttpContext.Session.SetString(SessionData.USER_EMAIL_SESS, "tungnguyentn1234@gmail.com");
-            //end test
 
             ProfileView profile = new ProfileView();
 
-            User user = await _context.FindByID(userIdTest);
-            UserImage userImage = await _imageContext.GetAvatarByUserId(userIdTest);
+            User user = await _context.FindByID(userId);
+            UserImage userImage = await _imageContext.GetAvatarByUserId(userId);
 
             profile.user = user;
             profile.imageAvatar = userImage;
@@ -206,22 +200,20 @@ namespace Clone_Main_Project_0710.Controllers
         [HttpGet]
         public async Task<IActionResult> ProfileEdit(Guid userId)
         {
-            /*
+
             string emailSess = HttpContext.Session.GetString(SessionData.USER_EMAIL_SESS);
             if (emailSess == null)
             {
                 return RedirectToAction("Index", "Users");
             }
 
-            if(userId == null || userId == 0)
+            if(userId == null)
                 return NotFound();
-            */
-            HttpContext.Session.SetString(SessionData.USERID_SESS, userIdTest.ToString());
-            HttpContext.Session.SetString(SessionData.USER_EMAIL_SESS, "tungnguyentn1234@gmail.com");
+            
             ProfileEditView view = new ProfileEditView();
 
-            User user = await _context.FindByID(userIdTest);
-            UserImage userImage = await _imageContext.GetAvatarByUserId(userIdTest);
+            User user = await _context.FindByID(userId);
+            UserImage userImage = await _imageContext.GetAvatarByUserId(userId);
 
             view.user = user;
             view.userImage = userImage;

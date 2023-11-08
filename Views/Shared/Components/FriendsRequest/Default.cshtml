@@ -1,7 +1,7 @@
 @model IEnumerable<FriendRequestView>
 
 <li class="nav-item dropdown">
-    <a href="#" class="dropdown-toggle" id="group-drop" data-bs-toggle="dropdown" aria-haspopup="true"
+    <a href="#" class="dropdown-toggle dropdown-request-friends" id="group-drop" data-bs-toggle="dropdown" aria-haspopup="true"
         aria-expanded="false">
         <i class="ri-group-line"></i>
     </a>
@@ -26,19 +26,22 @@
                         UserImage avatar = item.UserImage;
 
                         <div class="friend-request">
+
                             <div class="sub-card d-flex justify-content-between">
                                 <div class="d-flex align-items-center">
-                                    <img src="data:image/jpeg;base64,@avatar.ImageData" alt="" class="avatar-40 rounded">
-                                    <div class="ms-3">
-                                        <h6 class="mb-0">@userFriend.SourceUser.UserName</h6>
-                                        <p class="mb-0">
-                                            @userFriend.CreatedAt
-                                        </p>
-                                    </div>
+                                    <a href="/Users/Profile?userId=@userFriend.SourceId" class="d-flex">
+                                        <img src="data:image/jpeg;base64,@avatar.ImageData" alt="" class="avatar-40 rounded">
+                                        <div class="ms-3">
+                                            <h6 class="mb-0 friend-request-user-name">@userFriend.SourceUser.UserName</h6>
+                                            <p class="mb-0">
+                                                @userFriend.CreatedAt
+                                            </p>
+                                        </div>
+                                    </a>
                                 </div>
-                                <div class="d-flex align-items-center">
-                                    <a href="/UserFriends/ConfirmAcceptFriendsRequest?senderId=@userFriend.SourceId&type=accept" class="me-3 btn btn-primary rounded" >Xác nhận</a>
-                                    <a href="/UserFriends/ConfirmAcceptFriendsRequest?senderId=@userFriend.SourceId&type=delete" class="me-3 btn btn-secondary rounded">Xóa</a>
+                                <div class="d-flex align-items-center handler-request-friends">
+                                    <button type="button" class="me-3 btn btn-primary rounded btn-accept-friend" value="@userFriend.SourceId">Xác nhận</button>
+                                    <button type="button" class="me-3 btn btn-secondary rounded btn-delete-friend" value="@userFriend.SourceId">Xóa</button>
                                 </div>
                             </div>
                         </div>
