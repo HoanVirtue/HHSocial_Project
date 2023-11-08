@@ -1,0 +1,54 @@
+@model IEnumerable<FriendRequestView>
+
+<div class="row">
+    <div class="title-page p-0">
+        <h4>Lời mời kết bạn</h4>
+    </div>
+    <div class="all-friends">
+        @* @foreach (FriendRequestView item in Model)
+        {
+        <div class="item-request-friend">
+        <div class="image_sender">
+        <a href="/Users/Profile?userId=@item.UserFriend.SourceId">
+        <img src="data:image/jpeg;base64,@item.UserImage.ImageData" alt="">
+        </a>
+        </div>
+        <div class="username_sender">
+        <a href="/Users/Profile?userId=@item.UserFriend.SourceId">
+        <h5 class="item-request-username">
+        @item.UserFriend.SourceUser.UserName
+        </h5>
+        </a>
+        </div>
+        <div class="mutual_friends"></div>
+        <div class="handle_request">
+        <button class="btn btn-primary w-100">Xác nhận</button>
+        <button class="btn w-100 btn-background-grey">Xóa</button>
+        </div>
+        </div>
+        } *@
+
+        @for (int i = 0; i < 10; i++)
+        {
+            <div class="item-request-friend">
+                <div class="image_sender">
+                    <a href="/Users/Profile?userId=">
+                        <img src="/images/user/user_default.png" alt="">
+                    </a>
+                </div>
+                <div class="username_sender">
+                    <a href="/Users/Profile?userId=">
+                        <h5 class="item-request-username">
+                            Ta duc Hoan
+                        </h5>
+                    </a>
+                </div>
+                <div class="mutual_friends"></div>
+                <div class="handle_request">
+                    <button class="btn btn-primary w-100">Xác nhận</button>
+                    <button class="btn w-100 btn-background-grey">Xóa</button>
+                </div>
+            </div>
+        }
+    </div>
+</div>

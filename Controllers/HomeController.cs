@@ -17,11 +17,11 @@ public class HomeController : Controller
     // Home
     public IActionResult Index()
     {
-        string emailSess = HttpContext.Session.GetString(SessionData.USER_EMAIL_SESS);
-        if (emailSess == null)
-        {
-            return RedirectToAction("Index", "Users");
-        }
+        // string emailSess = HttpContext.Session.GetString(SessionData.USER_EMAIL_SESS);
+        // if (emailSess == null)
+        // {
+        //     return RedirectToAction("Index", "Users");
+        // }
         return View();
     }
 

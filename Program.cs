@@ -25,6 +25,7 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -44,6 +45,7 @@ app.UseAuthorization();
 
 app.UseSession();
 
+
 // app.MapControllerRoute(
 //     name: "default",
 //     pattern: "{controller=Home}/{action=Index}/{id?}");
@@ -54,7 +56,7 @@ app.UseSession();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Users}/{action=ProfileEdit}/{userId?}");
+    pattern: "{controller=UserFriends}/{action=Index}/{userId?}");
 
 
 app.Run();
