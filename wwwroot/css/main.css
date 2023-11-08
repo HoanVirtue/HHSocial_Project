@@ -401,3 +401,21 @@ input.form-control {
     margin: 20px 0;
     padding: 0;
 }
+
+.friend-request a{
+    color: black !important;
+}
+
+.friend-request:hover {
+    background-color: #e7e7e7;
+    cursor: pointer;
+}
+
+.friend-request .friend-request-user-name {
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.dropdown-request-friends:checked .dropdown-menu {
+    display: block !important;
+}

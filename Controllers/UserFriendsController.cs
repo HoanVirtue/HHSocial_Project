@@ -19,7 +19,7 @@ namespace Clone_Main_Project_0710.Controllers
         {
             _context = new UserFriendsRepository(context);
         }
-        
+
         public async Task<IActionResult> Index()
         {
             HttpContext.Session.SetString(SessionData.USERID_SESS, userIdTest.ToString());
@@ -31,20 +31,36 @@ namespace Clone_Main_Project_0710.Controllers
             return View(listFriend);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> ConfirmAcceptFriendsRequest(Guid senderId, string type)
-        {
-            Guid userId = Guid.Parse(HttpContext.Session.GetString(SessionData.USERID_SESS));
-            if (type.Equals(TYPE_ACCEPT_CONFIRM)) {
-                _context.ConfirmRequestFriend(senderId, userId, TYPE_ACCEPT_CONFIRM);
-            }
-            else if(type.Equals(TYPE_DELETE_CONFIRM)){
-            // xu ly xoa
-                _context.ConfirmRequestFriend(senderId, userId, TYPE_DELETE_CONFIRM);
-            }
-            return View();
+        [HttpPost]
 
-            // load lại trang
+        public async Task<JsonResult> ReplyRequestFriend(IFormCollection formData)
+        {
+            bool isSuccess = true;
+            if (formData != null)
+            {
+                Guid userId = Guid.Parse(HttpContext.Session.GetString(SessionData.USERID_SESS));
+                string type = formData["type"].ToString();
+                Guid senderId = Guid.Parse(formData["sourceId"].ToString());
+                try
+                {
+                    if (type.Equals(TYPE_ACCEPT_CONFIRM))
+                    {
+                        await _context.ConfirmRequestFriend(senderId, userId, TYPE_ACCEPT_CONFIRM).ConfigureAwait(false);
+                    }
+                    else if (type.Equals(TYPE_DELETE_CONFIRM))
+                    {
+                        await _context.ConfirmRequestFriend(senderId, userId, TYPE_DELETE_CONFIRM);
+                    }
+                }
+                catch (Exception e)
+                {
+                    isSuccess = false;
+                }
+            }
+
+            return Json(new {
+                successRequest = isSuccess
+            });
         }
 
     }
