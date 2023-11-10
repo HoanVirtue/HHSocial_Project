@@ -31,11 +31,11 @@
                         <div class="handler-friend col-md-3 d-flex">
                             @if(item.TypePerson == PersonTypeConstant.TYPE_NON_FRIEND)
                             {
-                                <button class="btn btn-add-friend">Thêm bạn bè</button>
+                                <button class="btn btn-add-friend" type="button">Thêm bạn bè</button>
                             }
                             else if(item.TypePerson == PersonTypeConstant.TYPE_REPLY_FRIEND)
                             {
-                                <button class="btn btn-reply-friend">Xác nhận lời mời</button>
+                                <button class="btn btn-reply-friend" type="button">Xác nhận lời mời</button>
                             }
                             else
                             {
