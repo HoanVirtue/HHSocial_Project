@@ -99,7 +99,7 @@ namespace Clone_Main_Project_0710.Repository
 
         public async Task<List<User>> GetUsers_Friends_Avatar_ByKeySearch(string keySearch)
         {
-            List<User> listUser = await _context.Users.Include(u => u.TargetUserFriends)
+            List<User> listUser = await _context.Users.Include(u => u.SourceUserFriends)
                                                         .Include(i => i.UserImages)
                                                         .Where(m => m.UserName.Contains(keySearch))
                                                         .ToListAsync();

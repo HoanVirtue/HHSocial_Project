@@ -452,12 +452,18 @@ input.form-control {
     align-items: center;
 }
 
-.btn-add-friend {
+.btn-add-friend, .btn-add {
     background-color: #EBF5FF;
     color: rgb(0 72 255);
     font-weight: 600;
 }
 
-.btn-add-friend:focus {
+.btn-add-friend:focus, .btn-add:focus, .btn-reply-friend:focus {
     box-shadow: unset !important;
+}
+
+.btn-reply-friend {
+    background-color: #E4E6EB;
+    color: #000;
+    font-weight: 500;
 }

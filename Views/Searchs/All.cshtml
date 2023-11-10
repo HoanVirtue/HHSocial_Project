@@ -29,7 +29,18 @@
                             </div>
                         </div>
                         <div class="handler-friend col-md-3 d-flex">
-                            <button class="btn btn-add-friend">Thêm bạn bè</button>
+                            @if(item.TypePerson == PersonTypeConstant.TYPE_NON_FRIEND)
+                            {
+                                <button class="btn btn-add-friend">Thêm bạn bè</button>
+                            }
+                            else if(item.TypePerson == PersonTypeConstant.TYPE_REPLY_FRIEND)
+                            {
+                                <button class="btn btn-reply-friend">Xác nhận lời mời</button>
+                            }
+                            else
+                            {
+                                <a href="/Users/Profile?userId=@item.User.UserId" class="btn btn-add">Xem trang cá nhân</a>
+                            }
                         </div>
                     </div>
                 }

@@ -20,13 +20,14 @@ namespace Clone_Main_Project_0710.Controllers
             HttpContext.Session.SetString(SessionData.USERID_SESS, userIdTest.ToString());
             HttpContext.Session.SetString(SessionData.USER_EMAIL_SESS, "hoan@gmail.com");
 
+            Guid userId = Guid.Parse(HttpContext.Session.GetString(SessionData.USERID_SESS));
             string emailSess = HttpContext.Session.GetString(SessionData.USER_EMAIL_SESS);
             if (emailSess == null)
             {
                 return RedirectToAction("Index", "Users");
             }
 
-            List<ProfileView> people = await _searchContext.GetPeopleByKeySearch(key);
+            List<TypePersonView> people = await _searchContext.GetPeopleByKeySearch(userId, key);
             SearchView view = new SearchView()
             {
                 People = people
