@@ -22,9 +22,6 @@ namespace Clone_Main_Project_0710.Controllers
 
         public async Task<IActionResult> Index()
         {
-            HttpContext.Session.SetString(SessionData.USERID_SESS, userIdTest.ToString());
-            HttpContext.Session.SetString(SessionData.USER_EMAIL_SESS, "tungnguyentn1234@gmail.com");
-
             Guid userId = Guid.Parse(HttpContext.Session.GetString(SessionData.USERID_SESS));
             List<FriendRequestView> listFriend = await _context.GetListFriend(userId);
 

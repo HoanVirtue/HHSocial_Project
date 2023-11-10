@@ -13,7 +13,6 @@ namespace Clone_Main_Project_0710.Controllers
     {
         private UsersRepository _context;
         private UserImagesRepository _imageContext;
-        public static Guid userIdTest = new Guid("b2b36a90-0354-4f35-bf8a-d35ae7a42011");
 
         public UsersController(SocialContext context)
         {
@@ -127,8 +126,8 @@ namespace Clone_Main_Project_0710.Controllers
             User user = await _context.FindByID(userId);
             UserImage userImage = await _imageContext.GetAvatarByUserId(userId);
 
-            profile.user = user;
-            profile.imageAvatar = userImage;
+            profile.User = user;
+            profile.ImageAvatar = userImage;
             return View(profile);
         }
 
@@ -153,7 +152,7 @@ namespace Clone_Main_Project_0710.Controllers
             }
             else
             {
-                if (!_context.isExistAccount(email, password))
+                if (!_context.IsExistAccount(email, password))
                 {
                     errors.Add("Tài khoản hoặc mật khẩu không đúng");
                     success = false;
@@ -162,7 +161,7 @@ namespace Clone_Main_Project_0710.Controllers
 
             if (success)
             {
-                Guid userId = await _context.getIdByEmail(email, password);
+                Guid userId = await _context.GetIdByEmail(email, password);
                 HttpContext.Session.SetString(SessionData.USERID_SESS, userId.ToString());
                 HttpContext.Session.SetString(SessionData.USER_EMAIL_SESS, email);
             }
@@ -215,8 +214,8 @@ namespace Clone_Main_Project_0710.Controllers
             User user = await _context.FindByID(userId);
             UserImage userImage = await _imageContext.GetAvatarByUserId(userId);
 
-            view.user = user;
-            view.userImage = userImage;
+            view.User = user;
+            view.UserImage = userImage;
 
             return View(view);
         }

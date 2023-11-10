@@ -9,7 +9,7 @@ namespace Clone_Main_Project_0710.Models
         public class SocialContext : IdentityDbContext
         {
 
-        public SocialContext(DbContextOptions<SocialContext> options) : base(options) { }
+                public SocialContext(DbContextOptions<SocialContext> options) : base(options) { }
                 public DbSet<User> Users { get; set; }
                 public DbSet<ViewerComment> ViewerComments { get; set; }
                 public DbSet<CommentDetail> CommentDetails { get; set; }

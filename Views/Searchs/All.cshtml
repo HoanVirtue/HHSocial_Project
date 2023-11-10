@@ -1,0 +1,39 @@
+@model SearchView
+<div class="page-search">
+    <div class="request-search card">
+        <div class="card-header">
+            <h4>Mọi người</h4>
+        </div>
+        <div class="card-body">
+            <div class="request-search-content">
+                @foreach(var item in Model.People)
+                {
+                    <div class="item-person d-flex">
+                        <div class="info-user d-flex col-md-9">
+                            <div class="img-user d-flex">
+                                <img src="data:image/jpeg;base64,@item.ImageAvatar.ImageData" alt="" style="width: 60px"
+                                    class="img-round-circle">
+                            </div>
+                            <div class="info-general-user">
+                                <div class="ms-3">
+                                    <h5 class="mb-0 friend-request-user-name">
+                                        @item.User.UserName
+                                    </h5>
+                                    <p class="mb-0 is-friend">
+                                        <span>Bạn bè · Sống tại Bắc Ninh</span>
+                                    </p>
+                                    <p class="mb-0 friends-general">
+                                        20 bạn chung
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="handler-friend col-md-3 d-flex">
+                            <button class="btn btn-add-friend">Thêm bạn bè</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

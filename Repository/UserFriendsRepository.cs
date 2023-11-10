@@ -45,7 +45,6 @@ namespace Clone_Main_Project_0710.Repository
 
         public async Task<List<UserFriend>> GetAll(Guid targetId)
         {
-            
             List<UserFriend> listUserFriend = await _context.UserFriends.Where(m => m.TargetId.Equals(targetId) && m.IsFriend == false && m.IsDelete == false).ToListAsync();
             foreach(UserFriend u in listUserFriend) {
                 u.SourceUser = await _userContext.FindByID(u.SourceId);

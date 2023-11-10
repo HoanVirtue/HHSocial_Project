@@ -19,7 +19,7 @@ namespace Clone_Main_Project_0710.Components
             SidebarView sidebar = new SidebarView();
             User user = await _context.FindByID(userId);
             
-            sidebar.user = user;
+            sidebar.User = user;
             return View(sidebar);
         }
     }

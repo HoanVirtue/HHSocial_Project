@@ -20,7 +20,7 @@ namespace Clone_Main_Project_0710.Components
 
             User user = await _context.FindByID(userId);
             
-            aboutView.user = user;
+            aboutView.User = user;
             return View(aboutView);
         }
     }

@@ -56,7 +56,7 @@ app.UseSession();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=UserFriends}/{action=Index}/{userId?}");
+    pattern: "{controller=Searchs}/{action=All}/{userId?}");
 
 
 app.Run();

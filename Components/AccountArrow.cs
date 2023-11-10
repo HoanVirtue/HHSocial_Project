@@ -23,8 +23,8 @@ namespace Clone_Main_Project_0710.Components
             User user = await _context.FindByID(userId);
             UserImage image = await _imageContext.GetAvatarByUserId(user.UserId);
 
-            view.user = user;
-            view.userImage = image;
+            view.User = user;
+            view.UserImage = image;
             return View(view);
         }
     }
