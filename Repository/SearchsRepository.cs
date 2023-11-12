@@ -9,10 +9,12 @@ namespace Clone_Main_Project_0710.Repository
     {
         private UsersRepository _userContext;
         private UserImagesRepository _imageContext;
+        private UserFriendsRepository _userFriendContext;
         public SearchsRepository(SocialContext context)
         {
             _userContext = new UsersRepository(context);
             _imageContext = new UserImagesRepository(context);
+            _userFriendContext = new UserFriendsRepository(context);
         }
         public async Task<List<TypePersonView>> GetPeopleByKeySearch(Guid userId, string keySearch)
         {
@@ -21,15 +23,24 @@ namespace Clone_Main_Project_0710.Repository
             foreach(User u in listUser)
             {
                 // Check có phải là bạn bè hay không
-                int type = PersonTypeConstant.TYPE_NON_FRIEND;
+                int type = -1;
                 UserFriend userFriend = u.SourceUserFriends.Where(m => m.TargetId == userId).FirstOrDefault();
                 if(userFriend != null)
                 {
                     if(!userFriend.IsFriend)
-                        type = PersonTypeConstant.TYPE_REQUEST_FRIEND;
+                        type = PersonTypeConstant.TYPE_REPLY_FRIEND;
                     else
                         type = PersonTypeConstant.TYPE_FRIEND;
                 }
+                else
+                {
+                    userFriend = await _userFriendContext.GetDataByUser(userId, u.UserId);
+                    if(userFriend == null || userFriend.IsDelete == true)
+                        type = PersonTypeConstant.TYPE_NON_FRIEND;
+                    else
+                        type = PersonTypeConstant.TYPE_REQUEST_FRIEND;
+                }
+                
                 TypePersonView person = new TypePersonView()
                 {
                     User = u,

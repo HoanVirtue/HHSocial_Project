@@ -452,13 +452,13 @@ input.form-control {
     align-items: center;
 }
 
-.btn-add-friend, .btn-add {
+.btn-add-friend, .btn-add, .btn-remove-intivate {
     background-color: #EBF5FF;
     color: rgb(0 72 255);
     font-weight: 600;
 }
 
-.btn-add-friend:focus, .btn-add:focus, .btn-reply-friend:focus {
+.btn-add-friend:focus, .btn-add:focus, .btn-reply-friend:focus, .btn-remove-intivate:focus {
     box-shadow: unset !important;
 }
 
@@ -466,4 +466,9 @@ input.form-control {
     background-color: #E4E6EB;
     color: #000;
     font-weight: 500;
+}
+
+.request-search-content {
+    flex-direction: column;
+    row-gap: 10px;
 }
