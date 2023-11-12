@@ -34,7 +34,7 @@
                                         <div class="ms-3">
                                             <h6 class="mb-0 friend-request-user-name">@userFriend.SourceUser.UserName</h6>
                                             <p class="mb-0">
-                                                @userFriend.CreatedAt
+                                                @DateTimeMethod.CalTimeCurrentDifferent(@userFriend.UpdatedAt)
                                             </p>
                                         </div>
                                     </a>
