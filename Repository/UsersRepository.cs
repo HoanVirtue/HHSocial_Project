@@ -65,7 +65,7 @@ namespace Clone_Main_Project_0710.Repository
             }
         }
 
-        public bool isExistAccount(string? email, string? password)
+        public bool IsExistAccount(string? email, string? password)
         {
             var account = _context.Users.
             Where(u => u.Email.Equals(email) && u.Password.Equals(password)).FirstOrDefault();
@@ -73,14 +73,14 @@ namespace Clone_Main_Project_0710.Repository
             return account != null;
         }
 
-        public async Task<User> getUserByAccount(string email, string password)
+        public async Task<User> GetUserByAccount(string email, string password)
         {
             User? user = await _context.Users.SingleOrDefaultAsync(p => p.Email.Equals(email) && p.Password.Equals(password));
 
             return user;
         }
 
-        public async Task<Guid> getIdByEmail(string email, string password)
+        public async Task<Guid> GetIdByEmail(string email, string password)
         {
             Guid userId = (await _context.Users.SingleOrDefaultAsync(p => p.Email.Equals(email) && p.Password.Equals(password))).UserId;
 
@@ -95,6 +95,16 @@ namespace Clone_Main_Project_0710.Repository
                 user.Password = model.NewPassword;
                 await _context.SaveChangesAsync();
             }
+        }
+
+        public async Task<List<User>> GetUsers_Friends_Avatar_ByKeySearch(string keySearch)
+        {
+            List<User> listUser = await _context.Users.Include(u => u.SourceUserFriends)
+                                                        .Include(i => i.UserImages)
+                                                        .Where(m => m.UserName.Contains(keySearch))
+                                                        .ToListAsync();
+            
+            return listUser;
         }
     }
 }

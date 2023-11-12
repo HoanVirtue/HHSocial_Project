@@ -5,7 +5,17 @@ namespace Clone_Main_Project_0710.Models
 {
     public class User
     {
-        //tungcommand
+        public User()
+        {
+            SourceUserFriends = new HashSet<UserFriend>();
+            TargetUserFriends = new HashSet<UserFriend>();
+            SourceUserFollowers = new HashSet<UserFollower>();
+            TargetUserFollowers = new HashSet<UserFollower>();
+            UserImages = new HashSet<UserImage>();
+            UserPosts = new HashSet<UserPost>();
+            ViewerLikes = new HashSet<ViewerLike>();
+            ViewerComments = new HashSet<ViewerComment>();
+        }
         [Key]
         public Guid UserId { get; set; }
         [Required]
@@ -31,7 +41,6 @@ namespace Clone_Main_Project_0710.Models
         [StringLength(30000)]
         public string? Profile { get; set; }
         public bool? role { get; set; } = false;
-
         public virtual ICollection<UserFriend>? SourceUserFriends { get; set; }
         public virtual ICollection<UserFriend>? TargetUserFriends { get; set; }
         public virtual ICollection<UserFollower>? SourceUserFollowers { get; set; }

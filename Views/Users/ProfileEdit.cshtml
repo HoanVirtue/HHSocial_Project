@@ -1,9 +1,9 @@
 @model ProfileEditView
 
 @{
-    User user = Model.user;
+    User user = Model.User;
     string birthdayUser = user.Birthday.Value.ToString("yyyy-MM-dd");
-    UserImage userImage = Model.userImage;
+    UserImage userImage = Model.UserImage;
 }
 
 <div class="col-lg-12">

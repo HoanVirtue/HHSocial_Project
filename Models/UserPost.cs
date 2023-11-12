@@ -5,6 +5,12 @@ namespace Clone_Main_Project_0710.Models
 {
     public class UserPost
     {
+        public UserPost()
+        {
+            UserImages = new HashSet<UserImage>();
+            ViewerLikes = new HashSet<ViewerLike>();
+            ViewerComments = new HashSet<ViewerComment>();
+        }
         [Key]
         public Guid UserPostId { get; set; }
         [ForeignKey("User")]

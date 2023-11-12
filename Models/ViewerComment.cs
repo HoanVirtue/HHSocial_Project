@@ -5,6 +5,10 @@ namespace Clone_Main_Project_0710.Models
 {
     public class ViewerComment
     {
+        public ViewerComment()
+        {
+            CommentDetails = new HashSet<CommentDetail>();
+        }
         [Key]
         public Guid ViewerCommentId { get; set; }
         [ForeignKey("User")]
