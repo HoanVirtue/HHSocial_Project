@@ -72,11 +72,7 @@ $(document).ready(function () {
                 },
             })
     });
-
-
 });
-
-
 
 // js login
 const loginBtn = document.getElementById("login")

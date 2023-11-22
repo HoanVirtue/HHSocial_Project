@@ -50,13 +50,13 @@ app.UseSession();
 //     name: "default",
 //     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-// app.MapControllerRoute(
-//     name: "default",
-//     pattern: "{controller=Users}/{action=Index}/{id?}");
-
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Searchs}/{action=All}/{userId?}");
+    pattern: "{controller=Users}/{action=Profile}/{id?}");
+
+// app.MapControllerRoute(
+//     name: "default",
+//     pattern: "{controller=Searchs}/{action=All}/{userId?}");
 
 
 app.Run();

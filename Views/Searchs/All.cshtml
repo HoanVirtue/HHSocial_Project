@@ -41,7 +41,7 @@
                             {
                                 <button class="btn btn-reply-friend btn-accept-friend" type="button" value="@item.User.UserId">Xác nhận lời mời</button>
                             }
-                            else if(item.TypePerson == PersonTypeConstant.TYPE_FRIEND)
+                            else if(item.TypePerson == PersonTypeConstant.TYPE_FRIEND || item.TypePerson == PersonTypeConstant.TYPE_IS_YOURSELFT)
                             {
                                 <a href="/Users/Profile?userId=@item.User.UserId" class="btn btn-add">Xem trang cá nhân</a>
                             }

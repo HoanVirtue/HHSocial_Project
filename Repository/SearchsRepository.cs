@@ -40,6 +40,9 @@ namespace Clone_Main_Project_0710.Repository
                     else
                         type = PersonTypeConstant.TYPE_REQUEST_FRIEND;
                 }
+
+                if(u.UserId.Equals(userId))
+                    type = PersonTypeConstant.TYPE_IS_YOURSELFT;
                 
                 TypePersonView person = new TypePersonView()
                 {

@@ -15,11 +15,8 @@ namespace Clone_Main_Project_0710.Controllers
         }
         private Guid userIdTest = new Guid("b2b36a90-0354-4f35-bf8a-d35ae7a42011");
         [HttpGet]
-        public async Task<IActionResult> All(string key = "Thảo")
+        public async Task<IActionResult> All(string key)
         {
-            HttpContext.Session.SetString(SessionData.USERID_SESS, userIdTest.ToString());
-            HttpContext.Session.SetString(SessionData.USER_EMAIL_SESS, "hoan@gmail.com");
-
             Guid userId = Guid.Parse(HttpContext.Session.GetString(SessionData.USERID_SESS));
             string emailSess = HttpContext.Session.GetString(SessionData.USER_EMAIL_SESS);
             if (emailSess == null)

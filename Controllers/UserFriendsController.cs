@@ -32,7 +32,6 @@ namespace Clone_Main_Project_0710.Controllers
 
         public async Task<JsonResult> ReplyRequestFriend(IFormCollection formData)
         {
-            HttpContext.Session.SetString(SessionData.USERID_SESS, userIdTest.ToString());
             bool isSuccess = true;
             if (formData != null)
             {

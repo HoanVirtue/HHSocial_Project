@@ -13,6 +13,13 @@ namespace Clone_Main_Project_0710.Controllers
     {
         private UsersRepository _context;
         private UserImagesRepository _imageContext;
+        private Guid userIdTest = new Guid("b2b36a90-0354-4f35-bf8a-d35ae7a42011");
+        private string emailTest = "hoan@gmail.com";
+        private void SetSession()
+        {
+            HttpContext.Session.SetString(DataSession.SessionData.USERID_SESS, userIdTest.ToString());
+            HttpContext.Session.SetString(DataSession.SessionData.USER_EMAIL_SESS, emailTest);
+        }
 
         public UsersController(SocialContext context)
         {
@@ -111,20 +118,21 @@ namespace Clone_Main_Project_0710.Controllers
         [HttpGet]
         public async Task<IActionResult> ProfileAsync(Guid userId)
         {
-            string emailSess = HttpContext.Session.GetString(SessionData.USER_EMAIL_SESS);
-            if (emailSess == null)
-            {
-                return RedirectToAction("Index", "Users");
-            }
+            // string emailSess = HttpContext.Session.GetString(SessionData.USER_EMAIL_SESS);
+            // if (emailSess == null)
+            // {
+            //     return RedirectToAction("Index", "Users");
+            // }
 
-            if(userId == null)
-                return NotFound();
+            // if(userId == null)
+            //     return NotFound();
 
+            SetSession();
 
             ProfileView profile = new ProfileView();
 
-            User user = await _context.FindByID(userId);
-            UserImage userImage = await _imageContext.GetAvatarByUserId(userId);
+            User user = await _context.FindByID(userIdTest);
+            UserImage userImage = await _imageContext.GetAvatarByUserId(userIdTest);
 
             profile.User = user;
             profile.ImageAvatar = userImage;
@@ -199,14 +207,13 @@ namespace Clone_Main_Project_0710.Controllers
         [HttpGet]
         public async Task<IActionResult> ProfileEdit(Guid userId)
         {
-
             string emailSess = HttpContext.Session.GetString(SessionData.USER_EMAIL_SESS);
             if (emailSess == null)
             {
                 return RedirectToAction("Index", "Users");
             }
 
-            if(userId == null)
+            if(userId.Equals(""))
                 return NotFound();
             
             ProfileEditView view = new ProfileEditView();
@@ -301,7 +308,7 @@ namespace Clone_Main_Project_0710.Controllers
                 if (!model.ConfirmPassword.Equals(model.NewPassword))
                 {
                     isSuccess = false;
-                    errors.Add("The current password is incorrect");
+                    errors.Add("Nhập lại mật khẩu không khớp");
                 }
                 else
                 {

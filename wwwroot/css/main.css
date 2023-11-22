@@ -472,3 +472,19 @@ input.form-control {
     flex-direction: column;
     row-gap: 10px;
 }
+
+.modal-fullscreen-sm-down {
+    margin: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) !important;
+    max-width: 600px;
+}
+
+.upload-media:hover {
+    cursor: pointer;
+}
+
+.scroll-view {
+    overflow-y: scroll;
+}
