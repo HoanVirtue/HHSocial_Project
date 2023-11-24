@@ -6,6 +6,7 @@ using Clone_Main_Project_0710.Models.ViewModels;
 using Clone_Main_Project_0710.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Clone_Main_Project_0710.GendericMethod;
 
 namespace Clone_Main_Project_0710.Controllers
 {
@@ -13,7 +14,8 @@ namespace Clone_Main_Project_0710.Controllers
     {
         private UsersRepository _context;
         private UserImagesRepository _imageContext;
-        private Guid userIdTest = new Guid("b2b36a90-0354-4f35-bf8a-d35ae7a42011");
+        private UserPostsRepository _postContext;
+        private Guid userIdTest = new Guid("f98d25ef-75b8-4f1e-8e09-9281d33e8f32");
         private string emailTest = "hoan@gmail.com";
         private void SetSession()
         {
@@ -25,6 +27,7 @@ namespace Clone_Main_Project_0710.Controllers
         {
             _context = new UsersRepository(context);
             _imageContext = new UserImagesRepository(context);
+            _postContext = new UserPostsRepository(context);
         }
 
         public IActionResult Index()
@@ -129,13 +132,17 @@ namespace Clone_Main_Project_0710.Controllers
 
             SetSession();
 
-            ProfileView profile = new ProfileView();
-
             User user = await _context.FindByID(userIdTest);
             UserImage userImage = await _imageContext.GetAvatarByUserId(userIdTest);
+            List<PostView> listPost = await _postContext.GetMyPostsView(userIdTest);
 
-            profile.User = user;
-            profile.ImageAvatar = userImage;
+
+            ProfileView profile = new ProfileView()
+            {
+                User = user,
+                ImageAvatar = userImage,
+                UserPosts = listPost
+            };
             return View(profile);
         }
 
@@ -248,7 +255,7 @@ namespace Clone_Main_Project_0710.Controllers
                     {
                         UserId = user.UserId,
                         ImageName = fileImage.FileName,
-                        ImageData = ConvertImageToString(fileImage),
+                        ImageData = ImageMethod.ConvertImageToString(fileImage),
                         IsAvatar = true,
                         UpdatedAt = DateTime.Now
                     };
@@ -260,26 +267,7 @@ namespace Clone_Main_Project_0710.Controllers
             return RedirectToAction("ProfileEdit", new { userId = user.UserId });
         }
 
-        /// <summary>
-        /// Chuyển ảnh thành chuỗi, lưu vào database
-        /// </summary>
-        /// <param name="fileImage">IFormFile</param>
-        /// <returns>string</returns>
-        /// Authors: Tạ Đức Hoàn
-        /// Create: 19/10/2023
-        /// Update: 19/10/2023
-        public string ConvertImageToString(IFormFile fileImage)
-        {
-            byte[] bytes = null;
-            using (Stream fs = fileImage.OpenReadStream())
-            {
-                using (BinaryReader br = new BinaryReader(fs))
-                {
-                    bytes = br.ReadBytes((Int32)fs.Length);
-                }
-            }
-            return Convert.ToBase64String(bytes, 0, bytes.Length);
-        }
+        
 
         /// <summary>
         /// Thay đổi password

@@ -486,5 +486,44 @@ input.form-control {
 }
 
 .scroll-view {
-    overflow-y: scroll;
+    overflow-y: auto;
+}
+
+.cardbody-center {
+    max-height: 260px;
+
+}
+.images-post {
+    display: block;
+    position: relative;
+}
+
+.item-image-post {
+    max-width: 100%;
+}
+
+.view-hidden {
+    display: none;
+}
+
+.btn-close-image {
+    background: white;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+}
+
+.btn-close-image i {
+    color: black;
+    font-size: 18px;
+}
+
+.btn-close-image:hover {
+    background-color: #e7e5e5 !important;
+}
+
+.images-post .btn-close-image {
+    position: absolute;
+    top: 12px;
+    right: 12px;
 }

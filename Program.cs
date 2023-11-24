@@ -15,6 +15,7 @@ options.UseMySQL(connectionString));
 builder.Services.AddScoped<IRepository<User>, UsersRepository>();
 builder.Services.AddScoped<IRepository<UserImage>, UserImagesRepository>();
 builder.Services.AddScoped<IRepository<UserFriend>, UserFriendsRepository>();
+builder.Services.AddScoped<IRepository<UserPost>, UserPostsRepository>();
 
 builder.Services.AddDistributedMemoryCache();
 

@@ -63,5 +63,14 @@ namespace Clone_Main_Project_0710.Repository
         {
             throw new NotImplementedException();
         }
+
+        public async Task<List<UserImage>> GetImagesByPostId(Guid postId)
+        {
+            List<UserImage> userImages = await _context.UserImages.Where(m => m.UserPostId.Equals(postId))
+                                            .OrderByDescending(m => m.UpdatedAt)
+                                            .ToListAsync();
+
+            return userImages;
+        }
     }
 }
