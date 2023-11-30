@@ -19,6 +19,8 @@ namespace Clone_Main_Project_0710.Models
         public string? Content { get; set; }
         public int Likes { get; set; }
         public int Comments { get; set; }
+        public bool HasImage { get; set; }
+        public string Privacy { get; set; } = "public";
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
         public virtual User? User { get; set; }

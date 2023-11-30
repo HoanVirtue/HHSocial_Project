@@ -22,7 +22,8 @@ namespace Clone_Main_Project_0710.Controllers
 
         public async Task<IActionResult> Index()
         {
-            Guid userId = Guid.Parse(HttpContext.Session.GetString(SessionData.USERID_SESS));
+            // Guid userId = Guid.Parse(Request.Cookies[UsersCookiesConstant.CookieUserId]);
+            Guid userId = Guid.Parse(Request.Cookies[UsersCookiesConstant.CookieUserId]);
             List<FriendRequestView> listFriend = await _context.GetListFriend(userId);
 
             return View(listFriend);
@@ -32,11 +33,10 @@ namespace Clone_Main_Project_0710.Controllers
 
         public async Task<JsonResult> ReplyRequestFriend(IFormCollection formData)
         {
-            HttpContext.Session.SetString(SessionData.USERID_SESS, userIdTest.ToString());
             bool isSuccess = true;
             if (formData != null)
             {
-                Guid userId = Guid.Parse(HttpContext.Session.GetString(SessionData.USERID_SESS));
+                Guid userId = Guid.Parse(Request.Cookies[UsersCookiesConstant.CookieUserId]);
                 string type = formData["type"].ToString();
                 Guid senderId = Guid.Parse(formData["sourceId"].ToString());
                 try

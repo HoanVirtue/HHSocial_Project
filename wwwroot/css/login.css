@@ -69,7 +69,7 @@ a {
 
 .container .error-wrapper {
     display: flex;
-    justify-content: end;
+    justify-content: center;
     max-width: 484px;
     /* height: 32px; */
     width: 100%;

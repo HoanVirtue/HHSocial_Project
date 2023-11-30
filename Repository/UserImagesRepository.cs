@@ -41,7 +41,7 @@ namespace Clone_Main_Project_0710.Repository
 
         public async Task UpdateByUserId(UserImage entity)
         {
-            UserImage image = await _context.UserImages.SingleOrDefaultAsync(m => m.UserId == entity.UserId);
+            UserImage image = await _context.UserImages.SingleOrDefaultAsync(m => m.UserId.Equals(entity.UserId) && m.IsAvatar);
             if (image != null)
             {
                 image.ImageName = entity.ImageName;
@@ -62,6 +62,15 @@ namespace Clone_Main_Project_0710.Repository
         public Task Update(UserImage entity)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<List<UserImage>> GetImagesByPostId(Guid postId)
+        {
+            List<UserImage> userImages = await _context.UserImages.Where(m => m.UserPostId.Equals(postId))
+                                            .OrderByDescending(m => m.UpdatedAt)
+                                            .ToListAsync();
+
+            return userImages;
         }
     }
 }

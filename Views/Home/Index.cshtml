@@ -1,32 +1,456 @@
-﻿@{
+﻿@model ProfileView
+@{
     ViewData["Title"] = "Home Page";
-    Layout = null;
+    User user = Model.User;
+    UserImage avatarImage = Model.ImageAvatar;
+    IEnumerable<PostView> myPosts = Model.UserPosts;
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-</div>
+<div class="d-flex justify-content-center">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header">
+                <div class="">
+                    <h4>Tạo bài viết</h4>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="">
+                        <img src="data:image/jpeg;base64,@avatarImage.ImageData" alt=""
+                            class="img-fluid avatar-60 rounded-circle">
+                    </div>
+                    <div action="" class="ms-3 w-100 form-feedpost" data-bs-toggle="modal"
+                        data-bs-target="#feedpost-modal">
+                        <input type="text" class="form-control rounded"
+                            placeholder="Bạn đang nghĩ gì?" style="border: none;">
 
-<div class="container">
-    <div class="row p-1" id="userinfo">
-        <label for="">User</label>
-        <input type="text" id="username" class="form-control"/>
-        <button type="button" class="btn btn-block" id="btnJoin">Join</button>
-    </div>
-    <div class="row p-1" id="messagearea" style="display: none;">
-        @* <div class="col-1">Message</div>
-        <div class="col-5"><input type="text" class="w-100" id="messageInput" /></div> *@
-        <div>Joined as: <b><span id="username1">Not Set</span></b></div>
-        <hr>
-        <div class="row p-1">
-            <div class="col-6">
-                <ul id="messagesList"></ul>
+                    </div>
+                </div>
+                <hr>
+                <ul class="list-inline mb-0 d-flex">
+                    <li class="bg-soft-primary p-2 d-flex align-items-center rounded me-3 pointer">
+                        <img src="/images/small/07.png" alt="" class="me-2 img-fluid"> Ảnh/Video
+                    </li>
+                    <li class="bg-soft-primary p-2 d-flex align-items-center rounded me-3 pointer">
+                        <img src="/images/small/08.png" alt="" class="me-2 img-fluid"> Gắn thẻ
+                    </li>
+                    <li class="bg-soft-primary p-2 d-flex align-items-center rounded me-3 pointer">
+                        <img src="/images/small/09.png" alt="" class="me-2 img-fluid"> Cảm xúc/Hoạt
+                        động
+                    </li>
+                    <li class="bg-soft-primary p-2 rounded me-3 pointer">
+                        <div class="card-header-toolbar d-flex align-items-center">
+                            <div class="dropdown">
+                                <div class="dropdown-toggle" id="post-option"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="ri-more-fill h4"></i>
+                                </div>
+                                <div class="dropdown-menu" aria-labelledby="post-option">
+                                    <a href="" class="dropdown-item">Checkin</a>
+                                    <a href="" class="dropdown-item">Live Video</a>
+                                    <a href="" class="dropdown-item">Gif</a>
+                                    <a href="" class="dropdown-item">Watch Party</a>
+                                    <a href="" class="dropdown-item">Play with Friend</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="modal fade" id="feedpost-modal" tabindex="-1"
+                aria-labelledby="post-modalLabel">
+                <div class="modal-dialog modal-fullscreen-sm-down mt-0">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5>Tạo bài viết</h5>
+                            <button class="btn btn-secondary" data-bs-dismiss="modal"><i
+                                    class="ri-close-fill"></i></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="modalbody-top" style="box-sizing: border-box;">
+                                <div class="d-flex align-items-center cardbody-header">
+                                    <div>
+                                        <img src="data:image/jpeg;base64,@avatarImage.ImageData" alt=""
+                                            class="img-fluid avatar-60 rounded-circle">
+                                    </div>
+                                    <div action="" class="w-100 ms-3">
+                                        @* <input type="text" class="form-control rounded"
+                                        placeholder="Bạn đang nghĩ gì?" style="border: none;"> *@
+                                        <textarea class="form-control Content" name="Content" id=""
+                                            rows="2" cols="30" placeholder="Bạn đang nghĩ gì?"
+                                            style="border: none; resize: none;"></textarea>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="cardbody-center scroll-view">
+                                    <div class="images-post view-hidden">
+                                        <button
+                                            class="btn btn-secondary btn-close-image d-flex align-items-center justify-content-center"><i
+                                                class="ri-close-fill"></i></button>
+                                        <img src="" alt="" class="item-image-post">
+
+                                        <hr style="width: 100%;">
+                                    </div>
+                                    <ul
+                                        class="list-inline d-flex flex-wrap mb-0 align-items-center">
+                                        <li class="col-md-6 mb-3">
+                                            <form enctype="multipart/form-data">
+                                                <div
+                                                    class="bg-soft-primary rounded p-2 me-3 upload-media">
+                                                    <img src="/images/small/07.png" alt="">
+                                                    Ảnh/Video
+                                                </div>
+                                                <input type="file" name="fileMedia"
+                                                    class="input-media" style="display: none;">
+                                            </form>
+                                        </li>
+                                        <li class="col-md-6 mb-3">
+                                            <div class="bg-soft-primary rounded p-2 me-3">
+                                                <img src="/images/small/08.png" alt=""
+                                                    class="img-fluid">
+                                                Gắn thẻ người khác
+                                            </div>
+                                        </li>
+                                        <li class="col-md-6 mb-3">
+                                            <div class="bg-soft-primary rounded p-2 me-3">
+                                                <img src="/images/small/09.png" alt=""> Cảm xúc hoạt
+                                                động
+                                            </div>
+                                        </li>
+                                        <li class="col-md-6 mb-3">
+                                            <div class="bg-soft-primary rounded p-2 me-3">
+                                                <img src="/images/small/10.png" alt=""> Check in
+                                            </div>
+                                        </li>
+                                        <li class="col-md-6 mb-3">
+                                            <div class="bg-soft-primary rounded p-2 me-3">
+                                                <img src="/images/small/11.png" alt=""> Video trực
+                                                tiếp
+                                            </div>
+                                        </li>
+                                        <li class="col-md-6 mb-3">
+                                            <div class="bg-soft-primary rounded p-2 me-3">
+                                                <img src="/images/small/12.png" alt=""> File Gift
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center">
+                                    <div class="me-3">
+                                        <img src="data:image/jpeg;base64,@avatarImage.ImageData" alt=""
+                                            class="img-fluid avatar-60 rounded-circle">
+                                    </div>
+                                    <h6>Bài viết của bạn</h6>
+                                </div>
+                                <div class="card-post-toolbar">
+                                    <div class="dropdown">
+                                        <span class="dropdown-toggle" data-bs-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false"
+                                            role="button">
+                                            <span class="btn btn-primary">Mọi người</span>
+                                        </span>
+                                        <div class="dropdown-menu m-0 p-0">
+                                            <a href="" class="dropdown-item p-3">
+                                                <div class="d-flex align-items-top">
+                                                    <i class="ri-save-line h4"></i>
+                                                    <div class="ms-2">
+                                                        <h6>Mọi người</h6>
+                                                        <p class="mb-0">Bất kì ai ở trên hoặc ngoài
+                                                            HHSocial
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <a href="" class="dropdown-item p-3">
+                                                <div class="d-flex align-items-top">
+                                                    <i class="ri-close-circle-line h4"></i>
+                                                    <div class="ms-2">
+                                                        <h6>Bạn bè</h6>
+                                                        <p class="mb-0">Bạn bè của bạn trên HHSocial
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <a href="" class="dropdown-item p-3">
+                                                <div class="d-flex align-items-top">
+                                                    <i class="ri-user-unfollow-line h4"></i>
+                                                    <div class="ms-2">
+                                                        <h6>Bạn bè ngoại trừ</h6>
+                                                        <p class="mb-0">Không hiển thị với một số
+                                                            bạn bè</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <a href="" class="dropdown-item p-3">
+                                                <div class="d-flex align-items-center">
+                                                    <i class="ri-notification-line h4"></i>
+                                                    <div class="ms-2">
+                                                        <h6>Chỉ mình tôi</h6>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <button type="button"
+                                class="btn btn-primary w-100 mt-3 btn-create-post">Đăng</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <input type="text" id="message" autocomplete="off">
-        <input type="button" id="sendButton" value="Send Message" />
 
+        @* FeedPost *@
+        <div class="feed-posts">
+            @if (myPosts.Count() > 0)
+            {
+                @foreach (PostView post in myPosts)
+                {
+                    string avatar = post.ImageAvatar.ImageData;
+                    string timeDiff = DateTimeMethod.CalTimeCurrentDifferent(post.UserPost.UpdatedAt);
+
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="post-item">
+                                <div class="user-post-data pb-3">
+                                    <div class="d-flex align-items-center">
+                                        <div class="me-3">
+                                            <img src="data:image/jpeg;base64,@avatar" alt=""
+                                                class="img-fluid rounded-circle avatar-60">
+                                        </div>
+                                        <div
+                                            class="d-flex align-items-center justify-content-between w-100">
+                                            <div class="">
+                                                <h5 class="d-inline-block mb-0">
+                                                    <a href="">@post.UserPost.User.UserName</a>
+                                                </h5>
+                                                <p class="d-inline-block mb-0 ms-1">Bài viết mới</p>
+                                                <p class="mb-0">@timeDiff</p>
+                                            </div>
+                                            @if(post.UserPost.UserId.Equals(user.UserId))
+                                            {
+                                                <div class="card-post-dropdown">
+                                                    <div class="dropdown">
+                                                        <span class="dropdown-toggle" data-bs-toggle="dropdown"
+                                                            aria-haspopup="true" aria-expanded="false"
+                                                            role="button">
+                                                            <i class="ri-more-fill"></i>
+                                                        </span>
+                                                        <div class="dropdown-menu">
+                                                            <a href="" class="dropdown-item p-2">
+                                                                <div class="d-flex">
+                                                                    <i class="ri-save-line h4"></i>
+                                                                    <div class="ms-2">
+                                                                        <h6>Lưu bài viết</h6>
+                                                                        <p class="mb-0">Thêm vào danh sách mục đã lưu
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </a>
+                                                            <a href="" class="dropdown-item p-2">
+                                                                <div class="d-flex">
+                                                                    <i class="ri-pencil-line h4"></i>
+                                                                    <div class="data ms-2">
+                                                                        <h6>Chỉnh sửa bài viết</h6>
+                                                                        <p class="mb-0">Cập nhật bài đăng của bạn và các mục đã lưu
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </a>
+                                                            <a href="" class="dropdown-item p-2">
+                                                                <div class="d-flex">
+                                                                    <i class="ri-delete-bin-7-line h4"></i>
+                                                                    <div class="data ms-2">
+                                                                        <h6>Chuyển vào thùng rác</h6>
+                                                                        <p class="mb-0">Bài viết sẽ bị xóa đi và không thể khôi phục
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </a>
+                                                            <a class="dropdown-item p-2" href="#">
+                                                                <div class="d-flex align-items-top">
+                                                                    <i class="ri-notification-line h4"></i>
+                                                                    <div class="data ms-2">
+                                                                        <h6>Tắt thông báo</h6>
+                                                                        <p class="mb-0">Bạn sẽ không nhận bất kì thông báo nào từ bài viết này</p>
+                                                                    </div>
+                                                                </div>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="content-post mb-2 @(string.IsNullOrEmpty(post.UserPost.Content) ? "view-hidden" : "")">
+                                    @post.UserPost.Content
+                                </div>
+                                @if(post.UserPost.HasImage)
+                                {
+                                    <div class="user-post">
+                                        <a href="">
+                                            <img src="data:image/jpeg;base64,@post.UserImage.ImageData" alt="" class="img-fluid w-100">
+                                        </a>
+                                    </div>
+                                }
+                                <div class="comment-post mt-3">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <div class="d-flex align-items-center">
+                                            <div class="d-flex align-items-center">
+                                                <div class="like-post">
+                                                    <div class="dropdown">
+                                                        <button type="button" class="btn-like-post btn" value="@post.UserPost.UserPostId">
+                                                            <span class="dropdown-toggle"
+                                                                data-bs-toggle="dropdown" aria-haspopup="true"
+                                                                aria-expanded="false" role="button">
+                                                                <img src="@(post.Like == true ? "/images/icon/liked_blue.png" : "/images/icon/like_empty.png")" alt=""
+                                                                    class="img-fluid ic-24 ic-like-post">
+                                                            </span>
+                                                        </button>
+                                                        <div class="dropdown-menu py-2">
+                                                            <a class="ms-2 me-2" href="#"
+                                                                data-bs-toggle="tooltip"
+                                                                data-bs-placement="top" title="Like">
+                                                                <img src="/images/icon/01.png"
+                                                                    class="img-fluid" alt="">
+                                                            </a>
+                                                            <a class="me-2" href="#"
+                                                                data-bs-toggle="tooltip"
+                                                                data-bs-placement="top" title="Love"><img
+                                                                    src="/images/icon/02.png"
+                                                                    class="img-fluid" alt=""></a>
+                                                            <a class="me-2" href="#"
+                                                                data-bs-toggle="tooltip"
+                                                                data-bs-placement="top" title="Happy"><img
+                                                                    src="/images/icon/03.png"
+                                                                    class="img-fluid" alt=""></a>
+                                                            <a class="me-2" href="#"
+                                                                data-bs-toggle="tooltip"
+                                                                data-bs-placement="top" title="HaHa"><img
+                                                                    src="/images/icon/04.png"
+                                                                    class="img-fluid" alt=""></a>
+                                                            <a class="me-2" href="#"
+                                                                data-bs-toggle="tooltip"
+                                                                data-bs-placement="top" title="Think"><img
+                                                                    src="/images/icon/05.png"
+                                                                    class="img-fluid" alt=""></a>
+                                                            <a class="me-2" href="#"
+                                                                data-bs-toggle="tooltip"
+                                                                data-bs-placement="top" title="Sade"><img
+                                                                    src="/images/icon/06.png"
+                                                                    class="img-fluid" alt=""></a>
+                                                            <a class="me-2" href="#"
+                                                                data-bs-toggle="tooltip"
+                                                                data-bs-placement="top" title="Lovely"><img
+                                                                    src="/images/icon/07.png"
+                                                                    class="img-fluid" alt=""></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="total-like-post ms-2 me-3">
+                                                    <div class="dropdown">
+                                                        <span class="dropdown-toggle count-like-post"
+                                                            data-bs-toggle="dropdown" aria-haspopup="true"
+                                                            aria-expanded="false" role="button">@post.UserPost.Likes
+                                                            Likes</span>
+                                                        <div class="dropdown-menu">
+                                                            <a class="dropdown-item" href="#">Max Emum</a>
+                                                            <a class="dropdown-item" href="#">Bill Yerds</a>
+                                                            <a class="dropdown-item" href="#">Hap E.Birthday</a>
+                                                            <a class="dropdown-item" href="#">Tara Misu</a>
+                                                            <a class="dropdown-item" href="#">Midge Itz</a>
+                                                            <a class="dropdown-item" href="#">Sal Vidge</a>
+                                                            <a class="dropdown-item" href="#">Other</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="total-comment-post">
+                                                <div class="dropdown">
+                                                    <span class="dropdown-toggle count-comment-post" data-bs-toggle="dropdown"
+                                                        aria-haspopup="true" aria-expanded="false"
+                                                        role="button">
+                                                        @post.UserPost.Comments Comments
+                                                    </span>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="#">Max Emum</a>
+                                                        <a class="dropdown-item" href="#">Bill Yerds</a>
+                                                        <a class="dropdown-item" href="#">Hap E.
+                                                            Birthday</a>
+                                                        <a class="dropdown-item" href="#">Tara Misu</a>
+                                                        <a class="dropdown-item" href="#">Midge Itz</a>
+                                                        <a class="dropdown-item" href="#">Sal Vidge</a>
+                                                        <a class="dropdown-item" href="#">Other</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="feather-icon">
+                                            <a href="">
+                                                <i class="ri-share-line"></i>
+                                                <span class="ms-1">99 Share</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <ul class="post-comments p-0 m-0">
+                                        @if(post.Comments.Count() > 0)
+                                        {
+                                            @foreach(CommentatorDetail cmt in post.Comments)
+                                            {
+                                                string timeDiffCmt = DateTimeMethod.CalTimeCurrentDifferent(cmt.UpdatedAt);
+
+                                                <li class="mb-2">
+                                                    <div class="d-flex flex-wrap">
+                                                        <div class="user-image">
+                                                            <img src="data:image/jpeg;base64,@cmt.AvatarImage" alt=""
+                                                                class="img-fluid avatar-35 rounded-circle">
+                                                        </div>
+                                                        <div class="ms-3">
+                                                            <a href="/Users/Profile?userId=@cmt.SenderId">
+                                                                <h6>@cmt.UserName</h6>
+                                                            </a>
+                                                            <p class="mb-0">@cmt.Content</p>
+                                                            <div class="d-flex flex-wrap align-items-center comment-activity">
+                                                                <span class="time-comment-post"> @timeDiffCmt </span>
+                                                                <a href="#">Thích</a>
+                                                                <a href="#">Phản hồi</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            }
+                                        }
+                                        
+                                    </ul>
+                                    <div class="mt-3 d-flex align-items-center comment-text position-relative">
+                                        <input type="text" class="form-control rounded input-comment"
+                                            placeholder="Viết bình luận...">
+                                        <div class="comment-attagement d-flex">
+                                            <button class="btn btn-send-comment" style="padding: 0 10px;" value="@post.UserPost.UserPostId">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send fa-bold" viewBox="0 0 16 16">
+                                                    <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>
+                                                </svg>
+                                            </button>
+                                            <a href="#"><i class="ri-link"></i></a>
+                                            <a href="#"><i class="ri-user-smile-line"></i></a>
+                                            <a href="#"><i class="ri-camera-line"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+
+        </div>
     </div>
 </div>
-<script src="~/js/signalr/dist/browser/signalr.js"></script>
-<script src="~/js/chat.js"></script>

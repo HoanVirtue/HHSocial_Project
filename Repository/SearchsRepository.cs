@@ -24,22 +24,41 @@ namespace Clone_Main_Project_0710.Repository
             {
                 // Check có phải là bạn bè hay không
                 int type = -1;
-                UserFriend userFriend = u.SourceUserFriends.Where(m => m.TargetId == userId).FirstOrDefault();
+                UserFriend userFriend = u.SourceUserFriends.Where(m => m.TargetId.Equals(userId)).FirstOrDefault();
                 if(userFriend != null)
                 {
-                    if(!userFriend.IsFriend)
+                    if(!userFriend.IsFriend && !userFriend.IsDelete)
                         type = PersonTypeConstant.TYPE_REPLY_FRIEND;
-                    else
+                    else if(!userFriend.IsFriend && userFriend.IsDelete)
+                        type = PersonTypeConstant.TYPE_NON_FRIEND;
+                    else if(userFriend.IsFriend && !userFriend.IsDelete)
                         type = PersonTypeConstant.TYPE_FRIEND;
+                    else
+                        type = PersonTypeConstant.TYPE_NON_FRIEND;
                 }
                 else
                 {
-                    userFriend = await _userFriendContext.GetDataByUser(userId, u.UserId);
-                    if(userFriend == null || userFriend.IsDelete == true)
-                        type = PersonTypeConstant.TYPE_NON_FRIEND;
+                    userFriend = u.TargetUserFriends.Where(m => m.SourceId.Equals(userId)).FirstOrDefault();
+                    if(userFriend != null)
+                    {
+                        if(!userFriend.IsFriend && !userFriend.IsDelete)
+                            type = PersonTypeConstant.TYPE_REQUEST_FRIEND;
+                        else if(!userFriend.IsFriend && userFriend.IsDelete)
+                            type = PersonTypeConstant.TYPE_NON_FRIEND;
+                        else if(userFriend.IsFriend && !userFriend.IsDelete)
+                            type = PersonTypeConstant.TYPE_FRIEND;
+                        else
+                            type = PersonTypeConstant.TYPE_NON_FRIEND;
+                    }
                     else
-                        type = PersonTypeConstant.TYPE_REQUEST_FRIEND;
+                    {
+                        type = PersonTypeConstant.TYPE_NON_FRIEND;
+                    }
+                    
                 }
+
+                if(u.UserId.Equals(userId))
+                    type = PersonTypeConstant.TYPE_IS_YOURSELFT;
                 
                 TypePersonView person = new TypePersonView()
                 {

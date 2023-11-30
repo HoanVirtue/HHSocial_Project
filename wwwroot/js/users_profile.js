@@ -72,4 +72,32 @@ $(document).ready(function() {
             }
         });
     }
+
+    $(document).on('click', '.upload-media', function() {
+        var inputFile = $('.input-media');
+        if(!inputFile.val()) {
+            $('.input-media').click();
+        }
+        
+    });
+
+    $('.input-media').on('change', function(e) {
+        const file = e.target.files[0];
+        if(file) {
+            $('.images-post').removeClass('view-hidden');
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                $('.item-image-post').attr('src', event.target.result);
+            }
+            reader.readAsDataURL(file);
+        }
+        
+    });
+
+    $(document).on('click', '.btn-close-image', function() {
+        $('.input-media').val('');
+        $('.item-image-post').attr('src', '');
+        $('.images-post').addClass('view-hidden');
+    });
 });

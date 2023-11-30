@@ -10,5 +10,7 @@ namespace Clone_Main_Project_0710.Constant
         public static int TYPE_REPLY_FRIEND = 2;
         // là bạn bè
         public static int TYPE_FRIEND = 3;
+        // là bản thân
+        public static int TYPE_IS_YOURSELFT = 3;
     }
 }

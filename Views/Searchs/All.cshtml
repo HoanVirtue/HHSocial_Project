@@ -4,51 +4,62 @@
         <div class="card-header">
             <h4>Mọi người</h4>
         </div>
-        <div class="card-body">
-            <div class="request-search-content d-flex">
-                @foreach(var item in Model.People)
+        
+            <div class="card-body">
+                @if(Model.People.Count() > 0)
                 {
-                    <div class="item-person d-flex">
-                        <div class="info-user d-flex col-md-8">
-                            <div class="img-user d-flex">
-                                <img src="data:image/jpeg;base64,@item.ImageAvatar.ImageData" alt="" style="width: 60px"
-                                    class="img-round-circle">
-                            </div>
-                            <div class="info-general-user">
-                                <div class="ms-3">
-                                    <h5 class="mb-0 friend-request-user-name">
-                                        @item.User.UserName
-                                    </h5>
-                                    <p class="mb-0 is-friend">
-                                        <span>Bạn bè · Sống tại Bắc Ninh</span>
-                                    </p>
-                                    <p class="mb-0 friends-general">
-                                        20 bạn chung
-                                    </p>
+                    <div class="request-search-content d-flex">
+                        @foreach(var item in Model.People)
+                        {
+                            <div class="item-person d-flex">
+                                <div class="info-user d-flex col-md-8">
+                                    <div class="img-user d-flex">
+                                        <img src="data:image/jpeg;base64,@item.ImageAvatar.ImageData" alt="" style="width: 60px"
+                                            class="img-round-circle">
+                                    </div>
+                                    <div class="info-general-user">
+                                        <div class="ms-3">
+                                            <a href="/Users/Profile?userId=@item.User.UserId">
+                                                <h5 class="mb-0 friend-request-user-name">
+                                                    @item.User.UserName
+                                                </h5>
+                                            </a>
+                                            <p class="mb-0 is-friend">
+                                                <span>Bạn bè · Sống tại Bắc Ninh</span>
+                                            </p>
+                                            <p class="mb-0 friends-general">
+                                                20 bạn chung
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="handler-friend col-md-4 d-flex">
+                                    @if(item.TypePerson == PersonTypeConstant.TYPE_NON_FRIEND)
+                                    {
+                                        <button class="btn btn-add-friend" type="button" value="@item.User.UserId">Thêm bạn bè</button>
+                                    }
+                                    else if(item.TypePerson == PersonTypeConstant.TYPE_REQUEST_FRIEND)
+                                    {
+                                        <button class="btn btn-remove-intivate" type="button" value="@item.User.UserId">Hủy lời mời</button>
+                                    }
+                                    else if(item.TypePerson == PersonTypeConstant.TYPE_REPLY_FRIEND)
+                                    {
+                                        <button class="btn btn-reply-friend btn-accept-friend" type="button" value="@item.User.UserId">Xác nhận lời mời</button>
+                                    }
+                                    else if(item.TypePerson == PersonTypeConstant.TYPE_FRIEND || item.TypePerson == PersonTypeConstant.TYPE_IS_YOURSELFT)
+                                    {
+                                        <a href="/Users/Profile?userId=@item.User.UserId" class="btn btn-add">Xem trang cá nhân</a>
+                                    }
                                 </div>
                             </div>
-                        </div>
-                        <div class="handler-friend col-md-4 d-flex">
-                            @if(item.TypePerson == PersonTypeConstant.TYPE_NON_FRIEND)
-                            {
-                                <button class="btn btn-add-friend" type="button" value="@item.User.UserId">Thêm bạn bè</button>
-                            }
-                            else if(item.TypePerson == PersonTypeConstant.TYPE_REQUEST_FRIEND)
-                            {
-                                <button class="btn btn-remove-intivate" type="button" value="@item.User.UserId">Hủy lời mời</button>
-                            }
-                            else if(item.TypePerson == PersonTypeConstant.TYPE_REPLY_FRIEND)
-                            {
-                                <button class="btn btn-reply-friend btn-accept-friend" type="button" value="@item.User.UserId">Xác nhận lời mời</button>
-                            }
-                            else if(item.TypePerson == PersonTypeConstant.TYPE_FRIEND)
-                            {
-                                <a href="/Users/Profile?userId=@item.User.UserId" class="btn btn-add">Xem trang cá nhân</a>
-                            }
-                        </div>
+                        }
                     </div>
                 }
+                else
+                {
+                    <h5 class="text-center">Không tìm thấy kết quả liên quan @Model.KeySearch</h5>
+                }
             </div>
-        </div>
+        
     </div>
 </div>

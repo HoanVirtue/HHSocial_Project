@@ -2,37 +2,46 @@
 using Microsoft.AspNetCore.Mvc;
 using Clone_Main_Project_0710.Models;
 using Clone_Main_Project_0710.DataSession;
+using Clone_Main_Project_0710.Constant;
+using Clone_Main_Project_0710.Repository;
+using Clone_Main_Project_0710.DataCookies;
+using Clone_Main_Project_0710.Models.ViewModels;
 
 namespace Clone_Main_Project_0710.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
-
-    public HomeController(ILogger<HomeController> logger)
+    private UsersRepository _userContext;
+    private UserImagesRepository _imageContext;
+    private UserPostsRepository _postContext;
+    public HomeController(SocialContext context)
     {
-        _logger = logger;
+        _userContext = new UsersRepository(context);
+        _imageContext = new UserImagesRepository(context);
+        _postContext = new UserPostsRepository(context);
     }
-
-    // Home
-    public IActionResult Index()
+    public async Task<IActionResult> IndexAsync()
     {
-        // string emailSess = HttpContext.Session.GetString(SessionData.USER_EMAIL_SESS);
-        // if (emailSess == null)
-        // {
-        //     return RedirectToAction("Index", "Users");
-        // }
-        return View();
-    }
+        string emailSess = Request.Cookies[UsersCookiesConstant.CookieEmail];
+        if (emailSess == null)
+        {
+            return RedirectToAction("Index", "Users");
+        }
 
-    public IActionResult Privacy()
-    {
-        return View();
-    }
+        Guid userId = Guid.Parse(Request.Cookies[UsersCookiesConstant.CookieUserId]);
 
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        User user = await _userContext.FindByID(userId);
+        UserImage userImage = await _imageContext.GetAvatarByUserId(userId);
+        List<PostView> listPost = await _postContext.GetAllPosts(userId);
+
+
+        ProfileView view = new ProfileView()
+        {
+            User = user,
+            ImageAvatar = userImage,
+            UserPosts = listPost
+        };
+
+        return View(view);
     }
 }
