@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HHSocialNetwork_Project.Migrations
 {
     [DbContext(typeof(SocialContext))]
-    [Migration("20231023181756_update_database_final")]
-    partial class update_database_final
+    [Migration("20231129040108_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,7 +24,8 @@ namespace HHSocialNetwork_Project.Migrations
 
             modelBuilder.Entity("Clone_Main_Project_0710.Models.CommentDetail", b =>
                 {
-                    b.Property<Guid>("ViewerCommentId")
+                    b.Property<Guid>("CommentDetailId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
                     b.Property<string>("Content")
@@ -44,7 +45,12 @@ namespace HHSocialNetwork_Project.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.HasKey("ViewerCommentId");
+                    b.Property<Guid>("ViewerCommentId")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("CommentDetailId");
+
+                    b.HasIndex("ViewerCommentId");
 
                     b.ToTable("CommentDetails");
                 });
@@ -194,8 +200,15 @@ namespace HHSocialNetwork_Project.Migrations
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<bool>("HasImage")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<int>("Likes")
                         .HasColumnType("int");
+
+                    b.Property<string>("Privacy")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime(6)");
@@ -215,6 +228,9 @@ namespace HHSocialNetwork_Project.Migrations
                     b.Property<Guid>("ViewerCommentId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
+
+                    b.Property<int>("CommentsCount")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime(6)");
@@ -275,6 +291,9 @@ namespace HHSocialNetwork_Project.Migrations
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("IsDelete")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<bool>("IsFriend")
                         .HasColumnType("tinyint(1)");

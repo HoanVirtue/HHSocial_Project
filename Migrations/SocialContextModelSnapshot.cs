@@ -21,7 +21,8 @@ namespace HHSocialNetwork_Project.Migrations
 
             modelBuilder.Entity("Clone_Main_Project_0710.Models.CommentDetail", b =>
                 {
-                    b.Property<Guid>("ViewerCommentId")
+                    b.Property<Guid>("CommentDetailId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
                     b.Property<string>("Content")
@@ -41,7 +42,12 @@ namespace HHSocialNetwork_Project.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.HasKey("ViewerCommentId");
+                    b.Property<Guid>("ViewerCommentId")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("CommentDetailId");
+
+                    b.HasIndex("ViewerCommentId");
 
                     b.ToTable("CommentDetails");
                 });
@@ -219,6 +225,9 @@ namespace HHSocialNetwork_Project.Migrations
                     b.Property<Guid>("ViewerCommentId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
+
+                    b.Property<int>("CommentsCount")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime(6)");

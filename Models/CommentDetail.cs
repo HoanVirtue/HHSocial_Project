@@ -6,6 +6,7 @@ namespace Clone_Main_Project_0710.Models
     public class CommentDetail
     {
         [Key]
+        public Guid CommentDetailId { get; set; }
         [ForeignKey("ViewerComment")]
         public Guid ViewerCommentId { get; set; }
         [StringLength(int.MaxValue)]

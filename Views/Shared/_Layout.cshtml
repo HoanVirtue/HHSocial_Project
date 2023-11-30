@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="/vendor/line-awesome/dist/line-awesome/css/line-awesome.min.css">
 
     <link rel="stylesheet" href="~/css/main.css" />
+    <link rel="stylesheet" href="~/css/reponsive.css" />
     <link rel="stylesheet" href="~/lib/css/lib-cs-hoan.css">
 </head>
 <body>
@@ -55,13 +56,16 @@
                         </div>
                     </div>
                     <div class="navbar-custom-middle h-100-h">
-                        <form action="/Searchs/All" class="h-100-h searchbox-form flex-default-center">
-                            <a href="#" class="search-link"><i class="ri-search-line"></i></a>
+                        <form action="/Searchs/All" class="h-100-h searchbox-form flex-default-center" id="form-search-all">
+                            <a href="#" class="search-link btn-search-people"><i class="ri-search-line"></i></a>
                             <input type="text" class="input-search" name="key" id=""
                                 placeholder="Tìm kiếm trên HHSocial...">
                         </form>
                     </div>
-                    <div class="navbar-custom-right">
+                    <button class="navbar-toggler-h navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbar-custom-right" aria-controls="navbarSupportedContent"
+                            aria-label="Toggle navigation"><i class="ri-menu-3-line"></i></button>
+                    <div class="navbar-custom-right navbar-collapse collapse" id="navbar-custom-right">
                         <ul class="navbar-nav navbar-list ms-auto">
                             @* Home *@
                             <li>
@@ -146,6 +150,7 @@
     <script type="text/javascript" src="~/js/users_profile.js"></script>
     <script src="~/js/userfriends.js"></script>
     <script src="~/js/user_posts.js"></script>
+    <script src="~/js/search.js"></script>
 
     @* Thư viện toast *@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.css">

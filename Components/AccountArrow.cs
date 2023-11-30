@@ -1,3 +1,4 @@
+using Clone_Main_Project_0710.Constant;
 using Clone_Main_Project_0710.DataSession;
 using Clone_Main_Project_0710.Models;
 using Clone_Main_Project_0710.Models.ViewModels;
@@ -17,7 +18,7 @@ namespace Clone_Main_Project_0710.Components
         }
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            Guid userId = Guid.Parse(HttpContext.Session.GetString(SessionData.USERID_SESS));
+            Guid userId = Guid.Parse(Request.Cookies[UsersCookiesConstant.CookieUserId]);
 
             ProfileEditView view = new ProfileEditView();
             User user = await _context.FindByID(userId);

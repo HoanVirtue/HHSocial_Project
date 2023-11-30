@@ -1,3 +1,4 @@
+using Clone_Main_Project_0710.Constant;
 using Clone_Main_Project_0710.DataSession;
 using Clone_Main_Project_0710.Models;
 using Clone_Main_Project_0710.Models.ViewModels;
@@ -17,8 +18,9 @@ namespace Clone_Main_Project_0710.Controllers
         [HttpGet]
         public async Task<IActionResult> All(string key)
         {
-            Guid userId = Guid.Parse(HttpContext.Session.GetString(SessionData.USERID_SESS));
-            string emailSess = HttpContext.Session.GetString(SessionData.USER_EMAIL_SESS);
+            Guid userId = Guid.Parse(Request.Cookies[UsersCookiesConstant.CookieUserId]);
+
+            string emailSess = Request.Cookies[UsersCookiesConstant.CookieEmail];
             if (emailSess == null)
             {
                 return RedirectToAction("Index", "Users");
@@ -27,6 +29,7 @@ namespace Clone_Main_Project_0710.Controllers
             List<TypePersonView> people = await _searchContext.GetPeopleByKeySearch(userId, key);
             SearchView view = new SearchView()
             {
+                KeySearch = key,
                 People = people
             };
             return View(view);

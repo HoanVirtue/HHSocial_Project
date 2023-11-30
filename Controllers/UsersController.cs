@@ -7,6 +7,8 @@ using Clone_Main_Project_0710.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Clone_Main_Project_0710.GendericMethod;
+using Clone_Main_Project_0710.Constant;
+using BTL.Models.ViewModels;
 
 namespace Clone_Main_Project_0710.Controllers
 {
@@ -15,6 +17,7 @@ namespace Clone_Main_Project_0710.Controllers
         private UsersRepository _context;
         private UserImagesRepository _imageContext;
         private UserPostsRepository _postContext;
+        private UserFriendsRepository _friendContext;
         private Guid userIdTest = new Guid("f98d25ef-75b8-4f1e-8e09-9281d33e8f32");
         private string emailTest = "hoan@gmail.com";
         private void SetSession()
@@ -28,6 +31,7 @@ namespace Clone_Main_Project_0710.Controllers
             _context = new UsersRepository(context);
             _imageContext = new UserImagesRepository(context);
             _postContext = new UserPostsRepository(context);
+            _friendContext = new UserFriendsRepository(context);
         }
 
         public IActionResult Index()
@@ -121,27 +125,26 @@ namespace Clone_Main_Project_0710.Controllers
         [HttpGet]
         public async Task<IActionResult> ProfileAsync(Guid userId)
         {
-            // string emailSess = HttpContext.Session.GetString(SessionData.USER_EMAIL_SESS);
-            // if (emailSess == null)
-            // {
-            //     return RedirectToAction("Index", "Users");
-            // }
+            string emailSess = Request.Cookies[UsersCookiesConstant.CookieEmail];
+            if (emailSess == null)
+            {
+                return RedirectToAction("Index", "Users");
+            }
 
-            // if(userId == null)
-            //     return NotFound();
+            if(string.IsNullOrEmpty(userId.ToString()))
+                return NotFound();
 
-            SetSession();
-
-            User user = await _context.FindByID(userIdTest);
-            UserImage userImage = await _imageContext.GetAvatarByUserId(userIdTest);
-            List<PostView> listPost = await _postContext.GetMyPostsView(userIdTest);
-
+            User user = await _context.FindByID(userId);
+            UserImage userImage = await _imageContext.GetAvatarByUserId(userId);
+            List<PostView> listPost = await _postContext.GetMyPostsView(userId);
+            List<FriendRequestView> listFriend = await _friendContext.GetFriendsByTargetIdAsync(userId);
 
             ProfileView profile = new ProfileView()
             {
                 User = user,
                 ImageAvatar = userImage,
-                UserPosts = listPost
+                UserPosts = listPost,
+                UserFriends = listFriend
             };
             return View(profile);
         }
@@ -179,6 +182,8 @@ namespace Clone_Main_Project_0710.Controllers
                 Guid userId = await _context.GetIdByEmail(email, password);
                 HttpContext.Session.SetString(SessionData.USERID_SESS, userId.ToString());
                 HttpContext.Session.SetString(SessionData.USER_EMAIL_SESS, email);
+
+                SetUserCookie(email, password, userId);
             }
 
             return Json(new
@@ -195,12 +200,13 @@ namespace Clone_Main_Project_0710.Controllers
         /// Authors: Tạ Đức Hoàn
         /// Create: 16/10/2023
         /// Update: 16/10/2023
-        public IActionResult logoutUser()
+        public IActionResult LogoutUser()
         {
             HttpContext.Session.Remove(SessionData.USERID_SESS);
             HttpContext.Session.Remove(SessionData.USER_EMAIL_SESS);
 
-            return RedirectToAction("Index", "UserFriend");
+            RemoveUserCookie();
+            return RedirectToAction("Index", "Users");
         }
 
         /// <summary>
@@ -214,7 +220,7 @@ namespace Clone_Main_Project_0710.Controllers
         [HttpGet]
         public async Task<IActionResult> ProfileEdit(Guid userId)
         {
-            string emailSess = HttpContext.Session.GetString(SessionData.USER_EMAIL_SESS);
+            string emailSess = Request.Cookies[UsersCookiesConstant.CookieEmail];
             if (emailSess == null)
             {
                 return RedirectToAction("Index", "Users");
@@ -330,5 +336,32 @@ namespace Clone_Main_Project_0710.Controllers
             );
         }
         
+        public void SetUserCookie(string email, string password, Guid userId)
+        {
+            CookieOptions options = new CookieOptions();
+            options.Expires = DateTime.Now.AddDays(1);
+            Response.Cookies.Append(UsersCookiesConstant.CookieEmail, email, options);
+            Response.Cookies.Append(UsersCookiesConstant.CookiePassword, password, options);
+            Response.Cookies.Append(UsersCookiesConstant.CookieUserId, userId.ToString(), options);
+        }
+
+        public User GetUserCookie()
+        {
+            User user = new User();
+            user.Email = Request.Cookies[UsersCookiesConstant.CookieEmail];
+            user.Password = Request.Cookies[UsersCookiesConstant.CookiePassword];
+            user.UserId = Guid.Parse(Request.Cookies[UsersCookiesConstant.CookieUserId]);
+
+            return user;
+        }
+
+        public void RemoveUserCookie()
+        {
+            CookieOptions options = new CookieOptions();
+            options.Expires = DateTime.Now.AddDays(-1);
+            Response.Cookies.Append(UsersCookiesConstant.CookieEmail, "", options);
+            Response.Cookies.Append(UsersCookiesConstant.CookiePassword, "", options);
+            Response.Cookies.Append(UsersCookiesConstant.CookieUserId, "", options);
+        }
     }
 }

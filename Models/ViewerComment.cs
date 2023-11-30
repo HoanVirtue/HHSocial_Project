@@ -15,6 +15,7 @@ namespace Clone_Main_Project_0710.Models
         public Guid SenderId { get; set; }
         [ForeignKey("UserPost")]
         public Guid UserPostId { get; set; }
+        public int CommentsCount { get; set; }
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
         public virtual User? User { get; set; }

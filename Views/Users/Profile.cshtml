@@ -3,6 +3,7 @@
     User user = Model.User;
     UserImage avatarImage = Model.ImageAvatar;
     IEnumerable<PostView> myPosts = Model.UserPosts;
+    IEnumerable<FriendRequestView> myFriends = Model.UserFriends;
 }
 
 <div class="row">
@@ -11,10 +12,10 @@
             <div class="card-body p-0">
                 <div class="position-relative">
                     <div class="position-relative">
-                        <img src="/images/page-img/profile-bg1.jpg" alt="" class="img-fluid rounded">
+                        <img src="/images/page-img/anhbia.jpg" alt="" class="img-fluid rounded image-cover-user">
                         <ul class="header-nav d-flex list-inline justify-end">
                             <li class="">
-                                <a href=""><i class="ri-pencil-line"></i></a>
+                                <button  class="btn btn-edit-cover-image d-flex justify-content-center align-items-center"><i class="ri-pencil-line"></i></button>
                             </li>
                             <li class="">
                                 <a href="">
@@ -26,10 +27,10 @@
                     <div class="user_over position-absolute text-center mb-3">
                         <div class="profile-image">
                             <img src="data:image/jpeg;base64,@avatarImage.ImageData" alt=""
-                                class="avatar-130 img-fluid img-round-circle">
+                                class="avatar-130 img-fluid img-round-circle" id="avatar-user">
                         </div>
                         <div class="username_profile">
-                            <h3>@user.UserName</h3>
+                            <h3 id="username">@user.UserName</h3>
                         </div>
                     </div>
                     <div class="d-flex align-items-center justify-content-between p-3 position-relative">
@@ -87,14 +88,16 @@
                     <ul
                         class="nav nav-pills list-inline d-flex align-items-center justify-content-center m-0 p-0 w-100">
                         <li class="nav-item col-sm-3">
-                            <a href="" class="nav-link active" data-bs-toggle="pill" data-bs-target="#timeline"
+                            <a href="" class="nav-link " data-bs-toggle="pill" data-bs-target="#timeline"
                                 role="button">Bài viết</a>
                         </li>
                         <li class="nav-item col-sm-3">
                             <a href="" class="nav-link" data-bs-toggle="pill" data-bs-target="#about" role="button">Giới
                                 thiệu</a>
                         </li>
-                        <li class="nav-item col-sm-3"><a href="" class="nav-link">Bạn bè</a></li>
+                        <li class="nav-item col-sm-3">
+                            <a href="" class="nav-link active" data-bs-toggle="pill" data-bs-target="#friends" role="button">Bạn bè</a>
+                            </li>
                         <li class="nav-item col-sm-3"><a href="" class="nav-link">Ảnh</a></li>
                     </ul>
                 </div>
@@ -104,7 +107,7 @@
     <div class="col-sm-12">
 
         <div class="tab-content-h">
-            <div class="tab-pane fade active show" id="timeline" role="tabpanel">
+            <div class="tab-pane fade " id="timeline" role="tabpanel">
                 <div class="card-body p-0">
                     <div class="row">
                         <div class="col-lg-4">
@@ -240,6 +243,7 @@
                                 </div>
                             </div>
                         </div>
+                        @* posts *@
                         <div class="col-lg-8">
                             <div class="card">
                                 <div class="card-header">
@@ -250,7 +254,7 @@
                                 <div class="card-body">
                                     <div class="d-flex align-items-center">
                                         <div class="">
-                                            <img src="/images/user/11.png" alt=""
+                                            <img src="data:image/jpeg;base64,@avatarImage.ImageData" alt=""
                                                 class="img-fluid avatar-60 rounded-circle">
                                         </div>
                                         <div action="" class="ms-3 w-100 form-feedpost" data-bs-toggle="modal"
@@ -304,7 +308,7 @@
                                                 <div class="modalbody-top" style="box-sizing: border-box;">
                                                     <div class="d-flex align-items-center cardbody-header">
                                                         <div>
-                                                            <img src="/images/user/1.jpg" alt=""
+                                                            <img src="data:image/jpeg;base64,@avatarImage.ImageData" alt=""
                                                                 class="img-fluid avatar-60 rounded-circle">
                                                         </div>
                                                         <div action="" class="w-100 ms-3">
@@ -374,7 +378,7 @@
                                                 <div class="d-flex align-items-center justify-content-between">
                                                     <div class="d-flex align-items-center">
                                                         <div class="me-3">
-                                                            <img src="/images/user/1.jpg" alt=""
+                                                            <img src="data:image/jpeg;base64,@avatarImage.ImageData" alt=""
                                                                 class="img-fluid avatar-60 rounded-circle">
                                                         </div>
                                                         <h6>Bài viết của bạn</h6>
@@ -384,7 +388,7 @@
                                                             <span class="dropdown-toggle" data-bs-toggle="dropdown"
                                                                 aria-haspopup="true" aria-expanded="false"
                                                                 role="button">
-                                                                <span class="btn btn-primary">Bạn bè</span>
+                                                                <span class="btn btn-primary">Mọi người</span>
                                                             </span>
                                                             <div class="dropdown-menu m-0 p-0">
                                                                 <a href="" class="dropdown-item p-3">
@@ -439,6 +443,9 @@
                                 </div>
                             </div>
 
+
+                            
+
                             @* FeedPost *@
                             <div class="feed-posts">
                                 @if (myPosts.Count() > 0)
@@ -453,7 +460,7 @@
                                                     <div class="user-post-data pb-3">
                                                         <div class="d-flex align-items-center">
                                                             <div class="me-3">
-                                                                <img src="data:image/jpeg;base64,@avatarImage.ImageData" alt=""
+                                                                <img src="data:image/jpeg;base64,@post.ImageAvatar.ImageData" alt=""
                                                                     class="img-fluid rounded-circle avatar-60">
                                                             </div>
                                                             <div
@@ -465,74 +472,59 @@
                                                                     <p class="d-inline-block mb-0 ms-1">Bài viết mới</p>
                                                                     <p class="mb-0">@timeDiff</p>
                                                                 </div>
-                                                                <div class="card-post-dropdown">
-                                                                    <div class="dropdown">
-                                                                        <span class="dropdown-toggle" data-bs-toggle="dropdown"
-                                                                            aria-haspopup="true" aria-expanded="false"
-                                                                            role="button">
-                                                                            <i class="ri-more-fill"></i>
-                                                                        </span>
-                                                                        <div class="dropdown-menu">
-                                                                            <a href="" class="dropdown-item p-3">
-                                                                                <div class="d-flex">
-                                                                                    <i class="ri-save-line h4"></i>
-                                                                                    <div class="ms-2">
-                                                                                        <h6>Lưu bài viết</h6>
-                                                                                        <p class="mb-0">Add this to your saved
-                                                                                            item
-                                                                                        </p>
+                                                                @if(post.UserPost.UserId.Equals(user.UserId))
+                                                                {
+                                                                    <div class="card-post-dropdown">
+                                                                        <div class="dropdown">
+                                                                            <span class="dropdown-toggle" data-bs-toggle="dropdown"
+                                                                                aria-haspopup="true" aria-expanded="false"
+                                                                                role="button">
+                                                                                <i class="ri-more-fill"></i>
+                                                                            </span>
+                                                                            <div class="dropdown-menu">
+                                                                                <a href="" class="dropdown-item p-2">
+                                                                                    <div class="d-flex">
+                                                                                        <i class="ri-save-line h4"></i>
+                                                                                        <div class="ms-2">
+                                                                                            <h6>Lưu bài viết</h6>
+                                                                                            <p class="mb-0">Thêm vào danh sách mục đã lưu
+                                                                                            </p>
+                                                                                        </div>
                                                                                     </div>
-                                                                                </div>
-                                                                            </a>
-                                                                            <a href="" class="dropdown-item p-3">
-                                                                                <div class="d-flex">
-                                                                                    <i class="ri-pencil-line h4"></i>
-                                                                                    <div class="data ms-2">
-                                                                                        <h6>Edit Post</h6>
-                                                                                        <p class="mb-0">Update your post and
-                                                                                            saved
-                                                                                            items
-                                                                                        </p>
+                                                                                </a>
+                                                                                <a href="" class="dropdown-item p-2">
+                                                                                    <div class="d-flex">
+                                                                                        <i class="ri-pencil-line h4"></i>
+                                                                                        <div class="data ms-2">
+                                                                                            <h6>Chỉnh sửa bài viết</h6>
+                                                                                            <p class="mb-0">Cập nhật bài đăng của bạn và các mục đã lưu
+                                                                                            </p>
+                                                                                        </div>
                                                                                     </div>
-                                                                                </div>
-                                                                            </a>
-                                                                            <a href="" class="dropdown-item p-3">
-                                                                                <div class="d-flex">
-                                                                                    <i class="ri-close-circle-line h4"></i>
-                                                                                    <div class="data ms-2">
-                                                                                        <h6>Hide From Timeline</h6>
-                                                                                        <p class="mb-0">See fewer posts like
-                                                                                            this.
-                                                                                        </p>
+                                                                                </a>
+                                                                                <a href="" class="dropdown-item p-2">
+                                                                                    <div class="d-flex">
+                                                                                        <i class="ri-delete-bin-7-line h4"></i>
+                                                                                        <div class="data ms-2">
+                                                                                            <h6>Chuyển vào thùng rác</h6>
+                                                                                            <p class="mb-0">Bài viết sẽ bị xóa đi và không thể khôi phục
+                                                                                            </p>
+                                                                                        </div>
                                                                                     </div>
-                                                                                </div>
-                                                                            </a>
-                                                                            <a href="" class="dropdown-item p-3">
-                                                                                <div class="d-flex">
-                                                                                    <i class="ri-delete-bin-7-line h4"></i>
-                                                                                    <div class="data ms-2">
-                                                                                        <h6>Delete</h6>
-                                                                                        <p class="mb-0">Remove thids Post on
-                                                                                            Timeline
-                                                                                        </p>
+                                                                                </a>
+                                                                                <a class="dropdown-item p-2" href="#">
+                                                                                    <div class="d-flex align-items-top">
+                                                                                        <i class="ri-notification-line h4"></i>
+                                                                                        <div class="data ms-2">
+                                                                                            <h6>Tắt thông báo</h6>
+                                                                                            <p class="mb-0">Bạn sẽ không nhận bất kì thông báo nào từ bài viết này</p>
+                                                                                        </div>
                                                                                     </div>
-                                                                                </div>
-                                                                            </a>
-                                                                            <a class="dropdown-item p-3" href="#">
-                                                                                <div class="d-flex align-items-top">
-                                                                                    <i class="ri-notification-line h4"></i>
-                                                                                    <div class="data ms-2">
-                                                                                        <h6>Notifications</h6>
-                                                                                        <p class="mb-0">Turn on notifications
-                                                                                            for
-                                                                                            this
-                                                                                            post</p>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </a>
+                                                                                </a>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
+                                                                }
                                                             </div>
                                                         </div>
                                                     </div>
@@ -549,16 +541,18 @@
                                                     }
                                                     <div class="comment-post mt-3">
                                                         <div class="d-flex align-items-center justify-content-between">
-                                                            <div class="d-flex">
+                                                            <div class="d-flex align-items-center">
                                                                 <div class="d-flex align-items-center">
                                                                     <div class="like-post">
                                                                         <div class="dropdown">
-                                                                            <span class="dropdown-toggle"
-                                                                                data-bs-toggle="dropdown" aria-haspopup="true"
-                                                                                aria-expanded="false" role="button">
-                                                                                <img src="/images/icon/01.png" alt=""
-                                                                                    class="img-fluid">
-                                                                            </span>
+                                                                            <button type="button" class="btn-like-post btn" value="@post.UserPost.UserPostId">
+                                                                                <span class="dropdown-toggle"
+                                                                                    data-bs-toggle="dropdown" aria-haspopup="true"
+                                                                                    aria-expanded="false" role="button">
+                                                                                    <img src="@(post.Like == true ? "/images/icon/liked_blue.png" : "/images/icon/like_empty.png")" alt=""
+                                                                                        class="img-fluid ic-24 ic-like-post">
+                                                                                </span>
+                                                                            </button>
                                                                             <div class="dropdown-menu py-2">
                                                                                 <a class="ms-2 me-2" href="#"
                                                                                     data-bs-toggle="tooltip"
@@ -601,15 +595,14 @@
                                                                     </div>
                                                                     <div class="total-like-post ms-2 me-3">
                                                                         <div class="dropdown">
-                                                                            <span class="dropdown-toggle"
+                                                                            <span class="dropdown-toggle count-like-post"
                                                                                 data-bs-toggle="dropdown" aria-haspopup="true"
-                                                                                aria-expanded="false" role="button">140
+                                                                                aria-expanded="false" role="button">@post.UserPost.Likes
                                                                                 Likes</span>
                                                                             <div class="dropdown-menu">
                                                                                 <a class="dropdown-item" href="#">Max Emum</a>
                                                                                 <a class="dropdown-item" href="#">Bill Yerds</a>
-                                                                                <a class="dropdown-item" href="#">Hap E.
-                                                                                    Birthday</a>
+                                                                                <a class="dropdown-item" href="#">Hap E.Birthday</a>
                                                                                 <a class="dropdown-item" href="#">Tara Misu</a>
                                                                                 <a class="dropdown-item" href="#">Midge Itz</a>
                                                                                 <a class="dropdown-item" href="#">Sal Vidge</a>
@@ -620,10 +613,10 @@
                                                                 </div>
                                                                 <div class="total-comment-post">
                                                                     <div class="dropdown">
-                                                                        <span class="dropdown-toggle" data-bs-toggle="dropdown"
+                                                                        <span class="dropdown-toggle count-comment-post" data-bs-toggle="dropdown"
                                                                             aria-haspopup="true" aria-expanded="false"
                                                                             role="button">
-                                                                            20 Comment
+                                                                            @post.UserPost.Comments Comments
                                                                         </span>
                                                                         <div class="dropdown-menu">
                                                                             <a class="dropdown-item" href="#">Max Emum</a>
@@ -647,54 +640,49 @@
                                                         </div>
                                                         <hr>
                                                         <ul class="post-comments p-0 m-0">
-                                                            <li class="mb-2">
-                                                                <div class="d-flex flex-wrap">
-                                                                    <div class="user-image">
-                                                                        <img src="/images/user/02.jpg" alt=""
-                                                                            class="img-fluid avatar-35 rounded-circle">
-                                                                    </div>
-                                                                    <div class="ms-3">
-                                                                        <h6>Monty Carlo</h6>
-                                                                        <p class="mb-0">Lorem ipsum dolor sit amet</p>
-                                                                        <div
-                                                                            class="d-flex flex-wrap align-items-center comment-activity">
-                                                                            <a href="#">Like</a>
-                                                                            <a href="#">Reply</a>
-                                                                            <a href="#">Translate</a>
-                                                                            <span> 5 min </span>
+                                                            @if(post.Comments.Count() > 0)
+                                                            {
+                                                                @foreach(CommentatorDetail cmt in post.Comments)
+                                                                {
+                                                                    string timeDiffCmt = DateTimeMethod.CalTimeCurrentDifferent(cmt.UpdatedAt);
+
+                                                                    <li class="mb-2">
+                                                                        <div class="d-flex flex-wrap">
+                                                                            <div class="user-image">
+                                                                                <img src="data:image/jpeg;base64,@cmt.AvatarImage" alt=""
+                                                                                    class="img-fluid avatar-35 rounded-circle">
+                                                                            </div>
+                                                                            <div class="ms-3">
+                                                                                <a href="/Users/Profile?userId=@cmt.SenderId">
+                                                                                    <h6>@cmt.UserName</h6>
+                                                                                </a>
+                                                                                <p class="mb-0">@cmt.Content</p>
+                                                                                <div class="d-flex flex-wrap align-items-center comment-activity">
+                                                                                    <span class="time-comment-post"> @timeDiffCmt </span>
+                                                                                    <a href="#">Thích</a>
+                                                                                    <a href="#">Phản hồi</a>
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                            <li class="mb-2">
-                                                                <div class="d-flex flex-wrap">
-                                                                    <div class="user-image">
-                                                                        <img src="/images/user/03.jpg" alt=""
-                                                                            class="img-fluid avatar-35 rounded-circle">
-                                                                    </div>
-                                                                    <div class="ms-3">
-                                                                        <h6>Paul Molive</h6>
-                                                                        <p class="mb-0">Lorem ipsum dolor sit amet</p>
-                                                                        <div
-                                                                            class="d-flex flex-wrap align-items-center comment-activity">
-                                                                            <a href="#">Like</a>
-                                                                            <a href="#">Reply</a>
-                                                                            <a href="#">Translate</a>
-                                                                            <span> 5 min </span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
+                                                                    </li>
+                                                                }
+                                                            }
+                                                            
                                                         </ul>
-                                                        <form action="" class="mt-3 d-flex align-items-center comment-text">
-                                                            <input type="text" class="form-control rounded"
+                                                        <div class="mt-3 d-flex align-items-center comment-text position-relative">
+                                                            <input type="text" class="form-control rounded input-comment"
                                                                 placeholder="Viết bình luận...">
                                                             <div class="comment-attagement d-flex">
+                                                                <button class="btn btn-send-comment" style="padding: 0 10px;" value="@post.UserPost.UserPostId">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send fa-bold" viewBox="0 0 16 16">
+                                                                        <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>
+                                                                    </svg>
+                                                                </button>
                                                                 <a href="#"><i class="ri-link"></i></a>
                                                                 <a href="#"><i class="ri-user-smile-line"></i></a>
                                                                 <a href="#"><i class="ri-camera-line"></i></a>
                                                             </div>
-                                                        </form>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -710,7 +698,102 @@
 
             @await Component.InvokeAsync("AboutProfile")
 
-            <div class=""></div>
+            <div class="tab-pane fade active show" id="friends" role="tabpanel">
+                <div class="card">
+                    <div class="card-body">
+                        <h2>Bạn bè</h3>
+                        <div class="tab-list-friend mt-2">
+                            <ul class="nav nav-pills">
+                                <li>
+                                    <a href="" class="nav-link active" data-bs-toggle="pill" data-bs-target="#all-friends" role="button">Tất cả bạn bè</a>
+                                </li>
+                                <li>
+                                    <a href="" class="nav-link" data-bs-toggle="pill" data-bs-target="#close-friends" role="button">Bạn thân</a>
+                                </li>
+                                <li>
+                                    <a href="" class="nav-link" data-bs-toggle="pill" data-bs-target="#home-town" role="button">Gia đình</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content-h">
+                                <div class="tab-pane fade active show" id="all-friends">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            @if(myFriends.Count() > 0)
+                                            {
+                                                @foreach(var friend in myFriends)
+                                                {
+                                                    User friendInfo = friend.UserFriend.SourceId.Equals(user.UserId) ? friend.UserFriend.TargetUser : friend.UserFriend.SourceUser;
+                                                    <div class="col-md-6 mb-3">
+                                                        <div class="item-list-friend">
+                                                            <div class="item-friends d-flex align-items-center justify-content-between">
+                                                                <div class="d-flex align-items-center">
+                                                                    <a href="">
+                                                                        <img src="data:image/jpeg;base64,@friend.UserImage.ImageData" alt="" class="img-fluid image-item-friend">
+                                                                    </a>
+                                                                    <div class="friend-info-general d-flex ms-3">
+                                                                        <h5>@friendInfo.UserName</h5>
+                                                                        <p class="mb-0">15 bạn bè</p>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="card-header-toolbar">
+                                                                    <div class="drop-down">
+                                                                        <span class="dropdown-toggle btn btn-secondary type-friend-dropdown" data-bs-toggle="dropdown"
+                                                                        aria-expanded="true" role="button" id="dropdownmenu-type-friend">
+                                                                            <i class="ri-check-line me-1 text-white"></i> Bạn bè
+                                                                        </span>
+                                                                        <div class="dropdown-menu" aria-labelledby="dropdownmenu-type-friend">
+                                                                            <a href="" class="dropdown-item">Bạn thân</a>
+                                                                            <a href="" class="dropdown-item">Bỏ theo dõi</a>
+                                                                            <a href="" class="dropdown-item" data-bs-toggle="modal"
+                                                                                data-bs-target="#confirm-delete-friend_@friendInfo.UserId-modal">Hủy kết bạn
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal fade modal-confirm-delete" id="confirm-delete-friend_@friendInfo.UserId-modal" tabindex="-1" aria-labelledby="post-modalLabel">
+                                                            <div class="modal-dialog">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <div class="modal-header-title w-100">
+                                                                            <h4 class="text-center">Hủy kết bạn với @friendInfo.UserName</h4>
+                                                                        </div>
+                                                                        <button class="btn btn-secondary btn-close-modal d-flex align-items-center justify-content-center"
+                                                                        data-bs-dismiss="modal">
+                                                                            <i class="ri-close-fill"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">Bạn có chắc chắn muốn hủy kết bạn với @friendInfo.UserName không?</div>
+                                                                    <div class="modal-footer">
+                                                                        <button class="btn btn-close-modal-bottom" data-bs-dismiss="modal">Hủy</button>
+                                                                        <button class="btn btn-primary">Xác nhận</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="close-friends">
+                                    <div class="card-body">
+                                        <h5>Hãy thêm bạn thân.</h5>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="home-town">
+                                    <div class="card-body">
+                                        <h5>Hãy thêm gia đình của bạn.</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class=""></div>
         </div>
 

@@ -46,12 +46,11 @@ namespace Clone_Main_Project_0710.Repository
 
         public async Task<List<UserFriend>> GetAll(Guid targetId)
         {
-            List<UserFriend> listUserFriend = await _context.UserFriends.Where(m => m.TargetId.Equals(targetId) && m.IsFriend == false && m.IsDelete == false).ToListAsync();
-            foreach (UserFriend u in listUserFriend)
-            {
-                u.SourceUser = await _userContext.FindByID(u.SourceId);
-                u.TargetUser = await _userContext.FindByID(u.TargetId);
-            }
+            List<UserFriend> listUserFriend = await _context.UserFriends.Where(m => m.TargetId.Equals(targetId) && m.IsFriend == false && m.IsDelete == false)
+                                                                        .Include(m => m.SourceUser)
+                                                                        .Include(m => m.TargetUser)
+                                                                        .ToListAsync();
+
             return listUserFriend;
         }
 
@@ -83,7 +82,7 @@ namespace Clone_Main_Project_0710.Repository
 
         public async Task ConfirmRequestFriend(Guid sourceId, Guid targetId, string type)
         {
-            UserFriend userFriend = await _context.UserFriends.SingleOrDefaultAsync(m => m.SourceId == sourceId && m.TargetId == targetId);
+            UserFriend userFriend = await _context.UserFriends.SingleOrDefaultAsync(m => m.SourceId.Equals(sourceId) && m.TargetId.Equals(targetId));
             if (userFriend != null)
             {
                 if (type.Equals(HandleFriendTypeConstant.TYPE_ACCEPT_CONFIRM))
@@ -94,6 +93,7 @@ namespace Clone_Main_Project_0710.Repository
                 else if (type.Equals(HandleFriendTypeConstant.TYPE_DELETE_CONFIRM))
                 {
                     userFriend.IsDelete = true;
+                    userFriend.UpdatedAt = DateTime.Now;
                 }
             }
             await _context.SaveChangesAsync();
@@ -104,14 +104,15 @@ namespace Clone_Main_Project_0710.Repository
             UserFriend userFriend = _context.UserFriends.SingleOrDefault(m => m.SourceId.Equals(sourceId) && m.TargetId.Equals(targetId));
             if (userFriend != null)
             {
-                if (type == HandleFriendTypeConstant.TYPE_CANCEL_INVATION)
+                if (type.Equals(HandleFriendTypeConstant.TYPE_CANCEL_INVATION))
                 {
                     userFriend.IsDelete = true;
                     userFriend.UpdatedAt = DateTime.Now;
                 }
-                else if(type == HandleFriendTypeConstant.TYPE_ADD_FRIEND)
+                else if (type.Equals(HandleFriendTypeConstant.TYPE_ADD_FRIEND))
                 {
                     userFriend.IsDelete = false;
+                    userFriend.CreatedAt = DateTime.Now;
                     userFriend.UpdatedAt = DateTime.Now;
                 }
             }
@@ -140,6 +141,32 @@ namespace Clone_Main_Project_0710.Repository
         public async Task<UserFriend> GetDataByUser(Guid sourceId, Guid targetId)
         {
             return await _context.UserFriends.SingleOrDefaultAsync(m => m.SourceId.Equals(sourceId) && m.TargetId.Equals(targetId));
+        }
+
+        public async Task<List<FriendRequestView>> GetFriendsByTargetIdAsync(Guid userId)
+        {
+            List<FriendRequestView> friendRequestViews = new List<FriendRequestView>();
+            List<UserFriend> listUserFriend = await _context.UserFriends.Where(m => (m.TargetId.Equals(userId) || m.SourceId.Equals(userId)) && m.IsFriend && m.IsDelete == false)
+                                                                        .Include(m => m.SourceUser)
+                                                                        .Include(m => m.TargetUser)
+                                                                        .ToListAsync();
+            if (listUserFriend.Count() > 0)
+            {
+                foreach (UserFriend u in listUserFriend)
+                {
+                    UserImage image = await _imageContext.GetAvatarByUserId(u.SourceId);
+
+                    FriendRequestView friend = new FriendRequestView()
+                    {
+                        UserFriend = u,
+                        UserImage = image
+                    };
+
+                    friendRequestViews.Add(friend);
+                }
+            }
+
+            return friendRequestViews;
         }
     }
 }

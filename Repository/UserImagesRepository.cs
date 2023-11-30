@@ -41,7 +41,7 @@ namespace Clone_Main_Project_0710.Repository
 
         public async Task UpdateByUserId(UserImage entity)
         {
-            UserImage image = await _context.UserImages.SingleOrDefaultAsync(m => m.UserId == entity.UserId);
+            UserImage image = await _context.UserImages.SingleOrDefaultAsync(m => m.UserId.Equals(entity.UserId) && m.IsAvatar);
             if (image != null)
             {
                 image.ImageName = entity.ImageName;

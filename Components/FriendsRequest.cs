@@ -1,4 +1,5 @@
 using BTL.Models.ViewModels;
+using Clone_Main_Project_0710.Constant;
 using Clone_Main_Project_0710.DataSession;
 using Clone_Main_Project_0710.Models;
 using Clone_Main_Project_0710.Repository;
@@ -20,7 +21,7 @@ namespace HHSocialNetwork_Project.Components
         }
         public async Task< IViewComponentResult> InvokeAsync()
         {
-            Guid userId = Guid.Parse(HttpContext.Session.GetString(SessionData.USERID_SESS));
+            Guid userId = Guid.Parse(Request.Cookies[UsersCookiesConstant.CookieUserId]);
             List<FriendRequestView> listFriend = await _context.GetListFriend(userId);
             
             return View(listFriend);
