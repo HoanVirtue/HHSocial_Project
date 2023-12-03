@@ -221,14 +221,16 @@
                                 <div class="user-post-data pb-3">
                                     <div class="d-flex align-items-center">
                                         <div class="me-3">
-                                            <img src="data:image/jpeg;base64,@avatar" alt=""
-                                                class="img-fluid rounded-circle avatar-60">
+                                            <a href="/Users/Profile?userId=@post.UserPost.UserId">
+                                                <img src="data:image/jpeg;base64,@avatar" alt=""
+                                                    class="img-fluid rounded-circle avatar-60">
+                                            </a>
                                         </div>
                                         <div
                                             class="d-flex align-items-center justify-content-between w-100">
                                             <div class="">
                                                 <h5 class="d-inline-block mb-0">
-                                                    <a href="">@post.UserPost.User.UserName</a>
+                                                    <a href="/Users/Profile?userId=@post.UserPost.UserId">@post.UserPost.User.UserName</a>
                                                 </h5>
                                                 <p class="d-inline-block mb-0 ms-1">Bài viết mới</p>
                                                 <p class="mb-0">@timeDiff</p>
@@ -360,14 +362,11 @@
                                                             data-bs-toggle="dropdown" aria-haspopup="true"
                                                             aria-expanded="false" role="button">@post.UserPost.Likes
                                                             Likes</span>
-                                                        <div class="dropdown-menu">
-                                                            <a class="dropdown-item" href="#">Max Emum</a>
-                                                            <a class="dropdown-item" href="#">Bill Yerds</a>
-                                                            <a class="dropdown-item" href="#">Hap E.Birthday</a>
-                                                            <a class="dropdown-item" href="#">Tara Misu</a>
-                                                            <a class="dropdown-item" href="#">Midge Itz</a>
-                                                            <a class="dropdown-item" href="#">Sal Vidge</a>
-                                                            <a class="dropdown-item" href="#">Other</a>
+                                                        <div class="dropdown-menu like-dropdown">
+                                                            @foreach(User lk in post.ViewerLikes)
+                                                            {
+                                                                <a class="dropdown-item" href="/Users/Profile?userId=@lk.UserId">@lk.UserName</a>
+                                                            }
                                                         </div>
                                                     </div>
                                                 </div>
@@ -379,15 +378,11 @@
                                                         role="button">
                                                         @post.UserPost.Comments Comments
                                                     </span>
-                                                    <div class="dropdown-menu">
-                                                        <a class="dropdown-item" href="#">Max Emum</a>
-                                                        <a class="dropdown-item" href="#">Bill Yerds</a>
-                                                        <a class="dropdown-item" href="#">Hap E.
-                                                            Birthday</a>
-                                                        <a class="dropdown-item" href="#">Tara Misu</a>
-                                                        <a class="dropdown-item" href="#">Midge Itz</a>
-                                                        <a class="dropdown-item" href="#">Sal Vidge</a>
-                                                        <a class="dropdown-item" href="#">Other</a>
+                                                    <div class="dropdown-menu commentator-dropdown">
+                                                        @foreach(User cmt in post.ViewerComments)
+                                                        {
+                                                            <a class="dropdown-item" href="/Users/Profile?userId=@cmt.UserId">@cmt.UserName</a>
+                                                        }
                                                     </div>
                                                 </div>
                                             </div>

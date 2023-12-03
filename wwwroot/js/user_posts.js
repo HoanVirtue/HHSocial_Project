@@ -21,7 +21,6 @@ $(document).ready(function () {
             content.val('');
             $('#feedpost-modal').modal('toggle');
             imageFile.val('');
-            $('.item-image-post').attr('src', '');
             $('.images-post').addClass('view-hidden');
         }
         
@@ -49,8 +48,8 @@ $(document).ready(function () {
     }
 
     function createElementPost(post, image) {
-        let avatar = $('#avatar-user').attr('src');
-        let username = $('#username').text();
+        let avatar = $('#avatar-user-layout').attr('src');
+        let username = $('#username-layout').text();
         var elementPost = `
         <div class="card">
             <div class="card-body">
@@ -394,6 +393,8 @@ $(document).ready(function () {
                     comments.prepend(itemComment);
                     var countComment = parentEle.find('.count-comment-post');
                     countComment.text(`${response.countComment} Comments`);
+                    var commentator = parentEle.find('.commentator-dropdown');
+                    
                 } else {
                     console.log(response.errorMsg);
                 }

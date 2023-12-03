@@ -154,7 +154,8 @@ namespace Clone_Main_Project_0710.Repository
             {
                 foreach (UserFriend u in listUserFriend)
                 {
-                    UserImage image = await _imageContext.GetAvatarByUserId(u.SourceId);
+                    Guid friendId = u.SourceId.Equals(userId) ? u.TargetId : u.SourceId;
+                    UserImage image = await _imageContext.GetAvatarByUserId(friendId);
 
                     FriendRequestView friend = new FriendRequestView()
                     {

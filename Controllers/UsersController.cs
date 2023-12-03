@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Clone_Main_Project_0710.GendericMethod;
 using Clone_Main_Project_0710.Constant;
 using BTL.Models.ViewModels;
+using Clone_Main_Project_0710.DataCookies;
 
 namespace Clone_Main_Project_0710.Controllers
 {
@@ -131,12 +132,14 @@ namespace Clone_Main_Project_0710.Controllers
                 return RedirectToAction("Index", "Users");
             }
 
+            Guid userCurrentId = Guid.Parse(Request.Cookies[UsersCookiesConstant.CookieUserId]);
+
             if(string.IsNullOrEmpty(userId.ToString()))
                 return NotFound();
 
             User user = await _context.FindByID(userId);
             UserImage userImage = await _imageContext.GetAvatarByUserId(userId);
-            List<PostView> listPost = await _postContext.GetMyPostsView(userId);
+            List<PostView> listPost = await _postContext.GetMyPostsView(userCurrentId, userId);
             List<FriendRequestView> listFriend = await _friendContext.GetFriendsByTargetIdAsync(userId);
 
             ProfileView profile = new ProfileView()
