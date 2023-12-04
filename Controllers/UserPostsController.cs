@@ -104,6 +104,7 @@ namespace Clone_Main_Project_0710.Controllers
             int typeLike = -1;
             int countLike = -1;
             UserLikeView likeView = null;
+            List<User> likers = new List<User>();
             if (!string.IsNullOrEmpty(postId))
             {
                 Guid idPost = Guid.Parse(postId);
@@ -123,6 +124,7 @@ namespace Clone_Main_Project_0710.Controllers
                     likeView = await _postContext.UserLikePost(model);
                     typeLike = likeView.TypeLike;
                     countLike = likeView.CountLike;
+                    likers = await _postContext.GetUserLikes(idPost);
                 }
                 catch (Exception er)
                 {
@@ -141,7 +143,8 @@ namespace Clone_Main_Project_0710.Controllers
                 isSuccess = isSuccess,
                 error = errorMsg,
                 typeLike = typeLike,
-                countLike = countLike
+                countLike = countLike,
+                likers = likers
             });
 
             return data;
@@ -156,6 +159,7 @@ namespace Clone_Main_Project_0710.Controllers
             ViewerComment commentModel = null;
             CommentDetail detail = null;
             CommentatorDetail commentator = null;
+            List<User> userComments = new List<User>();
             try
             {
                 Guid userId = Guid.Parse(Request.Cookies[UsersCookiesConstant.CookieUserId]);
@@ -195,6 +199,9 @@ namespace Clone_Main_Project_0710.Controllers
                     UserName = user.UserName,
                     AvatarImage = avatar.ImageData
                 };
+
+                userComments = await _postContext.GetUserComments(postId);
+
             } catch(Exception e) {
                 isSuccess = false;
                 errorMsg = e.Message;
@@ -204,7 +211,8 @@ namespace Clone_Main_Project_0710.Controllers
                 isSuccess = isSuccess,
                 errorMsg = errorMsg,
                 countComment = quantityComment,
-                commentator = commentator
+                commentator = commentator,
+                userComments = userComments
             });
 
             return data;

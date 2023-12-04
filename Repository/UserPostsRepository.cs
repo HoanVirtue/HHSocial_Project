@@ -1,3 +1,4 @@
+using System.Data.Common;
 using System.Net.Mime;
 using Clone_Main_Project_0710.Constant;
 using Clone_Main_Project_0710.Models;
@@ -56,7 +57,7 @@ namespace Clone_Main_Project_0710.Repository
             return listPost;
         }
 
-        public async Task<List<PostView>> GetMyPostsView(Guid userId)
+        public async Task<List<PostView>> GetMyPostsView(Guid userCurrentId, Guid userId)
         {
             List<PostView> postViews = new List<PostView>();
             List<UserPost> userPosts = await GetMyPosts(userId);
@@ -71,8 +72,10 @@ namespace Clone_Main_Project_0710.Repository
                     view.UserImage = listImage.FirstOrDefault();
                 }
                 view.ImageAvatar = await _imageContext.GetAvatarByUserId(userId);
-                view.Like = await CheckUserLike(userId, post.UserPostId);
+                view.Like = await CheckUserLike(userCurrentId, post.UserPostId);
+                view.ViewerLikes = await GetUserLikes(post.UserPostId);
                 view.Comments = await GetCommentsByPostId(post.UserPostId);
+                view.ViewerComments = await GetUserComments(post.UserPostId);
                 postViews.Add(view);
             }
 
@@ -231,11 +234,57 @@ namespace Clone_Main_Project_0710.Repository
                 }
                 view.ImageAvatar = await _imageContext.GetAvatarByUserId(post.UserId);
                 view.Like = await CheckUserLike(userId, post.UserPostId);
+                view.ViewerLikes = await GetUserLikes(post.UserPostId);
                 view.Comments = await GetCommentsByPostId(post.UserPostId);
+                view.ViewerComments = await GetUserComments(post.UserPostId);
                 postViews.Add(view);
             }
 
             return postViews;
+        }
+
+        public async Task<List<User>> GetUserLikes(Guid postId)
+        {
+            List<User> users = new List<User>();
+            var likers = await _context.ViewerLikes.Where(m => m.UserPostId.Equals(postId) && m.LikePost)
+                                                                .Include(m => m.User)
+                                                                .Select(m => new {
+                                                                    m.User.UserId,
+                                                                    m.User.UserName
+                                                                })
+                                                                .Distinct()
+                                                                .ToListAsync();
+            foreach(var data in likers)
+            {
+                users.Add(new User()
+                {
+                    UserId = data.UserId,
+                    UserName = data.UserName
+                });
+            }
+            return users;
+        }
+
+        public async Task<List<User>> GetUserComments(Guid postId)
+        {
+            List<User> users = new List<User>();
+            var comments = await _context.ViewerComments.Where(m => m.UserPostId.Equals(postId))
+                                                                    .Include(m => m.User)
+                                                                    .Select(m => new {
+                                                                        m.User.UserId,
+                                                                        m.User.UserName
+                                                                    })
+                                                                    .Distinct()
+                                                                    .ToListAsync();
+            foreach(var data in comments)
+            {
+                users.Add(new User()
+                {
+                    UserId = data.UserId,
+                    UserName = data.UserName
+                });
+            }
+            return users;
         } 
     }
 }
