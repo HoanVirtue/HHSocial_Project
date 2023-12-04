@@ -246,7 +246,7 @@ namespace Clone_Main_Project_0710.Repository
         public async Task<List<User>> GetUserLikes(Guid postId)
         {
             List<User> users = new List<User>();
-            var likers = await _context.ViewerLikes.Where(m => m.UserPostId.Equals(postId))
+            var likers = await _context.ViewerLikes.Where(m => m.UserPostId.Equals(postId) && m.LikePost)
                                                                 .Include(m => m.User)
                                                                 .Select(m => new {
                                                                     m.User.UserId,

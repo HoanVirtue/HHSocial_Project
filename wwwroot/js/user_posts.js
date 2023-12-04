@@ -311,6 +311,7 @@ $(document).ready(function () {
                 if(response.isSuccess) {
                     var icLike = element.find('.ic-like-post');
                     var countLike = element.closest('.d-flex').find('.count-like-post');
+                    var likers = element.closest('.d-flex').find('.like-dropdown');
                     // like
                     if(response.typeLike == 1) {
                         icLike.attr('src', '/images/icon/liked_blue.png');
@@ -319,6 +320,12 @@ $(document).ready(function () {
                         icLike.attr('src', '/images/icon/like_empty.png');
                     }
                     countLike.html(`${response.countLike} Likes`);
+
+                    likers.html('');
+                    response.likers.forEach(user => {
+                        var liker = `<a class="dropdown-item" href="/Users/Profile?userId=${user.userId}">${user.userName}</a>`;
+                        likers.append(liker);
+                    });
                 } else {
                     console.log(response.error);
                 }
@@ -394,7 +401,11 @@ $(document).ready(function () {
                     var countComment = parentEle.find('.count-comment-post');
                     countComment.text(`${response.countComment} Comments`);
                     var commentator = parentEle.find('.commentator-dropdown');
-                    
+                    commentator.html('');
+                    response.userComments.forEach(user => {
+                        var cmt = `<a class="dropdown-item" href="/Users/Profile?userId=${user.userId}">${user.userName}</a>`;
+                        commentator.append(cmt);
+                    });
                 } else {
                     console.log(response.errorMsg);
                 }
