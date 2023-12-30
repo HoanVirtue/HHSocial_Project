@@ -72,5 +72,14 @@ namespace Clone_Main_Project_0710.Repository
 
             return userImages;
         }
+
+        public async Task<List<UserImage>> GetImagesByUserId(Guid userId)
+        {
+            List<UserImage> userImages = await _context.UserImages.Where(m => m.UserId.Equals(userId))
+                                            .OrderByDescending(m => m.UpdatedAt)
+                                            .ToListAsync();
+
+            return userImages;
+        } 
     }
 }

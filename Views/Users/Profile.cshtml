@@ -4,6 +4,7 @@
     UserImage avatarImage = Model.ImageAvatar;
     IEnumerable<PostView> myPosts = Model.UserPosts;
     IEnumerable<FriendRequestView> myFriends = Model.UserFriends;
+    IEnumerable<UserImage> listImage = Model.UserImages;
 }
 
 <div class="row">
@@ -97,8 +98,10 @@
                         </li>
                         <li class="nav-item col-sm-3">
                             <a href="" class="nav-link" data-bs-toggle="pill" data-bs-target="#friends" role="button">Bạn bè</a>
-                            </li>
-                        <li class="nav-item col-sm-3"><a href="" class="nav-link">Ảnh</a></li>
+                        </li>
+                        <li class="nav-item col-sm-3">
+                            <a href="" class="nav-link" data-bs-toggle="pill" data-bs-target="#images" role="button">Ảnh</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -174,32 +177,20 @@
                                     </div>
                                     <div>
                                         <p class="mb-0">
-                                            <a href="">Thêm ảnh</a>
+                                            <a href="">Xem tất cả ảnh</a>
                                         </p>
                                     </div>
                                 </div>
                                 <div class="card-body">
                                     <ul class="list-inline mb-0 image-gallary">
-                                        <li class="">
-                                            <a href="">
-                                                <img src="/images/page-img/g1.jpg" alt="" class="img-fluid">
-                                            </a>
-                                        </li>
-                                        <li class="">
-                                            <a href="">
-                                                <img src="/images/page-img/g1.jpg" alt="" class="img-fluid">
-                                            </a>
-                                        </li>
-                                        <li class="">
-                                            <a href="">
-                                                <img src="/images/page-img/g1.jpg" alt="" class="img-fluid">
-                                            </a>
-                                        </li>
-                                        <li class="">
-                                            <a href="">
-                                                <img src="/images/page-img/g1.jpg" alt="" class="img-fluid">
-                                            </a>
-                                        </li>
+                                        @foreach(UserImage img in listImage)
+                                        {
+                                            <li class="">
+                                                <a href="">
+                                                    <img src="data:image/jpeg;base64,@img.ImageData" alt="" class="img-fluid img-user-profile">
+                                                </a>
+                                            </li>
+                                        }
                                     </ul>
                                 </div>
                             </div>
@@ -214,30 +205,18 @@
                                 </div>
                                 <div class="card-body">
                                     <ul class="list-inline image-gallary mb-0">
-                                        <li>
-                                            <a href="">
-                                                <img src="/images/user/05.jpg" alt="" class="img-fluid">
-                                            </a>
-                                            <h6 class="mt-2 text-center">Thu Thảo</h6>
-                                        </li>
-                                        <li>
-                                            <a href="">
-                                                <img src="/images/user/05.jpg" alt="" class="img-fluid">
-                                            </a>
-                                            <h6 class="mt-2 text-center">Thu Thảo</h6>
-                                        </li>
-                                        <li>
-                                            <a href="">
-                                                <img src="/images/user/05.jpg" alt="" class="img-fluid">
-                                            </a>
-                                            <h6 class="mt-2 text-center">Thu Thảo</h6>
-                                        </li>
-                                        <li>
-                                            <a href="">
-                                                <img src="/images/user/05.jpg" alt="" class="img-fluid">
-                                            </a>
-                                            <h6 class="mt-2 text-center">Thu Thảo</h6>
-                                        </li>
+                                        @foreach(FriendRequestView friend in myFriends)
+                                        {
+                                            User friendInfo = friend.UserFriend.SourceId.Equals(user.UserId) ? friend.UserFriend.TargetUser : friend.UserFriend.SourceUser;
+                                            <li class="text-center">
+                                                <a href="">
+                                                    <img src="data:image/jpeg;base64,@friend.UserImage.ImageData" alt="" class="img-fluid img-user-profile">
+                                                </a>
+                                                <h6 class="mt-2 text-center">@friendInfo.UserName</h6>
+                                            </li>
+                                        }
+                                        
+                                        
 
                                     </ul>
                                 </div>
@@ -696,7 +675,7 @@
             <div class="tab-pane fade" id="friends" role="tabpanel">
                 <div class="card">
                     <div class="card-body">
-                        <h2>Bạn bè</h3>
+                        <h3>Bạn bè</h3>
                         <div class="tab-list-friend mt-2">
                             <ul class="nav nav-pills">
                                 <li>
@@ -789,10 +768,42 @@
                     </div>
                 </div>
             </div>
-            <div class=""></div>
+            <div class="tab-pane fade" id="images" role="tabpanel">
+                <div class="card">
+                    <div class="card-body">
+                        <h3>Ảnh</h3>
+                        <div class="tab-list-friend mt-2">
+                            <ul class="nav nav-pills">
+                                <li>
+                                    <a href="" class="nav-link active" data-bs-toggle="pill" data-bs-target="#my-image" role="button">Ảnh của bạn</a>
+                                </li>
+                                <li>
+                                    <a href="" class="nav-link" data-bs-toggle="pill" data-bs-target="#album" role="button">Album</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content-h">
+                                <div class="tab-pane fade active show" id="my-image">
+                                    <div class="card-body">
+                                        <div class="tab-list-image d-grid-template-1fr-13 gap-2">
+                                            @foreach(UserImage image in listImage)
+                                            {
+                                                <a>
+                                                    <img src="data:image/jpeg;base64,@image.ImageData" alt="" class="img-fluid rounded">
+                                                </a>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="album">
+                                    <div class="card-body">
+                                        <h5>Chưa có album nào.</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
-
-
     </div>
 </div>

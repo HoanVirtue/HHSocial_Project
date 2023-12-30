@@ -622,3 +622,12 @@ input.form-control {
 .btn-close-modal-bottom:focus {
     box-shadow: unset;
 }
+
+.img-user-profile {
+    max-width: 100px;
+    max-height: 100px !important;
+}
+
+.tab-list-image {
+    display: grid;
+}

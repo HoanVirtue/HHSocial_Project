@@ -1,0 +1,39 @@
+@model IEnumerable<PersonView>
+<div class="search-form-kiemtra">
+    <form action="/Users/TimKiem" method="GET">
+        <div class="">
+            <label for="">Tìm kiếm</label>
+            <input type="text" name="keySearch" id="" class="" style="width: 300px">
+            <button type="submit">Tìm</button>
+        </div>
+    </form>
+</div>
+<div class="all-friends">
+    @if(Model.Count() > 0)
+    {
+        @foreach (PersonView item in Model)
+        {
+            <div class="item-request-friend">
+                <div class="image_sender">
+                    <a href="/Users/Profile?userId=@item.User.UserId">
+                        <img src="data:image/jpeg;base64,@item.ImageAvatar.ImageData" alt="">
+                    </a>
+                </div>
+                <div class="username_sender">
+                    <a href="/Users/Profile?userId=@item.User.UserId">
+                        <h5 class="item-request-username">
+                            @item.User.UserName
+                        </h5>
+                    </a>
+                </div>
+                <div class="mutual_friends"></div>
+                @* <div class="handle_request">
+                    <button class="btn btn-primary w-100 btn-accept-friend" type="button" value="@item.UserFriend.SourceId">Xác
+                        nhận</button>
+                    <button class="btn w-100 btn-background-grey btn-delete-friend" type="button"
+                        value="@item.UserFriend.SourceId">Xóa</button>
+                </div> *@
+            </div>
+        }
+    }
+</div>

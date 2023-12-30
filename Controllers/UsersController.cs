@@ -141,13 +141,15 @@ namespace Clone_Main_Project_0710.Controllers
             UserImage userImage = await _imageContext.GetAvatarByUserId(userId);
             List<PostView> listPost = await _postContext.GetMyPostsView(userCurrentId, userId);
             List<FriendRequestView> listFriend = await _friendContext.GetFriendsByTargetIdAsync(userId);
+            List<UserImage> userImages = await _imageContext.GetImagesByUserId(userId);
 
             ProfileView profile = new ProfileView()
             {
                 User = user,
                 ImageAvatar = userImage,
                 UserPosts = listPost,
-                UserFriends = listFriend
+                UserFriends = listFriend,
+                UserImages = userImages
             };
             return View(profile);
         }
@@ -365,6 +367,27 @@ namespace Clone_Main_Project_0710.Controllers
             Response.Cookies.Append(UsersCookiesConstant.CookieEmail, "", options);
             Response.Cookies.Append(UsersCookiesConstant.CookiePassword, "", options);
             Response.Cookies.Append(UsersCookiesConstant.CookieUserId, "", options);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> TimKiem(string keySearch = null)
+        {
+            List<PersonView> list = new List<PersonView>();
+            if(!string.IsNullOrEmpty(keySearch))
+            {
+                list = await _context.GetDataByName(keySearch);
+            }
+            return View(list);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Disable_Enable()
+        {
+            Guid userCurrentId = Guid.Parse(Request.Cookies[UsersCookiesConstant.CookieUserId]);
+            bool disable = await _context.Disable_Enable(userCurrentId);
+            return Json(new {
+                disable = disable
+            });
         }
     }
 }
