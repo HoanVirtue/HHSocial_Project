@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using Clone_Main_Project_0710;
 using Clone_Main_Project_0710.Models;
 using Clone_Main_Project_0710.Repository;
 using HHSocialNetwork_Project.Models;
@@ -18,6 +19,7 @@ builder.Services.AddScoped<IRepository<User>, UsersRepository>();
 builder.Services.AddScoped<IRepository<UserImage>, UserImagesRepository>();
 builder.Services.AddScoped<IRepository<UserFriend>, UserFriendsRepository>();
 builder.Services.AddScoped<IRepository<UserPost>, UserPostsRepository>();
+builder.Services.AddScoped<IRepository<Notification>, NotifitcationRepository>();
 
 builder.Services.AddDistributedMemoryCache();
 

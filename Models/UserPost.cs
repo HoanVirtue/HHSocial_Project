@@ -10,6 +10,7 @@ namespace Clone_Main_Project_0710.Models
             UserImages = new HashSet<UserImage>();
             ViewerLikes = new HashSet<ViewerLike>();
             ViewerComments = new HashSet<ViewerComment>();
+            Notifications = new HashSet<Notification>();
         }
         [Key]
         public Guid UserPostId { get; set; }
@@ -27,5 +28,6 @@ namespace Clone_Main_Project_0710.Models
         public virtual ICollection<UserImage>? UserImages { get; set; }
         public virtual ICollection<ViewerLike>? ViewerLikes { get; set; }
         public virtual ICollection<ViewerComment>? ViewerComments { get; set; }
+        public virtual ICollection<Notification>? Notifications { get; set; }
     }
 }
