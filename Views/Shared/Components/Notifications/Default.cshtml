@@ -1,6 +1,7 @@
 @model NotificationView
 @{
     List<Notification> notifications = Model.NotificationList;
+    int totalNotifi = Model.TotalNotifi;
 }
 
 <li class="nav-item dropdown">
@@ -14,43 +15,34 @@
                 <div class="header-title">
                     <h5 class="text-white">Thông báo</h5>
                 </div>
-                <small class="badge-h text-dark bg-light">4</small>
+                <small class="badge-h text-dark bg-light">@totalNotifi</small>
             </div>
             <div class="card-body p-0">
-                @foreach(Notification notifi in notifications)
+                @if(notifications.Count() > 0)
                 {
-                    string timeDiff = DateTimeMethod.CalTimeCurrentDifferent(notifi.CreatedAt);
-                    <a href="" class="sub-card">
-                        <div class="d-flex align-items-center">
-                            <div class="">
-                                <img src="data:image/jpeg;base64,@notifi.SourceUser.UserImages.FirstOrDefault().ImageData" alt="" class="avatar-40 rounded">
-                            </div>
-                            <div class="ms-3 w-100">
-                                <h6>@notifi.Content</h6>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <p class="mb-0">95 MB</p>
-                                    <small class="mb-0 font-size-12">@timeDiff</small>
+                    @foreach(Notification notifi in notifications)
+                    {
+                        string timeDiff = DateTimeMethod.CalTimeCurrentDifferent(notifi.CreatedAt);
+                        <a href="" class="sub-card">
+                            <div class="d-flex align-items-center">
+                                <div class="">
+                                    <img src="data:image/jpeg;base64,@notifi.SourceUser.UserImages.SingleOrDefault(m => m.IsAvatar).ImageData" alt="" class="avatar-40 rounded">
+                                </div>
+                                <div class="ms-3 w-100">
+                                    <h6>@notifi.Content</h6>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <p class="mb-0">95 MB</p>
+                                        <small class="mb-0 font-size-12">@timeDiff</small>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </a>
+                        </a>
+                    }
                 }
-                
-                <a href="" class="sub-card">
-                    <div class="d-flex align-items-center">
-                        <div class="">
-                            <img src="/images/user/01.jpg" alt="" class="avatar-40 rounded">
-                        </div>
-                        <div class="ms-3 w-100">
-                            <h6>Thu Thảo đăng status mới</h6>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <p class="mb-0">95 MB</p>
-                                <small class="mb-0 font-size-12">Bây giờ</small>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-
+                else
+                {
+                    <div class="text-center p-1">Không có thông báo ...</div>
+                }
             </div>
         </div>
     </div>

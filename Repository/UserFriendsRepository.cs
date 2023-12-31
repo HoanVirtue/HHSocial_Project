@@ -12,12 +12,14 @@ namespace Clone_Main_Project_0710.Repository
         private SocialContext _context;
         private UsersRepository _userContext;
         private UserImagesRepository _imageContext;
+        private NotifitcationRepository _notifiContext;
 
         public UserFriendsRepository(SocialContext context)
         {
             _context = context;
             _userContext = new UsersRepository(context);
             _imageContext = new UserImagesRepository(context);
+            _notifiContext = new NotifitcationRepository(context);
         }
         public Task Add(UserFriend entity)
         {
@@ -89,6 +91,18 @@ namespace Clone_Main_Project_0710.Repository
                 {
                     userFriend.IsFriend = true;
                     userFriend.UpdatedAt = DateTime.Now;
+
+                    // create notification
+                    Notification notifi = new Notification()
+                    {
+                        NotificationId = Guid.NewGuid(),
+                        SourceId = sourceId,
+                        TargetId = targetId,
+                        Content = "",
+                        CreatedAt = DateTime.Now,
+                        UpdatedAt = DateTime.Now
+                    };
+                    await _notifiContext.Add(notifi);
                 }
                 else if (type.Equals(HandleFriendTypeConstant.TYPE_DELETE_CONFIRM))
                 {

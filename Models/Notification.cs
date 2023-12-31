@@ -13,9 +13,8 @@ namespace Clone_Main_Project_0710.Models
         public Guid? TargetId { get; set; }
         [ForeignKey("UserPost")]
         public Guid? UserPostId { get; set; }
-        public string Title { get; set; }
         public string Content { get; set; }
-        public bool Read { get; set; }
+        public bool Read { get; set; } = false;
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
         public virtual User? SourceUser { get; set; }

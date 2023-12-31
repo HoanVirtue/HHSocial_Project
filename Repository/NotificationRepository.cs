@@ -14,9 +14,10 @@ namespace Clone_Main_Project_0710
             _context = context;
             _imageContext = new UserImagesRepository(context);
         }
-        public Task Add(Notification entity)
+        public async Task Add(Notification entity)
         {
-            throw new NotImplementedException();
+            _context.Notifications.Add(entity);
+            await _context.SaveChangesAsync();
         }
 
         public Task Delete(Guid id)
@@ -52,11 +53,6 @@ namespace Clone_Main_Project_0710
                                                                     .Include(m => m.UserPost)
                                                                     .ToListAsync();
 
-            foreach(Notification notifi in notifications)
-            {
-                notifi.SourceUser.UserImages = (ICollection<UserImage>?)await _imageContext.GetAvatarByUserId(notifi.SourceUser.UserId);
-                notifi.TargetUser.UserImages = (ICollection<UserImage>?)await _imageContext.GetAvatarByUserId(notifi.TargetUser.UserId);
-            }
             return notifications;
         }
     }

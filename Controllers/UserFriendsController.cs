@@ -43,7 +43,7 @@ namespace Clone_Main_Project_0710.Controllers
                 {
                     if (type.Equals(HandleFriendTypeConstant.TYPE_ACCEPT_CONFIRM))
                     {
-                        await _context.ConfirmRequestFriend(senderId, userId, HandleFriendTypeConstant.TYPE_ACCEPT_CONFIRM).ConfigureAwait(false);
+                        await _context.ConfirmRequestFriend(senderId, userId, HandleFriendTypeConstant.TYPE_ACCEPT_CONFIRM);
                     }
                     else if (type.Equals(HandleFriendTypeConstant.TYPE_DELETE_CONFIRM))
                     {
