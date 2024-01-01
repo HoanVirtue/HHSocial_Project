@@ -84,7 +84,7 @@ namespace Clone_Main_Project_0710.Repository
 
         public async Task ConfirmRequestFriend(Guid sourceId, Guid targetId, string type)
         {
-            UserFriend userFriend = await _context.UserFriends.SingleOrDefaultAsync(m => m.SourceId.Equals(sourceId) && m.TargetId.Equals(targetId));
+            UserFriend userFriend = await _context.UserFriends.Include(m => m.TargetUser).SingleOrDefaultAsync(m => m.SourceId.Equals(sourceId) && m.TargetId.Equals(targetId));
             if (userFriend != null)
             {
                 if (type.Equals(HandleFriendTypeConstant.TYPE_ACCEPT_CONFIRM))
@@ -96,9 +96,9 @@ namespace Clone_Main_Project_0710.Repository
                     Notification notifi = new Notification()
                     {
                         NotificationId = Guid.NewGuid(),
-                        SourceId = sourceId,
-                        TargetId = targetId,
-                        Content = "",
+                        SourceId = targetId,
+                        TargetId = sourceId,
+                        Content = string.Format("<b>{0}</b> đã chấp nhận lời mời kết bạn của bạn", userFriend.TargetUser.UserName),
                         CreatedAt = DateTime.Now,
                         UpdatedAt = DateTime.Now
                     };

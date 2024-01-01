@@ -51,6 +51,7 @@ namespace Clone_Main_Project_0710
                                                                     .Include(m => m.SourceUser)
                                                                     .Include(m => m.TargetUser)
                                                                     .Include(m => m.UserPost)
+                                                                    .OrderByDescending(m => m.CreatedAt)
                                                                     .ToListAsync();
 
             return notifications;
