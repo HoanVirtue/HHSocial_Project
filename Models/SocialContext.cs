@@ -18,6 +18,8 @@ namespace Clone_Main_Project_0710.Models
                 public DbSet<ViewerLike> ViewerLikes { get; set; }
                 public DbSet<UserFriend> UserFriends { get; set; }
                 public DbSet<UserImage> UserImages { get; set; }
+                public DbSet<Notification> Notifications { get; set; }
+                public DbSet<tblDisable> tblDisables { get; set; }
 
                 protected override void OnModelCreating(ModelBuilder builder)
                 {
@@ -93,6 +95,30 @@ namespace Clone_Main_Project_0710.Models
                                 .HasOne(m => m.ViewerComment)
                                 .WithMany(t => t.CommentDetails)
                                 .HasForeignKey(m => m.ViewerCommentId)
+                                .OnDelete(DeleteBehavior.Cascade);
+
+                        builder.Entity<Notification>()
+                                .HasOne(m => m.SourceUser)
+                                .WithMany(t => t.SourceNotifications)
+                                .HasForeignKey(m => m.SourceId)
+                                .OnDelete(DeleteBehavior.Cascade);
+                        
+                        builder.Entity<Notification>()
+                                .HasOne(m => m.TargetUser)
+                                .WithMany(t => t.TargetNotifications)
+                                .HasForeignKey(m => m.TargetId)
+                                .OnDelete(DeleteBehavior.Cascade);
+
+                        builder.Entity<Notification>()
+                                .HasOne(m => m.UserPost)
+                                .WithMany(t => t.Notifications)
+                                .HasForeignKey(m => m.UserPostId)
+                                .OnDelete(DeleteBehavior.Cascade);
+
+                        builder.Entity<tblDisable>()
+                                .HasOne(m => m.User)
+                                .WithMany(t => t.TblDisables)
+                                .HasForeignKey(m => m.UserId)
                                 .OnDelete(DeleteBehavior.Cascade);
                 }
         }

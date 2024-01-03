@@ -15,6 +15,9 @@ namespace Clone_Main_Project_0710.Models
             UserPosts = new HashSet<UserPost>();
             ViewerLikes = new HashSet<ViewerLike>();
             ViewerComments = new HashSet<ViewerComment>();
+            SourceNotifications = new HashSet<Notification>();
+            TargetNotifications = new HashSet<Notification>();
+            TblDisables = new HashSet<tblDisable>();
         }
         [Key]
         public Guid UserId { get; set; }
@@ -49,6 +52,9 @@ namespace Clone_Main_Project_0710.Models
         public virtual ICollection<UserPost>? UserPosts { get; set; }
         public virtual ICollection<ViewerLike>? ViewerLikes { get; set; }
         public virtual ICollection<ViewerComment>? ViewerComments { get; set; }
+        public virtual ICollection<Notification>? SourceNotifications { get; set; }
+        public virtual ICollection<Notification>? TargetNotifications { get; set; }
+        public virtual ICollection<tblDisable>? TblDisables { get; set; }
         
     }
     

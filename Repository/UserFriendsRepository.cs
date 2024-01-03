@@ -12,12 +12,14 @@ namespace Clone_Main_Project_0710.Repository
         private SocialContext _context;
         private UsersRepository _userContext;
         private UserImagesRepository _imageContext;
+        private NotifitcationRepository _notifiContext;
 
         public UserFriendsRepository(SocialContext context)
         {
             _context = context;
             _userContext = new UsersRepository(context);
             _imageContext = new UserImagesRepository(context);
+            _notifiContext = new NotifitcationRepository(context);
         }
         public Task Add(UserFriend entity)
         {
@@ -82,13 +84,25 @@ namespace Clone_Main_Project_0710.Repository
 
         public async Task ConfirmRequestFriend(Guid sourceId, Guid targetId, string type)
         {
-            UserFriend userFriend = await _context.UserFriends.SingleOrDefaultAsync(m => m.SourceId.Equals(sourceId) && m.TargetId.Equals(targetId));
+            UserFriend userFriend = await _context.UserFriends.Include(m => m.TargetUser).SingleOrDefaultAsync(m => m.SourceId.Equals(sourceId) && m.TargetId.Equals(targetId));
             if (userFriend != null)
             {
                 if (type.Equals(HandleFriendTypeConstant.TYPE_ACCEPT_CONFIRM))
                 {
                     userFriend.IsFriend = true;
                     userFriend.UpdatedAt = DateTime.Now;
+
+                    // create notification
+                    Notification notifi = new Notification()
+                    {
+                        NotificationId = Guid.NewGuid(),
+                        SourceId = targetId,
+                        TargetId = sourceId,
+                        Content = string.Format("<b>{0}</b> đã chấp nhận lời mời kết bạn của bạn", userFriend.TargetUser.UserName),
+                        CreatedAt = DateTime.Now,
+                        UpdatedAt = DateTime.Now
+                    };
+                    await _notifiContext.Add(notifi);
                 }
                 else if (type.Equals(HandleFriendTypeConstant.TYPE_DELETE_CONFIRM))
                 {

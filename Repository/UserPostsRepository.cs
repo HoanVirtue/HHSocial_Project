@@ -12,10 +12,14 @@ namespace Clone_Main_Project_0710.Repository
     {
         public SocialContext _context;
         public UserImagesRepository _imageContext;
+        public NotifitcationRepository _notifiContext;
+        public UsersRepository _userContext;
         public UserPostsRepository(SocialContext context)
         {
             _context = context;
             _imageContext = new UserImagesRepository(context);
+            _notifiContext = new NotifitcationRepository(context);
+            _userContext = new UsersRepository(context);
         }
         public async Task Add(UserPost entity)
         {
@@ -33,9 +37,9 @@ namespace Clone_Main_Project_0710.Repository
             throw new NotImplementedException();
         }
 
-        public Task<UserPost> FindByID(Guid id)
+        public async Task<UserPost> FindByID(Guid id)
         {
-            throw new NotImplementedException();
+            return await _context.UserPosts.Include(m => m.User).SingleOrDefaultAsync(m => m.UserPostId.Equals(id));
         }
 
         public Task<List<UserPost>> GetAll()
@@ -61,12 +65,12 @@ namespace Clone_Main_Project_0710.Repository
         {
             List<PostView> postViews = new List<PostView>();
             List<UserPost> userPosts = await GetMyPosts(userId);
-            foreach(UserPost post in userPosts)
+            foreach (UserPost post in userPosts)
             {
                 PostView view = new PostView();
 
                 view.UserPost = post;
-                if(post.HasImage)
+                if (post.HasImage)
                 {
                     List<UserImage> listImage = await _imageContext.GetImagesByPostId(post.UserPostId);
                     view.UserImage = listImage.FirstOrDefault();
@@ -86,27 +90,51 @@ namespace Clone_Main_Project_0710.Repository
         {
             ViewerLike liker = await _context.ViewerLikes.SingleOrDefaultAsync(m => m.UserPostId.Equals(model.UserPostId) && m.SenderId.Equals(model.SenderId));
             int typeLike = -1;
-            if(liker == null)
+            bool createNotifi = true;
+            if (liker == null)
             {
                 _context.ViewerLikes.Add(model);
                 typeLike = LikeTypeConstant.LIKED;
             }
             else
             {
-                if(liker.LikePost)
+                if (liker.LikePost)
                 {
                     liker.LikePost = false;
                     typeLike = LikeTypeConstant.NOT_LIKE;
+                    createNotifi = false;
                 }
                 else
                 {
                     liker.LikePost = true;
                     typeLike = LikeTypeConstant.LIKED;
                 }
-                    
+
                 liker.UpdatedAt = DateTime.Now;
-                
             }
+
+            // create notification
+            if (createNotifi)
+            {
+                User user = await _userContext.FindByID(model.SenderId);
+                UserPost post = await FindByID(model.UserPostId);
+                if (!model.SenderId.Equals(post.UserId))
+                {
+                    string formatContent = FormatContentPost(post.Content);
+                    Notification notifi = new Notification()
+                    {
+                        NotificationId = Guid.NewGuid(),
+                        SourceId = model.SenderId,
+                        TargetId = post.UserId,
+                        UserPostId = post.UserPostId,
+                        Content = string.Format("<b>{0}</b> thích bài viết của bạn.: {1}", user.UserName, formatContent),
+                        CreatedAt = DateTime.Now,
+                        UpdatedAt = DateTime.Now
+                    };
+                    await _notifiContext.Add(notifi);
+                }
+            }
+
             int countLike = await UpdateQuantityLike(model.UserPostId, typeLike);
             await _context.SaveChangesAsync();
 
@@ -122,11 +150,11 @@ namespace Clone_Main_Project_0710.Repository
         {
             int countLike = 0;
             UserPost post = await _context.UserPosts.FindAsync(postId);
-            if(post != null)
+            if (post != null)
             {
-                if(typeLike == LikeTypeConstant.LIKED)
+                if (typeLike == LikeTypeConstant.LIKED)
                     post.Likes += 1;
-                else if(typeLike == LikeTypeConstant.NOT_LIKE)
+                else if (typeLike == LikeTypeConstant.NOT_LIKE)
                     post.Likes -= 1;
                 countLike = post.Likes;
             }
@@ -139,7 +167,7 @@ namespace Clone_Main_Project_0710.Repository
         {
             bool like = false;
             ViewerLike liker = await _context.ViewerLikes.SingleOrDefaultAsync(m => m.SenderId.Equals(userId) && m.UserPostId.Equals(postId));
-            if(liker != null && liker.LikePost)
+            if (liker != null && liker.LikePost)
             {
                 like = true;
             }
@@ -149,7 +177,8 @@ namespace Clone_Main_Project_0710.Repository
         public async Task<int> UserCommentPost(ViewerComment commentModel, CommentDetail detail)
         {
             ViewerComment commentator = await _context.ViewerComments.SingleOrDefaultAsync(m => m.UserPostId.Equals(commentModel.UserPostId) && m.SenderId.Equals(commentModel.SenderId));
-            if(commentator != null)
+            bool createNotifi = true;
+            if (commentator != null)
             {
                 commentator.CommentsCount += 1;
                 detail.ViewerCommentId = commentator.ViewerCommentId;
@@ -163,6 +192,26 @@ namespace Clone_Main_Project_0710.Repository
                 detail.ViewerCommentId = commentModel.ViewerCommentId;
                 await _context.CommentDetails.AddAsync(detail);
             }
+
+            //create notifi
+            UserPost post = await FindByID(commentModel.UserPostId);
+            User user = await _userContext.FindByID(commentModel.SenderId);
+            if (!post.UserId.Equals(user.UserId))
+            {
+                Notification notifi = new Notification()
+                {
+                    NotificationId = Guid.NewGuid(),
+                    SourceId = commentModel.SenderId,
+                    TargetId = post.UserId,
+                    UserPostId = post.UserPostId,
+                    Content = string.Format("<b>{0}</b> đã bình luận về bài viết của bạn.", user.UserName),
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now
+                };
+                await _notifiContext.Add(notifi);
+            }
+
+
             int count = await UpdateQuantityComment(commentModel.UserPostId);
             await _context.SaveChangesAsync();
 
@@ -173,7 +222,7 @@ namespace Clone_Main_Project_0710.Repository
         {
             UserPost post = await _context.UserPosts.FindAsync(postId);
             int count = 0;
-            if(post != null)
+            if (post != null)
             {
                 post.Comments += 1;
                 count = post.Comments;
@@ -186,23 +235,23 @@ namespace Clone_Main_Project_0710.Repository
         public async Task<List<CommentatorDetail>> GetCommentsByPostId(Guid postId)
         {
             var listComment = await (from cd in _context.CommentDetails
-                            join vc in _context.ViewerComments
-                            on cd.ViewerCommentId equals vc.ViewerCommentId
-                            join ui in _context.UserImages
-                            on vc.SenderId equals ui.UserId
-                            where vc.UserPostId == postId && ui.IsAvatar == true
-                            select new CommentatorDetail()
-                            {
-                                CommentDetailId = cd.CommentDetailId,
-                                ViewerCommentId = cd.ViewerCommentId,
-                                Content = cd.Content,
-                                ImageContent = cd.ImageComment,
-                                CreatedAt = (DateTime)cd.CreatedAt,
-                                UpdatedAt = (DateTime)cd.UpdatedAt,
-                                SenderId = vc.SenderId,
-                                UserName = vc.User.UserName,
-                                AvatarImage = ui.ImageData
-                            })
+                                     join vc in _context.ViewerComments
+                                     on cd.ViewerCommentId equals vc.ViewerCommentId
+                                     join ui in _context.UserImages
+                                     on vc.SenderId equals ui.UserId
+                                     where vc.UserPostId == postId && ui.IsAvatar == true
+                                     select new CommentatorDetail()
+                                     {
+                                         CommentDetailId = cd.CommentDetailId,
+                                         ViewerCommentId = cd.ViewerCommentId,
+                                         Content = cd.Content,
+                                         ImageContent = cd.ImageComment,
+                                         CreatedAt = (DateTime)cd.CreatedAt,
+                                         UpdatedAt = (DateTime)cd.UpdatedAt,
+                                         SenderId = vc.SenderId,
+                                         UserName = vc.User.UserName,
+                                         AvatarImage = ui.ImageData
+                                     })
                             .OrderByDescending(cd => cd.UpdatedAt)
                             .ToListAsync();
 
@@ -222,12 +271,12 @@ namespace Clone_Main_Project_0710.Repository
         {
             List<PostView> postViews = new List<PostView>();
             List<UserPost> userPosts = await GetPosts();
-            foreach(UserPost post in userPosts)
+            foreach (UserPost post in userPosts)
             {
                 PostView view = new PostView();
 
                 view.UserPost = post;
-                if(post.HasImage)
+                if (post.HasImage)
                 {
                     List<UserImage> listImage = await _imageContext.GetImagesByPostId(post.UserPostId);
                     view.UserImage = listImage.FirstOrDefault();
@@ -248,13 +297,14 @@ namespace Clone_Main_Project_0710.Repository
             List<User> users = new List<User>();
             var likers = await _context.ViewerLikes.Where(m => m.UserPostId.Equals(postId) && m.LikePost)
                                                                 .Include(m => m.User)
-                                                                .Select(m => new {
+                                                                .Select(m => new
+                                                                {
                                                                     m.User.UserId,
                                                                     m.User.UserName
                                                                 })
                                                                 .Distinct()
                                                                 .ToListAsync();
-            foreach(var data in likers)
+            foreach (var data in likers)
             {
                 users.Add(new User()
                 {
@@ -270,13 +320,14 @@ namespace Clone_Main_Project_0710.Repository
             List<User> users = new List<User>();
             var comments = await _context.ViewerComments.Where(m => m.UserPostId.Equals(postId))
                                                                     .Include(m => m.User)
-                                                                    .Select(m => new {
+                                                                    .Select(m => new
+                                                                    {
                                                                         m.User.UserId,
                                                                         m.User.UserName
                                                                     })
                                                                     .Distinct()
                                                                     .ToListAsync();
-            foreach(var data in comments)
+            foreach (var data in comments)
             {
                 users.Add(new User()
                 {
@@ -285,6 +336,40 @@ namespace Clone_Main_Project_0710.Repository
                 });
             }
             return users;
-        } 
+        }
+
+        public string FormatContentPost(string content)
+        {
+            string[] splitContent = content.Split(' ');
+            string formatContent = "";
+            if (splitContent.Length > 10)
+            {
+                formatContent = String.Join(" ", splitContent.Take(10)) + "...";
+            }
+            else
+                formatContent = content;
+            return formatContent;
+        }
+
+        public async Task<PostView> GetPostDetailAsync(Guid userId, Guid postId)
+        {
+            PostView view = new PostView();
+            UserPost post = await FindByID(postId);
+            if(post != null) {
+                view.UserPost = post;
+                if (post.HasImage)
+                {
+                    List<UserImage> listImage = await _imageContext.GetImagesByPostId(post.UserPostId);
+                    view.UserImage = listImage.FirstOrDefault();
+                }
+                view.ImageAvatar = await _imageContext.GetAvatarByUserId(userId);
+                view.Like = await CheckUserLike(userId, postId);
+                view.ViewerLikes = await GetUserLikes(postId);
+                view.Comments = await GetCommentsByPostId(postId);
+                view.ViewerComments = await GetUserComments(postId);
+            }
+            
+            return view;
+        }
     }
 }

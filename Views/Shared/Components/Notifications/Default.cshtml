@@ -1,46 +1,47 @@
+@model NotificationView
+@{
+    List<Notification> notifications = Model.NotificationList;
+    int totalNotifi = Model.TotalNotifi;
+}
+
 <li class="nav-item dropdown">
     <a href="#" class="dropdown-toggle" id="notification-drop" data-bs-toggle="dropdown" aria-haspopup="true"
         aria-expanded="false">
         <i class="ri-notification-4-line"></i>
     </a>
-    <div class="sub-drop dropdown-menu" aria-labelledby="notification-drop">
+    <div class="sub-drop sub-drop-medium dropdown-menu notifi-dropdown-menu" aria-labelledby="notification-drop">
         <div class="card">
             <div class="card-header d-flex align-items-center justify-content-between bg-primary">
                 <div class="header-title">
                     <h5 class="text-white">Thông báo</h5>
                 </div>
-                <small class="badge-h text-dark bg-light">4</small>
+                <small class="badge-h text-dark bg-light">@totalNotifi</small>
             </div>
             <div class="card-body p-0">
-                <a href="" class="sub-card">
-                    <div class="d-flex align-items-center">
-                        <div class="">
-                            <img src="/images/user/01.jpg" alt="" class="avatar-40 rounded">
-                        </div>
-                        <div class="ms-3 w-100">
-                            <h6>Thu Thảo đăng status mới</h6>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <p class="mb-0">95 MB</p>
-                                <small class="mb-0 font-size-12">Bây giờ</small>
+                @if(notifications.Count() > 0)
+                {
+                    @foreach(Notification notifi in notifications)
+                    {
+                        string timeDiff = DateTimeMethod.CalTimeCurrentDifferent(notifi.CreatedAt);
+                        <a href="@(!string.IsNullOrEmpty(notifi.UserPostId.ToString()) ? $"/UserPosts/{notifi.NotificationId}/userId={notifi.TargetId}/PostDetail/postId={notifi.UserPostId}" : "#")" class="sub-card @(notifi.Read ? "down-opacity-08" : "")">
+                            <div class="d-flex" style="padding-top: 4px;">
+                                <div class="">
+                                    <img src="data:image/jpeg;base64,@notifi.SourceUser.UserImages.SingleOrDefault(m => m.IsAvatar).ImageData" alt="" class="avatar-40 rounded">
+                                </div>
+                                <div class="ms-3 w-100">
+                                    <h6>@Html.Raw(notifi.Content)</h6>
+                                    <div class="d-flex justify-content-end align-items-center">
+                                        <small class="mb-0 font-size-12">@timeDiff</small>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                </a>
-                <a href="" class="sub-card">
-                    <div class="d-flex align-items-center">
-                        <div class="">
-                            <img src="/images/user/01.jpg" alt="" class="avatar-40 rounded">
-                        </div>
-                        <div class="ms-3 w-100">
-                            <h6>Thu Thảo đăng status mới</h6>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <p class="mb-0">95 MB</p>
-                                <small class="mb-0 font-size-12">Bây giờ</small>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-
+                        </a>
+                    }
+                }
+                else
+                {
+                    <div class="text-center p-1">Không có thông báo ...</div>
+                }
             </div>
         </div>
     </div>

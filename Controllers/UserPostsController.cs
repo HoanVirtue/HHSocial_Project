@@ -16,12 +16,14 @@ namespace Clone_Main_Project_0710.Controllers
         private UserPostsRepository _postContext;
         private UserImagesRepository _imageContext;
         private UsersRepository _userContext;
+        private NotifitcationRepository _notifiContext;
 
         public UserPostsController(SocialContext context)
         {
             _postContext = new UserPostsRepository(context);
             _imageContext = new UserImagesRepository(context);
             _userContext = new UsersRepository(context);
+            _notifiContext = new NotifitcationRepository(context);
         }
 
         private Guid userIdTest = new Guid("f98d25ef-75b8-4f1e-8e09-9281d33e8f32");
@@ -216,6 +218,31 @@ namespace Clone_Main_Project_0710.Controllers
             });
 
             return data;
+        }
+
+
+        [Route("UserPosts/userId={userId}/PostDetail/postId={postId}")]
+        [Route("UserPosts/{notifiId?}/userId={userId}/PostDetail/postId={postId}")]
+        public async Task<IActionResult> PostDetail(Guid? notifiId, Guid userId, Guid postId)
+        {
+            Guid userCurrentId = Guid.Parse(Request.Cookies[UsersCookiesConstant.CookieUserId]);
+            User userCurrent = await _userContext.FindByID(userCurrentId);
+            UserImage avatarImg = userCurrent.UserImages.SingleOrDefault(m => m.IsAvatar);
+            PostView postView = await _postContext.GetPostDetailAsync(userId, postId);
+            // handle read notifi
+            if(notifiId != null)
+                await _notifiContext.ReadNotification((Guid)notifiId);
+            List<PostView> postViews = new List<PostView>
+            {
+                postView
+            };
+            ProfileView view = new ProfileView()
+            {
+                User = userCurrent,
+                ImageAvatar = avatarImg,
+                UserPosts = postViews
+            };
+            return View(view);
         }
     }
 }

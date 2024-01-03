@@ -55,7 +55,7 @@ namespace Clone_Main_Project_0710.Repository
 
         public async Task<UserImage> GetAvatarByUserId(Guid userId)
         {
-            UserImage image = await _context.UserImages.SingleOrDefaultAsync(m => m.UserId == userId && m.IsAvatar == true);
+            UserImage image = await _context.UserImages.SingleOrDefaultAsync(m => m.UserId.Equals(userId) && m.IsAvatar == true);
             return image;
         }
 
@@ -72,5 +72,14 @@ namespace Clone_Main_Project_0710.Repository
 
             return userImages;
         }
+
+        public async Task<List<UserImage>> GetImagesByUserId(Guid userId)
+        {
+            List<UserImage> userImages = await _context.UserImages.Where(m => m.UserId.Equals(userId))
+                                            .OrderByDescending(m => m.UpdatedAt)
+                                            .ToListAsync();
+
+            return userImages;
+        } 
     }
 }

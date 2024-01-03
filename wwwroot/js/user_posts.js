@@ -415,4 +415,27 @@ $(document).ready(function () {
             }
         });
     }
+
+
+
+
+    $(document).on('click', '.btn-disable-en', function() {
+        var element = $(this);
+        $.ajax({
+            url: '/Users/Disable_Enable',
+            type: 'POST',
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                if(response.disable) {
+                    $(element).text('Disable');
+                } else {
+                    $(element).text('Enable');
+                }
+            },
+            error: function(err) {
+
+            }
+        }); 
+    });
 });

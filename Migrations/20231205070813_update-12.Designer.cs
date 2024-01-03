@@ -3,6 +3,7 @@ using System;
 using Clone_Main_Project_0710.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HHSocialNetwork_Project.Migrations
 {
     [DbContext(typeof(SocialContext))]
-    partial class SocialContextModelSnapshot : ModelSnapshot
+    [Migration("20231205070813_update-12")]
+    partial class update12
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,45 +53,6 @@ namespace HHSocialNetwork_Project.Migrations
                     b.HasIndex("ViewerCommentId");
 
                     b.ToTable("CommentDetails");
-                });
-
-            modelBuilder.Entity("Clone_Main_Project_0710.Models.Notification", b =>
-                {
-                    b.Property<Guid>("NotificationId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<bool>("Read")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<Guid?>("SourceId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<Guid?>("TargetId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<Guid?>("UserPostId")
-                        .HasColumnType("char(36)");
-
-                    b.HasKey("NotificationId");
-
-                    b.HasIndex("SourceId");
-
-                    b.HasIndex("TargetId");
-
-                    b.HasIndex("UserPostId");
-
-                    b.ToTable("Notifications");
                 });
 
             modelBuilder.Entity("Clone_Main_Project_0710.Models.User", b =>
@@ -577,30 +541,6 @@ namespace HHSocialNetwork_Project.Migrations
                     b.Navigation("ViewerComment");
                 });
 
-            modelBuilder.Entity("Clone_Main_Project_0710.Models.Notification", b =>
-                {
-                    b.HasOne("Clone_Main_Project_0710.Models.User", "SourceUser")
-                        .WithMany("SourceNotifications")
-                        .HasForeignKey("SourceId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Clone_Main_Project_0710.Models.User", "TargetUser")
-                        .WithMany("TargetNotifications")
-                        .HasForeignKey("TargetId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Clone_Main_Project_0710.Models.UserPost", "UserPost")
-                        .WithMany("Notifications")
-                        .HasForeignKey("UserPostId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.Navigation("SourceUser");
-
-                    b.Navigation("TargetUser");
-
-                    b.Navigation("UserPost");
-                });
-
             modelBuilder.Entity("Clone_Main_Project_0710.Models.UserFollower", b =>
                 {
                     b.HasOne("Clone_Main_Project_0710.Models.User", "TargetUser")
@@ -769,13 +709,9 @@ namespace HHSocialNetwork_Project.Migrations
 
             modelBuilder.Entity("Clone_Main_Project_0710.Models.User", b =>
                 {
-                    b.Navigation("SourceNotifications");
-
                     b.Navigation("SourceUserFollowers");
 
                     b.Navigation("SourceUserFriends");
-
-                    b.Navigation("TargetNotifications");
 
                     b.Navigation("TargetUserFollowers");
 
@@ -794,8 +730,6 @@ namespace HHSocialNetwork_Project.Migrations
 
             modelBuilder.Entity("Clone_Main_Project_0710.Models.UserPost", b =>
                 {
-                    b.Navigation("Notifications");
-
                     b.Navigation("UserImages");
 
                     b.Navigation("ViewerComments");

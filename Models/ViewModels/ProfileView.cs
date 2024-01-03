@@ -9,5 +9,6 @@ namespace Clone_Main_Project_0710.Models.ViewModels
         public UserImage? ImageAvatar { get; set; }
         public List<PostView>? UserPosts { get; set; }
         public List<FriendRequestView>? UserFriends { get; set; }
+        public List<UserImage>? UserImages { get; set; }
     }
 }
