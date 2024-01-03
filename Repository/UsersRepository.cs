@@ -39,7 +39,7 @@ namespace Clone_Main_Project_0710.Repository
 
         public async Task<User> FindByID(Guid id)
         {
-            User user = await _context.Users.FindAsync(id);
+            User user = await _context.Users.Include(m=>m.UserImages).SingleOrDefaultAsync(m => m.UserId.Equals(id));
 
             return user;
         }

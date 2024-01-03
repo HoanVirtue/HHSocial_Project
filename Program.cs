@@ -66,6 +66,10 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 // app.MapControllerRoute(
+//     name: "CustomRoute",
+//     pattern: "{Controller}/{action}/{title?}/{id?}/{name?}"
+// );
+// app.MapControllerRoute(
 //     name: "default",
 //     pattern: "{controller=Users}/{action=Profile}/{id?}");
 

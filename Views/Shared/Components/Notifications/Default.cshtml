@@ -9,7 +9,7 @@
         aria-expanded="false">
         <i class="ri-notification-4-line"></i>
     </a>
-    <div class="sub-drop dropdown-menu" aria-labelledby="notification-drop">
+    <div class="sub-drop sub-drop-medium dropdown-menu notifi-dropdown-menu" aria-labelledby="notification-drop">
         <div class="card">
             <div class="card-header d-flex align-items-center justify-content-between bg-primary">
                 <div class="header-title">
@@ -23,8 +23,8 @@
                     @foreach(Notification notifi in notifications)
                     {
                         string timeDiff = DateTimeMethod.CalTimeCurrentDifferent(notifi.CreatedAt);
-                        <a href="" class="sub-card">
-                            <div class="d-flex align-items-center">
+                        <a href="@(!string.IsNullOrEmpty(notifi.UserPostId.ToString()) ? $"/UserPosts/{notifi.NotificationId}/userId={notifi.TargetId}/PostDetail/postId={notifi.UserPostId}" : "#")" class="sub-card @(notifi.Read ? "down-opacity-08" : "")">
+                            <div class="d-flex" style="padding-top: 4px;">
                                 <div class="">
                                     <img src="data:image/jpeg;base64,@notifi.SourceUser.UserImages.SingleOrDefault(m => m.IsAvatar).ImageData" alt="" class="avatar-40 rounded">
                                 </div>

@@ -39,7 +39,7 @@ namespace Clone_Main_Project_0710.Repository
 
         public async Task<UserPost> FindByID(Guid id)
         {
-            return await _context.UserPosts.FindAsync(id);
+            return await _context.UserPosts.Include(m => m.User).SingleOrDefaultAsync(m => m.UserPostId.Equals(id));
         }
 
         public Task<List<UserPost>> GetAll()
@@ -349,6 +349,27 @@ namespace Clone_Main_Project_0710.Repository
             else
                 formatContent = content;
             return formatContent;
+        }
+
+        public async Task<PostView> GetPostDetailAsync(Guid userId, Guid postId)
+        {
+            PostView view = new PostView();
+            UserPost post = await FindByID(postId);
+            if(post != null) {
+                view.UserPost = post;
+                if (post.HasImage)
+                {
+                    List<UserImage> listImage = await _imageContext.GetImagesByPostId(post.UserPostId);
+                    view.UserImage = listImage.FirstOrDefault();
+                }
+                view.ImageAvatar = await _imageContext.GetAvatarByUserId(userId);
+                view.Like = await CheckUserLike(userId, postId);
+                view.ViewerLikes = await GetUserLikes(postId);
+                view.Comments = await GetCommentsByPostId(postId);
+                view.ViewerComments = await GetUserComments(postId);
+            }
+            
+            return view;
         }
     }
 }

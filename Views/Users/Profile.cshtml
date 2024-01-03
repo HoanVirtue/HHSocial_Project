@@ -14,16 +14,7 @@
                 <div class="position-relative">
                     <div class="position-relative">
                         <img src="/images/page-img/anhbia.jpg" alt="" class="img-fluid rounded image-cover-user">
-                        <ul class="header-nav d-flex list-inline justify-end">
-                            <li class="">
-                                <button  class="btn btn-edit-cover-image d-flex justify-content-center align-items-center"><i class="ri-pencil-line"></i></button>
-                            </li>
-                            <li class="">
-                                <a href="">
-                                    <i class="ri-settings-4-line"></i>
-                                </a>
-                            </li>
-                        </ul>
+                        
                     </div>
                     <div class="user_over position-absolute text-center mb-3">
                         <div class="profile-image">
@@ -34,6 +25,16 @@
                             <h3 id="username">@user.UserName</h3>
                         </div>
                     </div>
+                    <ul class="header-nav d-flex list-inline justify-end nav-handle-cover-image">
+                        <li class="">
+                            <button  class="btn btn-edit-cover-image d-flex justify-content-center align-items-center"><i class="ri-pencil-line"></i></button>
+                        </li>
+                        <li class="">
+                            <a href="">
+                                <i class="ri-settings-4-line"></i>
+                            </a>
+                        </li>
+                    </ul>
                     <div class="d-flex align-items-center justify-content-between p-3 position-relative">
                         <div class="">
                             <ul class="d-flex list-inline m-0 align-items-center">
@@ -421,247 +422,12 @@
                                     </div>
                                 </div>
                             </div>
-
-
                             
-
                             @* FeedPost *@
                             <div class="feed-posts">
                                 @if (myPosts.Count() > 0)
                                 {
-                                    @foreach (PostView post in myPosts)
-                                    {
-                                        string timeDiff = DateTimeMethod.CalTimeCurrentDifferent(post.UserPost.UpdatedAt);
-
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <div class="post-item">
-                                                    <div class="user-post-data pb-3">
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="me-3">
-                                                                <a href="/Users/Profile?userId=@post.UserPost.UserId">
-                                                                    <img src="data:image/jpeg;base64,@post.ImageAvatar.ImageData" alt=""
-                                                                        class="img-fluid rounded-circle avatar-60">
-                                                                </a>
-                                                            </div>
-                                                            <div
-                                                                class="d-flex align-items-center justify-content-between w-100">
-                                                                <div class="">
-                                                                    <h5 class="d-inline-block mb-0">
-                                                                        <a href="/Users/Profile?userId=@post.UserPost.UserId">@post.UserPost.User.UserName</a>
-                                                                    </h5>
-                                                                    <p class="d-inline-block mb-0 ms-1">Bài viết mới</p>
-                                                                    <p class="mb-0">@timeDiff</p>
-                                                                </div>
-                                                                @if(post.UserPost.UserId.Equals(user.UserId))
-                                                                {
-                                                                    <div class="card-post-dropdown">
-                                                                        <div class="dropdown">
-                                                                            <span class="dropdown-toggle" data-bs-toggle="dropdown"
-                                                                                aria-haspopup="true" aria-expanded="false"
-                                                                                role="button">
-                                                                                <i class="ri-more-fill"></i>
-                                                                            </span>
-                                                                            <div class="dropdown-menu">
-                                                                                <a href="" class="dropdown-item p-2">
-                                                                                    <div class="d-flex">
-                                                                                        <i class="ri-save-line h4"></i>
-                                                                                        <div class="ms-2">
-                                                                                            <h6>Lưu bài viết</h6>
-                                                                                            <p class="mb-0">Thêm vào danh sách mục đã lưu
-                                                                                            </p>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </a>
-                                                                                <a href="" class="dropdown-item p-2">
-                                                                                    <div class="d-flex">
-                                                                                        <i class="ri-pencil-line h4"></i>
-                                                                                        <div class="data ms-2">
-                                                                                            <h6>Chỉnh sửa bài viết</h6>
-                                                                                            <p class="mb-0">Cập nhật bài đăng của bạn và các mục đã lưu
-                                                                                            </p>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </a>
-                                                                                <a href="" class="dropdown-item p-2">
-                                                                                    <div class="d-flex">
-                                                                                        <i class="ri-delete-bin-7-line h4"></i>
-                                                                                        <div class="data ms-2">
-                                                                                            <h6>Chuyển vào thùng rác</h6>
-                                                                                            <p class="mb-0">Bài viết sẽ bị xóa đi và không thể khôi phục
-                                                                                            </p>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </a>
-                                                                                <a class="dropdown-item p-2" href="#">
-                                                                                    <div class="d-flex align-items-top">
-                                                                                        <i class="ri-notification-line h4"></i>
-                                                                                        <div class="data ms-2">
-                                                                                            <h6>Tắt thông báo</h6>
-                                                                                            <p class="mb-0">Bạn sẽ không nhận bất kì thông báo nào từ bài viết này</p>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </a>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                }
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="content-post mb-2 @(string.IsNullOrEmpty(post.UserPost.Content) ? "view-hidden" : "")">
-                                                        @post.UserPost.Content
-                                                    </div>
-                                                    @if(post.UserPost.HasImage)
-                                                    {
-                                                        <div class="user-post">
-                                                            <a href="">
-                                                                <img src="data:image/jpeg;base64,@post.UserImage.ImageData" alt="" class="img-fluid w-100">
-                                                            </a>
-                                                        </div>
-                                                    }
-                                                    <div class="comment-post mt-3">
-                                                        <div class="d-flex align-items-center justify-content-between">
-                                                            <div class="d-flex align-items-center">
-                                                                <div class="d-flex align-items-center">
-                                                                    <div class="like-post">
-                                                                        <div class="dropdown">
-                                                                            <button type="button" class="btn-like-post btn" value="@post.UserPost.UserPostId">
-                                                                                <span class="dropdown-toggle"
-                                                                                    data-bs-toggle="dropdown" aria-haspopup="true"
-                                                                                    aria-expanded="false" role="button">
-                                                                                    <img src="@(post.Like == true ? "/images/icon/liked_blue.png" : "/images/icon/like_empty.png")" alt=""
-                                                                                        class="img-fluid ic-24 ic-like-post">
-                                                                                </span>
-                                                                            </button>
-                                                                            <div class="dropdown-menu py-2">
-                                                                                <a class="ms-2 me-2" href="#"
-                                                                                    data-bs-toggle="tooltip"
-                                                                                    data-bs-placement="top" title="Like">
-                                                                                    <img src="/images/icon/01.png"
-                                                                                        class="img-fluid" alt="">
-                                                                                </a>
-                                                                                <a class="me-2" href="#"
-                                                                                    data-bs-toggle="tooltip"
-                                                                                    data-bs-placement="top" title="Love"><img
-                                                                                        src="/images/icon/02.png"
-                                                                                        class="img-fluid" alt=""></a>
-                                                                                <a class="me-2" href="#"
-                                                                                    data-bs-toggle="tooltip"
-                                                                                    data-bs-placement="top" title="Happy"><img
-                                                                                        src="/images/icon/03.png"
-                                                                                        class="img-fluid" alt=""></a>
-                                                                                <a class="me-2" href="#"
-                                                                                    data-bs-toggle="tooltip"
-                                                                                    data-bs-placement="top" title="HaHa"><img
-                                                                                        src="/images/icon/04.png"
-                                                                                        class="img-fluid" alt=""></a>
-                                                                                <a class="me-2" href="#"
-                                                                                    data-bs-toggle="tooltip"
-                                                                                    data-bs-placement="top" title="Think"><img
-                                                                                        src="/images/icon/05.png"
-                                                                                        class="img-fluid" alt=""></a>
-                                                                                <a class="me-2" href="#"
-                                                                                    data-bs-toggle="tooltip"
-                                                                                    data-bs-placement="top" title="Sade"><img
-                                                                                        src="/images/icon/06.png"
-                                                                                        class="img-fluid" alt=""></a>
-                                                                                <a class="me-2" href="#"
-                                                                                    data-bs-toggle="tooltip"
-                                                                                    data-bs-placement="top" title="Lovely"><img
-                                                                                        src="/images/icon/07.png"
-                                                                                        class="img-fluid" alt=""></a>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="total-like-post ms-2 me-3">
-                                                                        <div class="dropdown">
-                                                                            <span class="dropdown-toggle count-like-post"
-                                                                                data-bs-toggle="dropdown" aria-haspopup="true"
-                                                                                aria-expanded="false" role="button">@post.UserPost.Likes
-                                                                                Likes</span>
-                                                                            <div class="dropdown-menu like-dropdown">
-                                                                                @foreach(User lk in post.ViewerLikes)
-                                                                                {
-                                                                                    <a class="dropdown-item" href="/Users/Profile?userId=@lk.UserId">@lk.UserName</a>
-                                                                                }
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="total-comment-post">
-                                                                    <div class="dropdown">
-                                                                        <span class="dropdown-toggle count-comment-post" data-bs-toggle="dropdown"
-                                                                            aria-haspopup="true" aria-expanded="false"
-                                                                            role="button">
-                                                                            @post.UserPost.Comments Comments
-                                                                        </span>
-                                                                        <div class="dropdown-menu commentator-dropdown">
-                                                                            @foreach(User cmt in post.ViewerComments)
-                                                                            {
-                                                                                <a class="dropdown-item" href="/Users/Profile?userId=@cmt.UserId">@cmt.UserName</a>
-                                                                            }
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="feather-icon">
-                                                                <a href="">
-                                                                    <i class="ri-share-line"></i>
-                                                                    <span class="ms-1">99 Share</span>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                        <hr>
-                                                        <ul class="post-comments p-0 m-0">
-                                                            @if(post.Comments.Count() > 0)
-                                                            {
-                                                                @foreach(CommentatorDetail cmt in post.Comments)
-                                                                {
-                                                                    string timeDiffCmt = DateTimeMethod.CalTimeCurrentDifferent(cmt.UpdatedAt);
-
-                                                                    <li class="mb-2">
-                                                                        <div class="d-flex flex-wrap">
-                                                                            <div class="user-image">
-                                                                                <img src="data:image/jpeg;base64,@cmt.AvatarImage" alt=""
-                                                                                    class="img-fluid avatar-35 rounded-circle">
-                                                                            </div>
-                                                                            <div class="ms-3">
-                                                                                <a href="/Users/Profile?userId=@cmt.SenderId">
-                                                                                    <h6>@cmt.UserName</h6>
-                                                                                </a>
-                                                                                <p class="mb-0">@cmt.Content</p>
-                                                                                <div class="d-flex flex-wrap align-items-center comment-activity">
-                                                                                    <span class="time-comment-post"> @timeDiffCmt </span>
-                                                                                    <a href="#">Thích</a>
-                                                                                    <a href="#">Phản hồi</a>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </li>
-                                                                }
-                                                            }
-                                                            
-                                                        </ul>
-                                                        <div class="mt-3 d-flex align-items-center comment-text position-relative">
-                                                            <input type="text" class="form-control rounded input-comment"
-                                                                placeholder="Viết bình luận...">
-                                                            <div class="comment-attagement d-flex">
-                                                                <button class="btn btn-send-comment" style="padding: 0 10px;" value="@post.UserPost.UserPostId">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send fa-bold" viewBox="0 0 16 16">
-                                                                        <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>
-                                                                    </svg>
-                                                                </button>
-                                                                <a href="#"><i class="ri-link"></i></a>
-                                                                <a href="#"><i class="ri-user-smile-line"></i></a>
-                                                                <a href="#"><i class="ri-camera-line"></i></a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    }
+                                    @await Html.PartialAsync("/Views/Shared/PartialView/_PostPartial.cshtml", Model)
                                 }
 
                             </div>

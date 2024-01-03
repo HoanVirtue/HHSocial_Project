@@ -30,9 +30,9 @@ namespace Clone_Main_Project_0710
             throw new NotImplementedException();
         }
 
-        public Task<Notification> FindByID(Guid id)
+        public async Task<Notification> FindByID(Guid id)
         {
-            throw new NotImplementedException();
+            return await _context.Notifications.FindAsync(id);
         }
 
         public Task<List<Notification>> GetAll()
@@ -49,12 +49,23 @@ namespace Clone_Main_Project_0710
         {
             List<Notification> notifications = await _context.Notifications.Where(m => m.TargetId.Equals(userId))
                                                                     .Include(m => m.SourceUser)
+                                                                    .Include(m => m.SourceUser.UserImages)
                                                                     .Include(m => m.TargetUser)
                                                                     .Include(m => m.UserPost)
                                                                     .OrderByDescending(m => m.CreatedAt)
                                                                     .ToListAsync();
 
             return notifications;
+        }
+
+        public async Task ReadNotification(Guid notifiId)
+        {
+            Notification notifi = await FindByID(notifiId);
+            if(!notifi.Read) {
+                notifi.Read = true;
+                notifi.UpdatedAt = DateTime.Now;
+                await _context.SaveChangesAsync();
+            }
         }
     }
 }

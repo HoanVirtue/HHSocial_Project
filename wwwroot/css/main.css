@@ -120,7 +120,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    top: 8.5rem;
+    top: 14.5rem;
 }
 
 .profile-img img {
@@ -561,7 +561,9 @@ input.form-control {
 
 .image-cover-user {
     width: 968px !important;
-    height: 242px !important;
+    height: 326px !important;
+    object-fit: cover;
+    object-position: 25% 55%;
 }
 
 .btn-edit-cover-image {
@@ -630,4 +632,35 @@ input.form-control {
 
 .tab-list-image {
     display: grid;
+}
+
+.container-post-detail {
+    margin: 0 200px;
+}
+
+
+ul.nav-handle-cover-image li:hover {
+    cursor: pointer;
+}
+
+ul.header-nav {
+    bottom: 6.25rem;
+}
+
+button:focus {
+    outline: unset;
+    border: none;
+}
+
+.down-opacity-08 {
+    opacity: 0.8;
+}
+
+.notifi-dropdown-menu .card .card-body {
+    max-height: calc(100vh - 180px);
+    overflow-y: auto;
+}
+
+.sub-drop-medium {
+    width: 26.25rem !important;
 }
