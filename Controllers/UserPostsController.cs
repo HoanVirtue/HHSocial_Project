@@ -162,6 +162,7 @@ namespace Clone_Main_Project_0710.Controllers
             CommentDetail detail = null;
             CommentatorDetail commentator = null;
             List<User> userComments = new List<User>();
+            User userCurrent = null;
             try
             {
                 Guid userId = Guid.Parse(Request.Cookies[UsersCookiesConstant.CookieUserId]);
@@ -188,7 +189,7 @@ namespace Clone_Main_Project_0710.Controllers
                 };
                 quantityComment = await _postContext.UserCommentPost(commentModel, detail);
 
-                User user = await _userContext.FindByID(userId);
+                userCurrent = await _userContext.FindByID(userId);
                 UserImage avatar = await _imageContext.GetAvatarByUserId(userId);
                 commentator = new CommentatorDetail()
                 {
@@ -198,7 +199,7 @@ namespace Clone_Main_Project_0710.Controllers
                     CreatedAt = (DateTime)detail.CreatedAt,
                     UpdatedAt = (DateTime)detail.UpdatedAt,
                     SenderId = commentModel.SenderId,
-                    UserName = user.UserName,
+                    UserName = userCurrent.UserName,
                     AvatarImage = avatar.ImageData
                 };
 
@@ -214,7 +215,8 @@ namespace Clone_Main_Project_0710.Controllers
                 errorMsg = errorMsg,
                 countComment = quantityComment,
                 commentator = commentator,
-                userComments = userComments
+                userComments = userComments,
+                userCurrent = userCurrent
             });
 
             return data;
@@ -243,6 +245,29 @@ namespace Clone_Main_Project_0710.Controllers
                 UserPosts = postViews
             };
             return View(view);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteComment(Guid CommentDetailId)
+        {
+            bool isSuccess = true;
+            string errorMsg = "";
+            try
+            {
+                bool checkDelete = await _postContext.DeleteCommentDetail(CommentDetailId);
+                isSuccess = checkDelete;
+            }
+            catch(Exception er)
+            {
+                isSuccess = false;
+                errorMsg = er.Message.ToString();
+            }
+            
+            return Json(new {
+                isSuccess = isSuccess,
+                errorMsg = errorMsg
+            });
         }
     }
 }

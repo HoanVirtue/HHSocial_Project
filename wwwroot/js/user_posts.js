@@ -347,10 +347,6 @@ $(document).ready(function () {
         }
     });
 
-    // $(document).on('change', '.input-comment', function(e) {
-    //     console.log(e);
-    // });
-
     $(document).on('change', '.input-comment', function() {
         var input = $(this).val();
         if(input != "") {
@@ -372,17 +368,80 @@ $(document).ready(function () {
             success: function(response) {
                 if(response.isSuccess) {
                     var itemComment = `
-                    <li class="mb-2">
+                    <li class="mb-2 item-comment">
                         <div class="d-flex flex-wrap">
                             <div class="user-image">
                                 <img src="data:image/jpeg;base64,${response.commentator.avatarImage}" alt=""
                                     class="img-fluid avatar-35 rounded-circle">
                             </div>
                             <div class="ms-3">
-                                <a href="/Users/Profile?userId=${response.commentator.senderId}">
-                                    <h6>${response.commentator.userName}</h6>
-                                </a>
-                                <p class="mb-0">${response.commentator.content}</p>
+                                <div class="d-flex">
+                                    <div class="">
+                                        <a href="/Users/Profile?userId=${response.commentator.senderId}">
+                                            <h6>${response.commentator.userName}</h6>
+                                        </a>
+                                        <p class="mb-0">${response.commentator.content}</p>
+                                    </div>
+                                    <div class="ms-3">
+                                        <div class="dropdown">
+                                            <button id="handle-comment-dropdown" class="btn btn-more-comment" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="bi bi-three-dots"></i>
+                                            </button>
+                                            <ul class="sub-drop dropdown-menu" aria-labelledby="handle-comment-dropdown">
+                                            `;
+                                            if(response.userCurrent.userId != response.commentator.senderId)
+                                            {
+                                                itemComment += `
+                                                <li class="dropdown-item">
+                                                    <a href="">Ẩn bình luận</a>
+                                                </li>
+                                                <li class="dropdown-item">
+                                                    <a href="">Báo cáo bình luận</a>
+                                                </li>
+                                                `;
+                                            }
+                                            else
+                                            {
+                                                itemComment += `
+                                                <li class="dropdown-item">
+                                                    <a href="">Chỉnh sửa</a>
+                                                </li>
+                                                <li class="dropdown-item">
+                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#modal-delete-comment-${response.commentator.commentDetailId}">
+                                                        Xóa
+                                                    </a>
+                                                </li>
+                                                `;
+                                            }
+                                            itemComment += `
+                                            </ul>
+                                        </div>
+                                        `;
+                                        if(response.userCurrent.userId == response.commentator.senderId)
+                                        {
+                                            itemComment += `
+                                            <div class="modal fade" id="modal-delete-comment-${response.commentator.commentDetailId}" data-bs-backdrop="false" role="dialog"  tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title text-center w-100" id="staticBackdropLabel"><b>Xóa bình luận?</b></h4>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Bạn có chắc muốn xóa bình luận này không?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">Không</button>
+                                                        <button type="button" class="btn btn-primary btn-delete-comment" value="${response.commentator.commentDetailId}">Xóa</button>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            `;
+                                        }
+                                        itemComment += `
+                                    </div>
+                                </div>
                                 <div class="d-flex flex-wrap align-items-center comment-activity">
                                     <span class="time-comment-post"> ${calculatorTimeDifferent(response.commentator.updatedAt)} </span>
                                     <a href="#">Thích</a>
@@ -416,9 +475,6 @@ $(document).ready(function () {
         });
     }
 
-
-
-
     $(document).on('click', '.btn-disable-en', function() {
         var element = $(this);
         $.ajax({
@@ -438,4 +494,45 @@ $(document).ready(function () {
             }
         }); 
     });
+
+    $(document).on('click', '.btn-delete-comment', function() {
+        var commentId = $(this).val();
+        var formData = new FormData();
+        formData.append("CommentDetailId", commentId);
+        deleteComment(formData, $(this));
+    });
+
+    function deleteComment(formData, element) {
+        $.ajax({
+            url: '/UserPosts/DeleteComment',
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                if(response.isSuccess) {
+                    // close modal
+                    var dialog = $(`#modal-delete-comment-${formData.get("CommentDetailId")}`);
+                    dialog.modal('hide');
+                    dialog.attr("data-bs-backdrop", "false");
+                    dialog.removeClass("fade");
+                    element.closest('.item-comment').remove();
+                    $('body').addClass("overflow-scroll");
+
+                } else {
+                    console.log("Comment Detail: ", response.errorMsg);
+                }
+            },
+            error: function(err) {
+
+            }
+        })
+    }
+
+    $(".modal").on("show", function () {
+        $("body").addClass("modal-open");
+    }).on("hidden", function () {
+        $("body").removeClass("modal-open");
+    });
 });
+

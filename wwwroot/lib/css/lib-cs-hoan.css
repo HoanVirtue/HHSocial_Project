@@ -137,3 +137,11 @@ input {
 .m-0 {
     margin: 0;
 }
+
+button:focus {
+    box-shadow: unset !important;
+}
+
+.modal-open {
+    overflow: hidden;
+}

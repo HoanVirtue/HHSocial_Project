@@ -22,6 +22,7 @@ namespace Clone_Main_Project_0710.Models
         public int Comments { get; set; }
         public bool HasImage { get; set; }
         public string Privacy { get; set; } = "public";
+        public bool Delete { get; set; }
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
         public virtual User? User { get; set; }

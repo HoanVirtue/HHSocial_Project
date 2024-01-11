@@ -32,11 +32,14 @@ namespace HHSocialNetwork_Project.Migrations
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<bool>("Delete")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<string>("ImageComment")
                         .HasMaxLength(2147483647)
                         .HasColumnType("longtext");
 
-                    b.Property<bool>("IsDelete")
+                    b.Property<bool>("Show")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -235,6 +238,9 @@ namespace HHSocialNetwork_Project.Migrations
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("Delete")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<bool>("HasImage")
                         .HasColumnType("tinyint(1)");

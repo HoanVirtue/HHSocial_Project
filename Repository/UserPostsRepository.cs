@@ -239,7 +239,7 @@ namespace Clone_Main_Project_0710.Repository
                                      on cd.ViewerCommentId equals vc.ViewerCommentId
                                      join ui in _context.UserImages
                                      on vc.SenderId equals ui.UserId
-                                     where vc.UserPostId == postId && ui.IsAvatar == true
+                                     where vc.UserPostId == postId && ui.IsAvatar == true && cd.Delete == false && cd.Show == true
                                      select new CommentatorDetail()
                                      {
                                          CommentDetailId = cd.CommentDetailId,
@@ -370,6 +370,25 @@ namespace Clone_Main_Project_0710.Repository
             }
             
             return view;
+        }
+
+        public async Task<CommentDetail> GetCommentDetailById(Guid id)
+        {
+            return await _context.CommentDetails.FindAsync(id);
+        }
+
+        public async Task<bool> DeleteCommentDetail(Guid commentDetailId)
+        {
+            CommentDetail detail = await GetCommentDetailById(commentDetailId);
+            int result = 0;
+            if(detail != null)
+            {
+                detail.Delete = true;
+                detail.UpdatedAt = DateTime.Now;
+                result = await _context.SaveChangesAsync();
+            }
+
+            return result > 0;
         }
     }
 }

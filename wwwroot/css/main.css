@@ -175,9 +175,9 @@ input.form-control {
     border-bottom: 1px solid rgba(0,0,0,.1);
 }
 
-.card-post-dropdown .dropdown-menu {
-    left: 0 !important;
-    right: auto;
+.card-post-dropdown .dropdown .dropdown-menu {
+    left: auto;
+    right: 0;
 }
 
 .like-post .dropdown-toggle::after {
@@ -663,4 +663,34 @@ button:focus {
 
 .sub-drop-medium {
     width: 26.25rem !important;
+}
+
+.btn-more-comment {
+    padding: 2px 8px;
+    border-radius: 50%;
+    display: none;
+}
+
+.btn-more-comment:hover {
+    background-color: rgb(237, 237, 237);
+}
+
+.post-comments li:hover .btn-more-comment {
+    display: inline-block;
+}
+
+.btn-more-comment+.dropdown-menu li {
+    padding: 0;
+}
+
+.btn-more-comment+.dropdown-menu li a{
+    color: #333;
+    font-weight: 500;
+    display: block;
+    width: 100%;
+    padding: 0.45rem 1.5rem;
+}
+
+.btn-cancel {
+    color: #50b5ff;
 }
