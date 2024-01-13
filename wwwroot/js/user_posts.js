@@ -534,5 +534,10 @@ $(document).ready(function () {
     }).on("hidden", function () {
         $("body").removeClass("modal-open");
     });
+
+    $(document).on('click', '.btn-update-comment', function() {
+        var userComment = $(this).closest('.user-comment');
+        var contentPost = userComment.find('.content-comment');
+    });
 });
 

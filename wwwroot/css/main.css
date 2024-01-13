@@ -694,3 +694,22 @@ button:focus {
 .btn-cancel {
     color: #50b5ff;
 }
+
+.item-comment .frm-update-comment {
+    margin-left: 20px;
+    width: calc(100% - 20px - 35px);
+}
+
+.input-update-comment {
+    padding: 6px 12px 40px 12px !important;
+}
+
+.frm-update-comment .comment-attagement {
+    left: 0;
+    bottom: 0;
+    justify-content: space-between;
+}
+
+.frm-update-comment .comment-attagement-more a {
+    float: left;
+}
