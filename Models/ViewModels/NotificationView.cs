@@ -6,5 +6,6 @@ namespace Clone_Main_Project_0710
     {
         public List<Notification> NotificationList { get; set; }
         public int TotalNotifi { get; set; }
+        public int CountUnReadNotification { get; set; }
     }
 }

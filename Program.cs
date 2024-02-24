@@ -1,9 +1,12 @@
+using System.Runtime.InteropServices.ComTypes;
 using System.Text.Json.Serialization;
 using Clone_Main_Project_0710;
+using Clone_Main_Project_0710.Hubs;
 using Clone_Main_Project_0710.Models;
 using Clone_Main_Project_0710.Repository;
 using HHSocialNetwork_Project.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,6 +23,7 @@ builder.Services.AddScoped<IRepository<UserImage>, UserImagesRepository>();
 builder.Services.AddScoped<IRepository<UserFriend>, UserFriendsRepository>();
 builder.Services.AddScoped<IRepository<UserPost>, UserPostsRepository>();
 builder.Services.AddScoped<IRepository<Notification>, NotifitcationRepository>();
+builder.Services.AddScoped<IRepository<UserMessage>, UserMessagesRepository>();
 
 builder.Services.AddDistributedMemoryCache();
 
@@ -42,6 +46,12 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
                     options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
                     options.Cookie.IsEssential = true;
                 });
+
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 
@@ -77,5 +87,6 @@ app.MapControllerRoute(
 //     name: "default",
 //     pattern: "{controller=Searchs}/{action=All}/{userId?}");
 
+app.MapHub<StockHub>("stock-hub");
 
 app.Run();

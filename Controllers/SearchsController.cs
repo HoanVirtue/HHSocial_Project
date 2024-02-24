@@ -1,4 +1,5 @@
 using Clone_Main_Project_0710.Constant;
+using Clone_Main_Project_0710.DataCookies;
 using Clone_Main_Project_0710.DataSession;
 using Clone_Main_Project_0710.Models;
 using Clone_Main_Project_0710.Models.ViewModels;
@@ -18,9 +19,9 @@ namespace Clone_Main_Project_0710.Controllers
         [HttpGet]
         public async Task<IActionResult> All(string key)
         {
-            Guid userId = Guid.Parse(Request.Cookies[UsersCookiesConstant.CookieUserId]);
+            Guid userId = UsersCookies.GetUserCookie().UserId;
 
-            string emailSess = Request.Cookies[UsersCookiesConstant.CookieEmail];
+            string emailSess = UsersCookies.GetUserCookie().Email;
             if (emailSess == null)
             {
                 return RedirectToAction("Index", "Users");

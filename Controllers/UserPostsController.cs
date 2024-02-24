@@ -1,7 +1,9 @@
 using System.Text.Json;
 using Clone_Main_Project_0710.Constant;
+using Clone_Main_Project_0710.DataCookies;
 using Clone_Main_Project_0710.DataSession;
 using Clone_Main_Project_0710.GendericMethod;
+using Clone_Main_Project_0710.Hubs;
 using Clone_Main_Project_0710.Models;
 using Clone_Main_Project_0710.Models.ViewModels;
 using Clone_Main_Project_0710.Repository;
@@ -43,7 +45,7 @@ namespace Clone_Main_Project_0710.Controllers
             string errorMsg = "";
             try
             {
-                Guid userId = Guid.Parse(Request.Cookies[UsersCookiesConstant.CookieUserId]);
+                Guid userId = UsersCookies.GetUserCookie().UserId;
                 post = new UserPost()
                 {
                     UserPostId = Guid.NewGuid(),
@@ -100,7 +102,7 @@ namespace Clone_Main_Project_0710.Controllers
         [HttpPost]
         public async Task<IActionResult> LikePost(string postId)
         {
-            Guid userId = Guid.Parse(Request.Cookies[UsersCookiesConstant.CookieUserId]);
+            Guid userId = UsersCookies.GetUserCookie().UserId;
             bool isSuccess = true;
             string errorMsg = "";
             int typeLike = -1;
@@ -165,7 +167,7 @@ namespace Clone_Main_Project_0710.Controllers
             User userCurrent = null;
             try
             {
-                Guid userId = Guid.Parse(Request.Cookies[UsersCookiesConstant.CookieUserId]);
+                Guid userId = UsersCookies.GetUserCookie().UserId;
                 Guid postId = Guid.Parse(UserPostId);
                 string image = null;
                 if(ImageComment != null && ImageComment.Length > 0)
@@ -227,7 +229,7 @@ namespace Clone_Main_Project_0710.Controllers
         [Route("UserPosts/{notifiId?}/userId={userId}/PostDetail/postId={postId}")]
         public async Task<IActionResult> PostDetail(Guid? notifiId, Guid userId, Guid postId)
         {
-            Guid userCurrentId = Guid.Parse(Request.Cookies[UsersCookiesConstant.CookieUserId]);
+            Guid userCurrentId = UsersCookies.GetUserCookie().UserId;
             User userCurrent = await _userContext.FindByID(userCurrentId);
             UserImage avatarImg = userCurrent.UserImages.SingleOrDefault(m => m.IsAvatar);
             PostView postView = await _postContext.GetPostDetailAsync(userId, postId);
@@ -268,6 +270,41 @@ namespace Clone_Main_Project_0710.Controllers
                 isSuccess = isSuccess,
                 errorMsg = errorMsg
             });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateComment(string CommentDetailId, string ContentComment)
+        {
+            bool isSuccess = true;
+            string errorMsg = "";
+            try
+            {
+                CommentDetail comment = new CommentDetail()
+                {
+                    CommentDetailId = Guid.Parse(CommentDetailId),
+                    Content = ContentComment
+                };
+                isSuccess = await _postContext.UpdateCommentDetail(comment);
+            }
+            catch(Exception e)
+            {
+                isSuccess = false;
+                errorMsg = e.Message.ToString();
+            }
+            return Json(new {
+                isSuccess = isSuccess,
+                errorMsg = errorMsg,
+                contentComment = ContentComment
+            });
+        }
+
+        public IActionResult Index()
+        {
+            return View();
+        }
+        public IActionResult UsersConnection()
+        {
+            return View();
         }
     }
 }

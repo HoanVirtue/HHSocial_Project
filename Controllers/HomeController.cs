@@ -22,13 +22,13 @@ public class HomeController : Controller
     }
     public async Task<IActionResult> IndexAsync()
     {
-        string emailSess = Request.Cookies[UsersCookiesConstant.CookieEmail];
+        string emailSess = UsersCookies.GetUserCookie().Email;
         if (emailSess == null)
         {
             return RedirectToAction("Index", "Users");
         }
 
-        Guid userId = Guid.Parse(Request.Cookies[UsersCookiesConstant.CookieUserId]);
+        Guid userId = UsersCookies.GetUserCookie().UserId;
 
         User user = await _userContext.FindByID(userId);
         UserImage userImage = await _imageContext.GetAvatarByUserId(userId);

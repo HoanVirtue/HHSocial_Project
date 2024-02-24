@@ -186,8 +186,8 @@
                                     <ul class="list-inline mb-0 image-gallary">
                                         @foreach(UserImage img in listImage)
                                         {
-                                            <li class="">
-                                                <a href="">
+                                            <li>
+                                                <a href="" class="h-100 d-flex justify-content-center">
                                                     <img src="data:image/jpeg;base64,@img.ImageData" alt="" class="img-fluid img-user-profile">
                                                 </a>
                                             </li>
@@ -554,7 +554,7 @@
                                             @foreach(UserImage image in listImage)
                                             {
                                                 <a>
-                                                    <img src="data:image/jpeg;base64,@image.ImageData" alt="" class="img-fluid rounded">
+                                                    <img src="data:image/jpeg;base64,@image.ImageData" alt="" class="h-100 img-fluid rounded">
                                                 </a>
                                             }
                                         </div>

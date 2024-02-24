@@ -18,6 +18,8 @@ namespace Clone_Main_Project_0710.Models
             SourceNotifications = new HashSet<Notification>();
             TargetNotifications = new HashSet<Notification>();
             TblDisables = new HashSet<tblDisable>();
+            SourceUserMessages = new HashSet<UserMessage>();
+            TargetUserMessages = new HashSet<UserMessage>();
         }
         [Key]
         public Guid UserId { get; set; }
@@ -55,7 +57,8 @@ namespace Clone_Main_Project_0710.Models
         public virtual ICollection<Notification>? SourceNotifications { get; set; }
         public virtual ICollection<Notification>? TargetNotifications { get; set; }
         public virtual ICollection<tblDisable>? TblDisables { get; set; }
-        
+        public virtual ICollection<UserMessage> SourceUserMessages { get; set; }
+        public virtual ICollection<UserMessage> TargetUserMessages { get; set; }
     }
     
 }

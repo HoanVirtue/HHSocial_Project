@@ -1,6 +1,7 @@
 using System.Reflection.Metadata;
 using BTL.Models.ViewModels;
 using Clone_Main_Project_0710.Constant;
+using Clone_Main_Project_0710.DataCookies;
 using Clone_Main_Project_0710.DataSession;
 using Clone_Main_Project_0710.Models;
 using Clone_Main_Project_0710.Repository;
@@ -23,7 +24,7 @@ namespace Clone_Main_Project_0710.Controllers
         public async Task<IActionResult> Index()
         {
             // Guid userId = Guid.Parse(Request.Cookies[UsersCookiesConstant.CookieUserId]);
-            Guid userId = Guid.Parse(Request.Cookies[UsersCookiesConstant.CookieUserId]);
+            Guid userId = UsersCookies.GetUserCookie().UserId;
             List<FriendRequestView> listFriend = await _context.GetListFriend(userId);
 
             return View(listFriend);
@@ -36,7 +37,7 @@ namespace Clone_Main_Project_0710.Controllers
             bool isSuccess = true;
             if (formData != null)
             {
-                Guid userId = Guid.Parse(Request.Cookies[UsersCookiesConstant.CookieUserId]);
+                Guid userId = UsersCookies.GetUserCookie().UserId;
                 string type = formData["type"].ToString();
                 Guid senderId = Guid.Parse(formData["sourceId"].ToString());
                 try

@@ -1,4 +1,5 @@
 using Clone_Main_Project_0710.Constant;
+using Clone_Main_Project_0710.DataCookies;
 using Clone_Main_Project_0710.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,13 +14,15 @@ namespace Clone_Main_Project_0710.Components
         }
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            Guid userId = Guid.Parse(Request.Cookies[UsersCookiesConstant.CookieUserId]); 
+            Guid userId = UsersCookies.GetUserCookie().UserId; 
             List<Notification> notifications = await _notifiContext.GetNotificationsByUserId(userId);
+            int countUnReadNotifi = notifications.Where(n => n.Read == false).ToList().Count();
 
             NotificationView view = new NotificationView()
             {
                 NotificationList = notifications,
-                TotalNotifi = notifications.Count
+                TotalNotifi = notifications.Count,
+                CountUnReadNotification = countUnReadNotifi
             };
 
             return View(view);

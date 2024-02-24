@@ -1,0 +1,227 @@
+.chats-dropdown-menu .card .card-body {
+  min-height: calc(100vh - 103px - 135px);
+}
+.chats-dropdown-menu .card .card-body .chats-search {
+  display: none;
+}
+.chats-dropdown-menu .chats-header-bottom {
+  margin-top: 10px;
+}
+.chats-dropdown-menu .chats-header-bottom .btn-back-chats {
+  display: none;
+  padding-left: 0;
+}
+
+.chat-frame {
+  position: fixed;
+  width: 328px;
+  height: 455px;
+  right: 20px;
+  bottom: 0;
+  z-index: 999;
+  border-top-right-radius: 8px;
+  background-color: white;
+  box-shadow: 0 12px 28px 0 rgba(0, 0, 0, 0.1), 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+  border-top-left-radius: 8px;
+  box-sizing: border-box;
+}
+.chat-frame .chat-header {
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 -1px rgba(0, 0, 0, 0.1) inset, 0 2px 1px -1px rgba(255, 255, 255, 0.5) inset;
+}
+.chat-frame .chat-header .user-image {
+  padding: 6px;
+}
+.chat-frame .chat-header .user-info {
+  padding: 6px 6px 6px 2px;
+}
+.chat-frame .chat-header .user-info .user-name {
+  font-weight: 500;
+  color: #000;
+  line-height: 16px;
+}
+.chat-frame .chat-header .user-info .user-active {
+  line-height: 14px;
+}
+.chat-frame .chat-header .chat-header-right .chat-header-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 28px;
+  height: 28px;
+}
+.chat-frame .chat-header .chat-header-right .chat-header-item:hover {
+  background-color: rgba(217, 217, 217, 0.2549019608);
+  border-radius: 50%;
+}
+.chat-frame .chat-content {
+  padding: 8px 8px 0 0;
+  height: calc(100% - 44px - 60px);
+}
+.chat-frame .chat-content .chat {
+  margin-bottom: 10px;
+}
+.chat-frame .chat-content .chat-message {
+  margin-right: 0;
+}
+.chat-frame .chat-content .other-user .chat-detail {
+  align-items: end;
+}
+.chat-frame .chat-content .chat-left .chat-user {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+}
+.chat-frame .chat-content .chat-left .chat-user .chat-user-info {
+  padding: 0 8px 0 6px;
+}
+.chat-frame .chat-content .chat-left .chat-detail {
+  align-items: start;
+}
+.chat-frame .chat-content .chat-left .chat-detail .chat-message {
+  margin-left: 0;
+  background-color: #f0f0f0;
+}
+.chat-frame .chat-footer {
+  height: 60px;
+  padding: 12px 0;
+  display: flex;
+  align-items: center;
+}
+.chat-frame .chat-footer .input-chat {
+  transition: all 5s ease;
+}
+.chat-frame .chat-footer .event-mess {
+  display: flex;
+}
+.chat-frame .chat-footer .chat-footer-item {
+  font-size: 20px;
+}
+.chat-frame .chat-footer .chat-footer-item a {
+  padding: 8px;
+}
+.chat-frame .chat-footer .form-input-chat {
+  margin-right: 8px;
+}
+
+.chat-content .chat-message {
+  padding: 8px 12px;
+  width: 80%;
+  margin-bottom: 0 !important;
+}
+.chat-content .chat-message p {
+  font-size: 13px;
+  text-align: left;
+  color: #000;
+}
+
+.form-input-chat {
+  position: relative;
+}
+.form-input-chat .input-chat {
+  border: none;
+  background-color: #f0f0f0;
+  border-radius: 20px;
+  padding: 0.375rem;
+  padding-right: 37.5px;
+}
+.form-input-chat .btn-send {
+  font-size: 20px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 8px;
+  line-height: 20px;
+  color: #50b5ff;
+}
+
+.chat .chat-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.frm-update-comment .btn-update-comment {
+  color: #0d6efd;
+}
+
+.user-comment {
+  width: calc(100% - 20px - 35px);
+}
+
+.input-danger {
+  border-color: red;
+}
+
+.total-component {
+  position: absolute;
+  background-color: rgb(232, 53, 53);
+  color: #fff;
+  padding: 3px 7px;
+  line-height: 14px;
+  font-size: 12px;
+  border-radius: 50%;
+  font-family: sans-serif;
+  top: 17px;
+  right: 1px;
+  z-index: -1;
+}
+
+.demo-text {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+}
+
+.form-search-message {
+  margin-bottom: 0;
+  position: relative;
+}
+.form-search-message input {
+  padding-left: 29px;
+}
+.form-search-message i.ri-search-line {
+  position: absolute;
+  font-size: 16px;
+  top: 50%;
+  left: 5px;
+  transform: translateY(-50%);
+}
+
+.btn:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+.avatar-32 {
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+}
+
+.avatar-28 {
+  width: 28px;
+  height: 28px;
+  line-height: 28px;
+}
+
+.fs-12p {
+  font-size: 12px;
+}
+
+.fs-14p {
+  font-size: 14px;
+}
+
+.d-none {
+  display: none !important;
+}
+
+.d-block {
+  display: block !important;
+}
+
+/*# sourceMappingURL=style_sass.css.map */

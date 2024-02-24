@@ -1,46 +1,167 @@
-<li class="nav-item dropdown">
+@model IEnumerable<UserMessage_FriendView>
+
+<li class="nav-item dropdown chats-dropdown">
     <a href="#" id="message-drop" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"
         aria-haspopup="true">
         <i class="ri-mail-line"></i>
     </a>
-    <div class="sub-drop sub-drop-large dropdown-menu" aria-labelledby="message-drop">
+    <div class="sub-drop sub-drop-large dropdown-menu chats-dropdown-menu" aria-labelledby="message-drop">
         <div class="card">
-            <div class="card-header d-flex align-items-center justify-content-between bg-primary">
-                <div class="header-title">
-                    <h5 class="text-white">Chat</h5>
+            <div class="card-header bg-primary">
+                <div class="chats-header-top d-flex align-items-center justify-content-between">
+                    <div class="header-title">
+                        <h5 class="text-white">Chat</h5>
+                    </div>
+                    <small class="badge-h text-dark bg-light">4</small>
                 </div>
-                <small class="badge-h text-dark bg-light">4</small>
+                <div class="chats-header-bottom d-flex align-items-center">
+                    <button type="button" class="btn btn-primary btn-back-chats">
+                        <i class="ri-arrow-left-circle-line" style="font-size: 21px;"></i>
+                    </button>
+                    <div class="w-100 ms-sm-1">
+                        <div class="form-group form-search-message">
+                            <i class="ri-search-line"></i>
+                            <input type="text" name="input-search-mess" class="form-control"
+                                placeholder="Tìm kiếm trên HHMessage">
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="card-body p-0">
-                <a href="" class="sub-card">
-                    <div class="d-flex align-items-center">
-                        <div class="">
-                            <img src="/images/user/01.jpg" alt="" class="avatar-40 rounded">
-                        </div>
-                        <div class="ms-3 w-100">
-                            <h6>Thu Thảo</h6>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <small class="mb-0">Bạn: Em ăn cơm chưa?</small>
-                                <small class="mb-0 font-size-12">Bây giờ</small>
+                <div class="chats-message">
+
+                    @foreach (UserMessage_FriendView mess in Model)
+                    {
+                        @* User friend = await Clone_Main_Project_0710.GendericMethod.UserMethod.ConvertMessToUser(mess); *@
+                        string timeDiff = DateTimeMethod.CalTimeCurrentDifferent(mess.UserMessage.CreatedAt);
+                        <a href="" class="sub-card">
+                            <div class="d-flex align-items-center">
+                                <div class="">
+                                    <img src="data:image/jpeg;base64,@mess.UserFriend.UserImages.SingleOrDefault(u => u.IsAvatar == true).ImageData"
+                                        alt="" class="avatar-40 rounded">
+                                </div>
+                                <div class="ms-3 w-100">
+                                    <h6 style="font-weight: 500;font-size: 15px;">@mess.UserFriend.UserName</h6>
+                                    <div class="d-flex justify-content-between align-items-center row">
+                                        <small
+                                            style="max-width: 317px;@(!mess.UserMessage.TargetId.Equals(mess.UserFriend.UserId) ? "font-weight: bold;" : "")"
+                                            class="mb-0 col-9 demo-text">@(mess.UserMessage.TargetId.Equals(mess.UserFriend.UserId)
+                                        ? $"Bạn: {mess.UserMessage.Message}" : mess.UserMessage.Message)</small>
+                                        <small class="mb-0 font-size-12 col-3 text-end">@timeDiff</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+
+                    }
+                </div>
+                <div class="chats-search">
+                    <a href="" class="sub-card">
+                        <div class="d-flex align-items-center">
+                            <div class="">
+                                <img src="~/images/user/avatar.png" alt="" class="avatar-40 rounded">
+                            </div>
+                            <div class="ms-3 w-100">
+                                <h6 style="font-weight: 500;font-size: 15px;">Tạ Đức Hoàn</h6>
                             </div>
                         </div>
-                    </div>
-                </a>
-                <a href="" class="sub-card">
-                    <div class="d-flex align-items-center">
-                        <div class="">
-                            <img src="/images/user/01.jpg" alt="" class="avatar-40 rounded">
-                        </div>
-                        <div class="ms-3 w-100">
-                            <h6>Thu Thảo</h6>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <small class="mb-0">Bạn: Em ăn cơm chưa?</small>
-                                <small class="mb-0 font-size-12">Bây giờ</small>
-                            </div>
-                        </div>
-                    </div>
-                </a>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
 </li>
+
+<div class="chat-frame">
+    <div class="chat-header d-flex align-items-center justify-content-between">
+        <div class="chat-header-left d-flex align-items-center">
+            <div class="user-image">
+                <img src="/images/user/user_default.png" alt="" class="img-fluid rounded-circle avatar-32">
+            </div>
+            <div class="user-info d-flex flex-column">
+                <div class="user-name fs-14p">Hường Kim</div>
+                <div class="user-active fs-12p">Đang hoạt động</div>
+            </div>
+        </div>
+        <div class="chat-header-right d-flex">
+            <div class="chat-header-item">
+                <a href=""><i class="fa fa-solid fa-phone"></i></a>
+            </div>
+            <div class="chat-header-item">
+                <a href=""><i class="fa fa-solid fa-minus"></i></a>
+            </div>
+            <div class="chat-header-item">
+                <a href=""><i class="ri-close-fill"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="chat-content">
+        <div class="chat d-flex other-user">
+            <div class="chat-detail">
+                <div class="chat-message">
+                    <p>How can we help? We're here for you! 😄</p>
+                </div>
+            </div>
+        </div>
+        <div class="chat chat-left">
+            <div class="chat-user">
+                <div class="chat-user-info">
+                    <a class="avatar m-0">
+                        <img src="/images/user/08.jpg" alt="avatar" class="img-fluid rounded-circle avatar-28">
+                    </a>
+                    <span class="chat-time mt-1">6:48</span>
+                </div>
+            </div>
+            <div class="chat-detail">
+                <div class="chat-message">
+                    <p>Hey John, I am looking for the best admin template.</p>
+                </div>
+                <div class="chat-message">
+                    <p>Hey John, I am looking for the best admin template.</p>
+                </div>
+            </div>
+        </div>
+        <div class="chat other-user">
+            <div class="chat-detail">
+                <div class="chat-message">
+                    <p>How can we help? We're here for you! 😄</p>
+                </div>
+                <div class="chat-message">
+                    <p>How can we help? We're here for you! 😄</p>
+                </div>
+                <div class="chat-message">
+                    <p>How can we help? We're here for you! 😄</p>
+                </div>
+                <div class="chat-message">
+                    <p>How can we help? We're here for you! 😄</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="chat-footer">
+        <div class="chat-footer-item event-more-mess">
+            <a href=""><i class="fas fa-solid fa-circle-plus"></i></a>
+        </div>
+        <div class="event-mess">
+            <div class="chat-footer-item">
+                <a href=""><i class="fa fa-solid fa-image"></i></a>
+            </div>
+            <div class="chat-footer-item">
+                <a href="">
+                    <i class="fa fa-solid fa-note-sticky"></i>
+                </a>
+            </div>
+            <div class="chat-footer-item">
+                <a href=""><i class="fa fa-solid fa-gift"></i></a>
+            </div>
+        </div>
+        <form action="" class="chat-footer-item">
+            <div class="form-input-chat">
+                <input type="text" class="form-control input-chat">
+                <button class="btn btn-send">
+                    <i class="ri-send-plane-fill"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

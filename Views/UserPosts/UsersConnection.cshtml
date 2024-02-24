@@ -1,0 +1,12 @@
+@model Clone_Main_Project_0710.Hubs.ConnectedUsers
+
+<div class="col-2">
+    <h2>Online connected user list</h2>
+</div>
+
+<ul>
+@foreach(string user in Clone_Main_Project_0710.Hubs.ConnectedUsers.myConnectedUsers)
+{
+    <li>@user</li>
+}
+</ul>

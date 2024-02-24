@@ -390,5 +390,17 @@ namespace Clone_Main_Project_0710.Repository
 
             return result > 0;
         }
+        public async Task<bool> UpdateCommentDetail(CommentDetail model)
+        {
+            CommentDetail detail = await GetCommentDetailById(model.CommentDetailId);
+            int result = 0;
+            if(detail != null)
+            {
+                detail.Content = model.Content;
+                detail.UpdatedAt = DateTime.Now;
+                result = await _context.SaveChangesAsync();
+            }
+            return result > 0;
+        }
     }
 }

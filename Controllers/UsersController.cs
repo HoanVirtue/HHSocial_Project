@@ -19,14 +19,6 @@ namespace Clone_Main_Project_0710.Controllers
         private UserImagesRepository _imageContext;
         private UserPostsRepository _postContext;
         private UserFriendsRepository _friendContext;
-        private Guid userIdTest = new Guid("f98d25ef-75b8-4f1e-8e09-9281d33e8f32");
-        private string emailTest = "hoan@gmail.com";
-        private void SetSession()
-        {
-            HttpContext.Session.SetString(DataSession.SessionData.USERID_SESS, userIdTest.ToString());
-            HttpContext.Session.SetString(DataSession.SessionData.USER_EMAIL_SESS, emailTest);
-        }
-
         public UsersController(SocialContext context)
         {
             _context = new UsersRepository(context);
@@ -126,13 +118,13 @@ namespace Clone_Main_Project_0710.Controllers
         [HttpGet]
         public async Task<IActionResult> ProfileAsync(Guid userId)
         {
-            string emailSess = Request.Cookies[UsersCookiesConstant.CookieEmail];
+            string emailSess = UsersCookies.GetUserCookie().Email;
             if (emailSess == null)
             {
                 return RedirectToAction("Index", "Users");
             }
 
-            Guid userCurrentId = Guid.Parse(Request.Cookies[UsersCookiesConstant.CookieUserId]);
+            Guid userCurrentId = UsersCookies.GetUserCookie().UserId;
 
             if(string.IsNullOrEmpty(userId.ToString()))
                 return NotFound();
@@ -185,10 +177,7 @@ namespace Clone_Main_Project_0710.Controllers
             if (success)
             {
                 Guid userId = await _context.GetIdByEmail(email, password);
-                HttpContext.Session.SetString(SessionData.USERID_SESS, userId.ToString());
-                HttpContext.Session.SetString(SessionData.USER_EMAIL_SESS, email);
-
-                SetUserCookie(email, password, userId);
+                UsersCookies.SetUserCookie(email, password, userId);
             }
 
             return Json(new
@@ -210,7 +199,7 @@ namespace Clone_Main_Project_0710.Controllers
             HttpContext.Session.Remove(SessionData.USERID_SESS);
             HttpContext.Session.Remove(SessionData.USER_EMAIL_SESS);
 
-            RemoveUserCookie();
+            UsersCookies.RemoveUserCookie();
             return RedirectToAction("Index", "Users");
         }
 
@@ -225,7 +214,7 @@ namespace Clone_Main_Project_0710.Controllers
         [HttpGet]
         public async Task<IActionResult> ProfileEdit(Guid userId)
         {
-            string emailSess = Request.Cookies[UsersCookiesConstant.CookieEmail];
+            string emailSess = UsersCookies.GetUserCookie().Email;
             if (emailSess == null)
             {
                 return RedirectToAction("Index", "Users");
@@ -340,34 +329,6 @@ namespace Clone_Main_Project_0710.Controllers
             }
             );
         }
-        
-        public void SetUserCookie(string email, string password, Guid userId)
-        {
-            CookieOptions options = new CookieOptions();
-            options.Expires = DateTime.Now.AddDays(1);
-            Response.Cookies.Append(UsersCookiesConstant.CookieEmail, email, options);
-            Response.Cookies.Append(UsersCookiesConstant.CookiePassword, password, options);
-            Response.Cookies.Append(UsersCookiesConstant.CookieUserId, userId.ToString(), options);
-        }
-
-        public User GetUserCookie()
-        {
-            User user = new User();
-            user.Email = Request.Cookies[UsersCookiesConstant.CookieEmail];
-            user.Password = Request.Cookies[UsersCookiesConstant.CookiePassword];
-            user.UserId = Guid.Parse(Request.Cookies[UsersCookiesConstant.CookieUserId]);
-
-            return user;
-        }
-
-        public void RemoveUserCookie()
-        {
-            CookieOptions options = new CookieOptions();
-            options.Expires = DateTime.Now.AddDays(-1);
-            Response.Cookies.Append(UsersCookiesConstant.CookieEmail, "", options);
-            Response.Cookies.Append(UsersCookiesConstant.CookiePassword, "", options);
-            Response.Cookies.Append(UsersCookiesConstant.CookieUserId, "", options);
-        }
 
         [HttpGet]
         public async Task<IActionResult> TimKiem(string keySearch = null)
@@ -383,7 +344,7 @@ namespace Clone_Main_Project_0710.Controllers
         [HttpPost]
         public async Task<IActionResult> Disable_Enable()
         {
-            Guid userCurrentId = Guid.Parse(Request.Cookies[UsersCookiesConstant.CookieUserId]);
+            Guid userCurrentId = UsersCookies.GetUserCookie().UserId;;
             bool disable = await _context.Disable_Enable(userCurrentId);
             return Json(new {
                 disable = disable

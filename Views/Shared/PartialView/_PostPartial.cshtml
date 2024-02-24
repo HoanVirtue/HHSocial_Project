@@ -209,22 +209,7 @@
                                                     class="img-fluid avatar-35 rounded-circle">
                                             </div>
                                             @* update comment *@
-                                            <div class="d-flex align-items-center comment-text position-relative frm-update-comment">
-                                                <input type="text" class="form-control rounded input-comment input-update-comment" placeholder="Viết bình luận..." value="Chúc mừng năm mới!">
-                                                <div class="comment-attagement d-flex">
-                                                    <div class="comment-attagement-more">
-                                                        <a href="#"><i class="ri-link"></i></a>
-                                                        <a href="#"><i class="ri-user-smile-line"></i></a>
-                                                        <a href="#"><i class="ri-camera-line"></i></a>
-                                                    </div>
-                                                    <button class="btn btn-send-comment" style="padding: 0 10px;" value="@post.UserPostId" type="button">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send fa-bold" viewBox="0 0 16 16">
-                                                            <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>
-                                                        </svg>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            @* <div class="ms-3 user-comment" style="width: calc(100% - 20px - 35px);">
+                                            <div class="ms-3 user-comment">
                                                 <div class="d-flex">
                                                     <div class="commentator-comment">
                                                         <a href="/Users/Profile?userId=@cmt.SenderId">
@@ -250,7 +235,7 @@
                                                                 else
                                                                 {
                                                                     <li class="dropdown-item">
-                                                                        <a href="#" class="btn-update-comment">Chỉnh sửa</a>
+                                                                        <a href="#" class="update-comment" data-value="@cmt.CommentDetailId">Chỉnh sửa</a>
                                                                     </li>
                                                                     <li class="dropdown-item">
                                                                         <a href="#" data-bs-toggle="modal" data-bs-target="#modal-delete-comment-@cmt.CommentDetailId">
@@ -262,10 +247,10 @@
                                                             
                                                         </div>
                                                         @if(userCurrent.UserId.Equals(cmt.SenderId))
-                                                            {
-                                                                <div class="modal fade" id="modal-delete-comment-@cmt.CommentDetailId" data-bs-backdrop="false" role="dialog"  tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                                                    <div class="modal-dialog modal-dialog-centered">
-                                                                        <div class="modal-content">
+                                                        {
+                                                            <div class="modal fade" id="modal-delete-comment-@cmt.CommentDetailId" data-bs-backdrop="false" role="dialog"  tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                                <div class="modal-dialog modal-dialog-centered">
+                                                                    <div class="modal-content">
                                                                         <div class="modal-header">
                                                                             <h4 class="modal-title text-center w-100" id="staticBackdropLabel"><b>Xóa bình luận?</b></h4>
                                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -277,10 +262,10 @@
                                                                             <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">Không</button>
                                                                             <button type="button" class="btn btn-primary btn-delete-comment" value="@cmt.CommentDetailId">Xóa</button>
                                                                         </div>
-                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                            }
+                                                            </div>
+                                                        }
                                                     </div>
                                                 </div>
                                                 
@@ -289,8 +274,7 @@
                                                     <a href="#">Thích</a>
                                                     <a href="#">Phản hồi</a>
                                                 </div>
-                                            </div> *@
-                                            
+                                            </div>
                                         </div>
                                     </li>
                                 }

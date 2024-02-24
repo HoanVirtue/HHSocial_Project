@@ -20,6 +20,7 @@ namespace Clone_Main_Project_0710.Models
                 public DbSet<UserImage> UserImages { get; set; }
                 public DbSet<Notification> Notifications { get; set; }
                 public DbSet<tblDisable> tblDisables { get; set; }
+                public DbSet<UserMessage> UserMessages { get; set; }
 
                 protected override void OnModelCreating(ModelBuilder builder)
                 {
@@ -119,6 +120,18 @@ namespace Clone_Main_Project_0710.Models
                                 .HasOne(m => m.User)
                                 .WithMany(t => t.TblDisables)
                                 .HasForeignKey(m => m.UserId)
+                                .OnDelete(DeleteBehavior.Cascade);
+
+                        builder.Entity<UserMessage>()
+                                .HasOne(u => u.SourceUser)
+                                .WithMany(u => u.SourceUserMessages)
+                                .HasForeignKey(u => u.SourceId)
+                                .OnDelete(DeleteBehavior.Cascade);
+
+                        builder.Entity<UserMessage>()
+                                .HasOne(u => u.TargetUser)
+                                .WithMany(u => u.TargetUserMessages)
+                                .HasForeignKey(u => u.TargetId)
                                 .OnDelete(DeleteBehavior.Cascade);
                 }
         }
